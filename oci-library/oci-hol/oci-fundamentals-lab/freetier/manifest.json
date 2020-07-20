@@ -1,12 +1,12 @@
 {
     "tutorials": [
         {         
-            "title": "Introduction and Overview",
+            "title": "Introduction",
             "description": "Introduction to Multitenant Workshop",
             "partnumber": "Ennnnn_01",
             "publisheddate": "03/10/2020",
             "contentid": "12nnnn",
-            "filename": "./../intro/intro.md"
+            "filename": "../intro/intro.md"
         },
         {         
             "title": "Lab 1: Login to Oracle Cloud",
@@ -25,8 +25,8 @@
             "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/generate-ssh-key-cloud-shell/generate-ssh-keys-cloud-shell.md"
         },
         {         
-            "title": "Lab 3: HA App using Load Balancers",
-            "filename": "./../../oci-fundamentals-lab/oci-fundamentals-lab.md"
+            "title": "Lab 3: Deploy HA Application using Load Balancers",
+            "filename": "../deploy-ha-lb/deploy-ha-lb.md"
         }
     ]
 }

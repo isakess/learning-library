@@ -30,6 +30,7 @@ Oracle Cloud Infrastructure Cloud (OCI) Shell is a web browser-based terminal ac
 
 - **Author** - Kay Malcolm, Director, Product Management
 - **Adapted by** -  Yaisah Granillo, Cloud Solution Engineer, NA Cloud
+- **Contributors** - LiveLabs QA Team (Arabella Yao, Product Manager Intern | Isa Kessinger, QA Intern)
 - **Last Updated By/Date** - Kay Malcolm, July 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request. 

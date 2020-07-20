@@ -4,6 +4,8 @@
 
 In this lab, you will learn how to improve the Task form page by utilizing improved list of values.
 
+Estimated Time: 15 minutes
+
 ### Objectives
 - Improve the Projects List of Values
 - Update the Task Form page
@@ -184,7 +186,7 @@ If you review the Milestones select list you will notice that all milestones are
 
 ## **Summary**
 
-This completes Lab 5. You now know how to utilize different types of list of values, to display additional columns, and also how to define a Cascading-LOV. [Click here to navigate to lab 6](?lab=lab-6-improving-dos)
+This completes Lab 4. You now know how to utilize different types of list of values, to display additional columns, and also how to define a Cascading-LOV. [Click here to navigate to lab 5](?lab=lab-5-improve-dos)
 
 ## **Acknowledgments**
 

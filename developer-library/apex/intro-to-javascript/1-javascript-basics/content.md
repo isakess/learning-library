@@ -1,6 +1,6 @@
-# Lab 1: JavaScript Basics
+# JavaScript Basics
 
-## Lab overview
+## Introduction
 
 In this lab, you will start working with the basics of JavaScript, including variables, operators, and functions - all from the console in your browser's developer tools.
 

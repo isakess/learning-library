@@ -1,4 +1,4 @@
-# FY21 AppDev - DevOps Sales Play Workshop
+# Rapid Application Development – Appdev DevOps
 
 ## Introduction
 

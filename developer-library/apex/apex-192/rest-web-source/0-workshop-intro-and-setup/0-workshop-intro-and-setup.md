@@ -1,9 +1,9 @@
-# Building an App using REST Web Sources for Oracle Autonomous Cloud Services
+# Introduction
 
-## Overview
-This lab REST enables database objects, and then uses those REST endpoints as the basis for Web Source Modules within an application. Application components are then defined against these Web Source Modules, instead of being defined on local database objects.
+## Workshop Overview
+This workshop REST enables database objects, and then uses those REST endpoints as the basis for Web Source Modules within an application. Application components are then defined against these Web Source Modules, instead of being defined on local database objects.
 
-### Lab Objectives
+### Objectives
 
 * Obtain a free development environment
 * REST enabling tables and views
@@ -12,7 +12,7 @@ This lab REST enables database objects, and then uses those REST endpoints as th
 
 *Note: This lab assumes you are using Oracle APEX 19.2.*
 
-### Lab Modules
+### Labs
 
 | # | Module | Est. Time |
 | --- | --- | --- |

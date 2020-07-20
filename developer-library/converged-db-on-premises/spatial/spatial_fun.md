@@ -5,7 +5,7 @@
 
 This lab walks you through the modules performing location-based queries using Oracle Spatial.
 
-## Before You Begin
+### Before You Begin
 
 This lab assumes you have completed the following labs:
 - Lab 1:  Login to Oracle Cloud
@@ -29,7 +29,7 @@ This lab assumes you have completed the following labs:
 </copy>
     
 ````
-![](./images/spatial_module1.PNG " ")
+![](./images/spatial_module1a.png " ")
 
 Notes:
 
@@ -46,7 +46,7 @@ customers c WHERE w.WAREHOUSE_NAME = 'Livonia Facility' AND sdo_nn (c.cust_geo_l
  </copy>
     
 ````
-![](./images/spatial_module2.PNG " ")
+![](./images/spatial_module2a.png " ")
 
 **Notes**:
 
@@ -72,7 +72,7 @@ ORDER BY distance_in_miles;
     
 ````
 
-![](./images/spatial_module3.PNG " ")
+![](./images/spatial_module3a.png " ")
 
 **Notes:**
 - SDO\_BATCH\_SIZE is a tunable parameter that may affect your query's performance. SDO\_NN internally calculates that number of distances at a time. The initial batch of rows returned may not satisfy the constraints in the WHERE clause, so the number of rows specified by SDO\_BATCH\_SIZE is continuously returned until all the constraints in the WHERE clause are satisfied. You should choose a SDO\_BATCH\_SIZE that initially returns the number of rows likely to satisfy the constraints in your WHERE clause.
@@ -92,7 +92,7 @@ c.GENDER FROM warehouses w,              customers c WHERE   w.WAREHOUSE_NAME = 
     
 ````
 
-![](./images/spatial_module4.PNG " ")
+![](./images/spatial_module4a.png " ")
 
 
 **Notes**:
@@ -115,7 +115,7 @@ ORDER BY distance_in_miles;
  </copy>
     
 ````
-![](./images/spatial_module5.PNG " ")
+![](./images/spatial_module5a.png " ")
 
 
 **Notes**:
@@ -136,7 +136,7 @@ and sdo_inside(a.cust_geo_location, b.geometry) = 'TRUE';
     
 ````
 
-![](./images/spatial_module6.PNG " ")
+![](./images/spatial_module6a.png " ")
 
 
 **Notes**: 

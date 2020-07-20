@@ -6,7 +6,9 @@ This lab walks you through the steps to download and configure a connection wall
 
 **Note:** While this lab uses ADW, the steps are identical for connecting to an autonomous database in ATP.
 
-Click [here](https://www.youtube.com/watch?v=PHQqbUX4T50&autoplay=0&html5=1) to watch a video demonstration of connecting to an Autonomous Data Warehouse database using SQL Developer.
+Watch a video demonstration of connecting to an autonomous database instance using SQL Developer.
+
+[](youtube:PHQqbUX4T50)
 
 ### Objectives
 

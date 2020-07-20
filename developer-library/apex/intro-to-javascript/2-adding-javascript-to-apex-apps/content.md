@@ -1,6 +1,6 @@
-# Lab 2: Adding JavaScript to APEX Apps
+# Adding JavaScript to APEX Apps
 
-## Lab overview
+## Introduction
 
 Up to this point, you have been working with JavaScript outside of APEX. In this Lab, you will learn the most common ways to add JavaScript to APEX applications. The options include Dynamic Actions, Dynamic Actions with JavaScript hooks, page- and component-level attributes, and application files.
 

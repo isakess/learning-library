@@ -4,6 +4,8 @@
 
 In this lab, you will learn how to add additional columns to a report and improve a list of values.
 
+Estimated Time: 10 minutes
+
 ### Objectives
 - Improve the Projects List of Values
 - Update the applications To Dos section
@@ -181,7 +183,7 @@ This same LOV is used on the Links form page so we can reuse it there as well.
 
 ## **Summary**
 
-This completes Lab 6. You now know how to enhance report and list of value queries to display related details. [Click here to navigate to Lab 7](?lab=lab-7-improving-links)
+This completes Lab 5. You now know how to enhance report and list of value queries to display related details. [Click here to navigate to Lab 6](?lab=lab-6-improve-links)
 
 ## **Acknowledgments**
 

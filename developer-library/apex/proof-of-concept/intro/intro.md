@@ -3,6 +3,8 @@
 ## Introduction
 This workshop starts with a napkin design of data structures we would like to use for a proof-of-concept. Using Quick SQL you will quickly define the data structures and utilize various table and column directives to better define the tables and also create some dummy data. You will then be creating an application based on the new tables. Lastly, you will be updating some of the generated components to improve the initial app.
 
+Estimated Time: 55 minutes
+
 ### Lab Objectives
 
 * Obtain a free development environment
@@ -16,13 +18,12 @@ This workshop starts with a napkin design of data structures we would like to us
 
 | Lab # | Lab | Est. Time |
 | --- | --- | --- |
-| 1 | Sign for an APEX Workspace| 5 min |
-| 2 | Define New Data Structures | 15 min |
-| 3 | Create the Application | 5 min |
-| 4 | Regenerate the Application | 5 min |
-| 5 | Improve Tasks | 15 min |
-| 6 | Improve To Dos | 10 min |
-| 7 | Improve Links | 5 min |
+| 1 | Define New Data Structures | 15 minutes |
+| 2 | Create the Application | 5 minutes |
+| 3 | Regenerate the Application | 5 minutes |
+| 4 | Improve Tasks | 15 minutes |
+| 5 | Improve To Dos | 10 minutes |
+| 6 | Improve Links | 5 minutes |
 
 ### **Let's Get Started!**
 

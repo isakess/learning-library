@@ -1,14 +1,20 @@
 # RESTful Services for your Autonomous Database
 
-## Objectives
+## **Introduction**
+
+In this lab you will use the SQL Developer Web browser-based tool, connect to your Autonomous Database and REST enable tables and views and/or develop custom RESTful Services based on your SQL and PL/SQL code.
+
+Estimate time: 30-45 minutes
+
+### Objectives
 - Enable a user for REST access
 - Publish a RESTful service for a database table
 
 ### Required Artifacts
 - The following lab requires an <a href="https://www.oracle.com/cloud/free/" target="\_blank">Oracle Cloud account</a>. You may use your own cloud account, a cloud account that you obtained through a trial, or a training account whose details were given to you by an Oracle instructor.
 
-### Lab Prerequisites
-This lab assumes you have completed the following labs: 
+### Prerequisites
+This workshop assumes you have completed the following labs:
 * [Login to Oracle Cloud](?lab=lab-1-login-oracle-cloud)
 * [Provision an Autonomous Database](?lab=lab-2-provision-autonomous-database)
 * [Connect to ADB with SQL Dev Web](?lab=lab-3-connect-adb-sql-dev-web)
@@ -19,9 +25,7 @@ You have several development interfaces available, including:
 * APEX
 * PL/SQL API
 
-In this lab you will use the SQL Developer Web browser-based tool, connect to your Autonomous Database and REST enable tables and views and/or develop custom RESTful Services based on your SQL and PL/SQL code.
-
-## Step 1 Create a user for Application Development
+## **Step 1**: Create a user for Application Development
 It is not good practice to use a SYS or SYSTEM user to create an application's tables, and neither is it good practice to use the ADMIN account to create applications.
 
 1. Create a USER who will build your applications
@@ -55,7 +59,7 @@ It is not good practice to use a SYS or SYSTEM user to create an application's t
 The **Script Output** tab at the bottom of the screen shows the result of the SQL commands
     ![](../images/SQLDevWeb-4.png)
 
-3. Next you will need to login to SQL Developer Web as your new user, `THOR`. Go to SQL Developer Web and copy the URL. The URL should look similar to the text below. **IDENTIFIER** will be your unique system-assigned identifier. **DBNAME** is the name of your database. **REGION** is your account region. 
+3. Next you will need to login to SQL Developer Web as your new user, `THOR`. Go to SQL Developer Web and copy the URL. The URL should look similar to the text below. **IDENTIFIER** will be your unique system-assigned identifier. **DBNAME** is the name of your database. **REGION** is your account region.
 
     ````
     https://IDENTIFIER-DBNAME.adb.REGION.oraclecloudapps.com/ords/admin/_sdw/?nav=worksheet
@@ -67,7 +71,7 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
     ````
     ![](../images/SQLDevWeb-1b.png)
 
-## Step 2 Build a simple GET handler
+## **Step 2**: Build a simple GET handler
 
 1. You should be logged in as THOR. The window should say THOR(not admin) in the top right. Using the SQL Developer worsheet create a test table by pasting the following text and clicking the run script button.
 
@@ -172,6 +176,9 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
     ````
     https://IDENTIFIER-DBNAME.adb.REGION.oraclecloudapps.com/ords/got/test/itaot/
     ````
+
+    *Note: Outputs may look different, depending on the browser you are using.*
+
     ![](../images/SQLDevWeb-7.png)
 
 4. Protect the Module with an ORDS privilege
@@ -207,9 +214,9 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
 
     *Note: If you are logged in as THOR to SQLDeveloper via your browser you are authenticated. You used the role 'SQL Developer' which is an ORDS role assigned to any Database User Authenticated session. If you are not seeing the "401 Unathorized" error, try a different browser, private window, or use a REST client like Insomnia from Google.*
 
-## Step 3 Register an OAUTH Client application
+## **Step 3**: Register an OAUTH Client application
 
-1.  This topic explains how to register your applications (called "third-party" applications here) to access a REST API. OAuth 2.0 is a standard Internet protocol that 
+1.  This topic explains how to register your applications (called "third-party" applications here) to access a REST API. OAuth 2.0 is a standard Internet protocol that
     provides a means for HTTP servers providing REST APIs to give limited access to third party applications on behalf of an end user.
 
     - The author of the third-party application must register the application to gain client credentials.
@@ -250,7 +257,7 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
     ````
     <copy>http://example.org/support</copy>
     ````
-    **Required Privileges:** 
+    **Required Privileges:**
     ````
     <copy>SQL Developer</copy>
     ````
@@ -298,7 +305,7 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
 
     *Note: The access token expires in 3600 seconds (1 hour).*
 
-## Step 4 Send an Authorized Request
+## **Step 4**: Send an Authorized Request
 
 1. Lastly we are going to send an authorized request. You can use any REST Client, but we are going to use Insomnia for this example. Download Insomnia Core [here](https://insomnia.rest/download/).
 
@@ -331,10 +338,10 @@ The **Script Output** tab at the bottom of the screen shows the result of the SQ
 ## Conclusion
 In this Lab, you had an opportunity to get an introduction to REST services.
 
-## Acknowledgements
+## **Acknowledgements**
 
  - **Author** - Jeff Smith, 2019
- - **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
+ - **Contributors** - Oracle LiveLabs QA Team (Arabella Yao, Product Manager Intern | Jaden McElvey, Technical Lead | Ayden Smith, Intern)
  - **Last Updated By/Date** - Troy Anthony, May 20 2020
 
  See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

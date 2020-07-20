@@ -10,10 +10,8 @@ Remember that we are trying to help Alpha Office predict the credit and payment 
 
 This lab uses a decision tree algorithm which is a classification technique. If these are new to you, here’s a [presentation](https://objectstorage.us-ashburn-1.oraclecloud.com/n/natdcshjumpstartprod/b/adbml/o/Machine_Learning_Introduction.pdf) and a short video below that explains machine learning, classification, and decision trees at a high level.
 
-<video controls poster="../create-ml-model/files/Video_Introduction.png">
-    <source src="../create-ml-model/files/Machine_Learning_Introduction.mp4" type="video/mp4">
-</video>
-<br>
+[](youtube:IkOz2rrB7hU)
+
 In this lab, you will use Apache Zeppelin notebooks to do this work. The lab will help you create a new notebook, and also import an existing one with all the code, descriptions, and examples that you need. You will then step through that notebook, examining the code, data, and visualizations and, most importantly, executing each step to populate the database.
 
 Estimated time: 20 - 30 minutes

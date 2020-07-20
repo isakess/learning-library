@@ -6,6 +6,8 @@ Oracle Application Express (APEX) is a feature of Oracle Database, including the
 
 An APEX Workspace is a logical domain where you define APEX applications. Each workspace is associated with one or more database schemas (database users) which are used to store the database objects, such as tables, views, packages, and more. These database objects are generally what APEX applications are built on top of.
 
+Estimated Time: 5-10 minutes
+
 ### Objectives
 
 - Create an Autonomous Transaction Processing instance
@@ -69,7 +71,7 @@ Within your new database, APEX is not yet configured. Therefore, when you first 
     ![](images/create-workspace.png " ")
 
 6.  In the APEX Instance Administration page, click the **DEMO** link in the success message.         
-    *{Note: This will log you out of APEX Administration so that you can log into your new workspace.}*
+    *Note: This will log you out of APEX Administration so that you can log into your new workspace.*
 
     ![](images/log-out-from-admin.png " ")
 
@@ -83,6 +85,7 @@ This completes this lab. At this point, you know how to create a new Autonomous 
 
 ## Acknowledgements
 - **Author** - David Peake, Senior Principal Product Manager, Oracle Application Express
+- **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
 - **Last Updated By/Date** - Tom McGinn, Learning Architect, Database User Assistance, March 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

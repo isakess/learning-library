@@ -108,8 +108,8 @@ The following statement copies the JSON documents from the dump file into the PU
     
 ````
 
-  ![](./images/purchase_order_count.PNG " ")
-  ![](./images/insert_ot.PNG " ")
+  ![](./images/purchase_order_count.png " ")
+  ![](./images/insert_ot.png " ")
 
 
 ## Acknowledgements

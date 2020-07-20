@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the Introduction to JavaScript for APEX Developers hands-on lab. 
+Welcome to the Introduction to JavaScript for APEX Developers hands-on lab.
 
 ## Developing on APEX
 
@@ -8,15 +8,18 @@ For developers that know SQL and PL/SQL, no other framework is as empowering as 
 
 APEX developers only need to know a little bit of JavaScript to have a significant impact, and that's what this hands-on lab is all about! You'll start by learning some of the basics of JavaScript, then learn how to add JavaScript to APEX apps, and finally, you'll learn to use jQuery to work with the DOM.
 
-Before continuing to the first lab, follow the steps below to create an APEX workspace using the free tier in Oracle Cloud. If you already have a workspace you'd like to use, you may [proceed to the first lab](?lab=lab-1-javascript-basics).
+Before continuing to the first lab, follow the steps below to create an APEX workspace using the free tier in Oracle Cloud. If you already have a workspace you'd like to use, you may [proceed to the first lab](?lab=lab-2-javascript-basics).
+
+Estimated Time: 160 minutes
 
 **Labs**
 
 | # | Lab | Est. Time |
 | --- | --- | --- |
-| 1 | [JavaScript Basics](?lab=lab-1-javascript-basics) | 20 min |
-| 2 | [Adding JavaScript to APEX Apps](?lab=lab-2-adding-javascript-apex-apps) | 60 min |
-| 3 | [Working with jQuery and the DOM](?lab=lab-3-working-dom-jquery) | 60 min |
+| 1 | [Create an APEX Workspace](?lab=lab-1-create-apex-workspace) | 20 minutes |
+| 1 | [JavaScript Basics](?lab=lab-2-javascript-basics) | 20 minutes |
+| 2 | [Adding JavaScript to APEX Apps](?lab=lab-3-adding-javascript-apex-apps) | 60 minutes |
+| 3 | [Working with jQuery and the DOM](?lab=lab-4-working-dom-jquery) | 60 minutes |
 
 ## **Step 1**: Acquire an Oracle Cloud trial account
 

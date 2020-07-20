@@ -17,4 +17,4 @@ Welcome to the Low Code Development with Oracle Autonomous Database hands-on lab
 
 ## Access the Labs Using Our Web Interface
 **Click the image to use our easy to navigate HTML format:**
-[![Low Code Development Workshop](images/low-code-workshop.png " ")](https://oracle.github.io/learning-library/data-management-library/security/data-safe-HOL)
+[![Low Code Development Workshop](images/low-code-workshop.png " ")](https://oracle.github.io/learning-library/developer-library/apex/low-code-development)

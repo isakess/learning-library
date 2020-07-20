@@ -71,6 +71,7 @@ In this part, you will create an Oracle Cloud trial account. Once you have signe
 
     ![](images/click-apex.png " ")
 
+
 10. Enter the password for the Administration Services and click **Sign In to Administration**.     
     The password is the same as the one entered for the ADMIN user when creating the ATP instance: **```SecretPassw0rd```**
 

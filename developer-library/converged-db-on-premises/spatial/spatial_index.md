@@ -6,7 +6,7 @@ This lab walks you through the steps of creating indexes on spatial tables. A sp
 
 **Note: Below lab is completed and indexes are already created for the tables.**
 
-## Before You Begin
+### Before You Begin
 
 This lab assumes you have completed the following labs:
 - Lab 1:  Login to Oracle Cloud
@@ -28,12 +28,12 @@ indextype is mdsys.spatial_index;
 CREATE INDEX "WAREHOUSES_DTP_SIDX" ON "WAREHOUSES_DTP" ("GEOMETRY") 
 INDEXTYPE IS "MDSYS"."SPATIAL_INDEX" ;
 </copy>
-````    
+````
 
 ## Acknowledgements
 
 - **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K.
+- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel.
 - **Team** - North America Database Specialists.
 - **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
 - **Expiration Date** - June 2021   

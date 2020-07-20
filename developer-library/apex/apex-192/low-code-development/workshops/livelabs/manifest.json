@@ -1,16 +1,17 @@
 {
     "tutorials": [
         {
-            "title": "Introduction",
-            "filename":"../../workshop-intro/intro-ll.md"
+            "title": "Workshop Overview",
+            "filename":"../../workshop-intro/intro.md"
         },
         {
-          "title": "Login to Oracle Cloud",
-          "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/cloud-login-livelabs.md"
+            "title": "Login to Oracle Cloud",
+            "description": "Login to Oracle Cloud",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/cloud-login-livelabs20.md"
         },
         {
-            "title": "Lab 1: Create an APEX Workspace",
-            "filename":"../../create-apex-ws/1-create-an-apex-workspace.md"
+          "title": "Lab 1: Create an APEX Workspace",
+          "filename": "../../../common/create-apex-workspace/create-apex-workspace.md"
         },
 		    {
             "title": "Lab 2: Create an APEX App from a Spreadsheet",

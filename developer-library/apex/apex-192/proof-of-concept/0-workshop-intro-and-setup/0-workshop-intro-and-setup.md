@@ -1,6 +1,6 @@
-# Building a Proof-of-Concept for Oracle Autonomous Cloud Services
+# Introduction
 
-## Overview
+## Workshop Overview
 This workshop starts with a napkin design of data structures we would
 like to use for a proof-of-concept. Using Quick SQL you will quickly
 define the data structures and utilize various table and column
@@ -9,7 +9,7 @@ dummy data. You will then be creating an application based on
 the new tables. Lastly, you will be updating some of the generated
 components to improve the initial app.
 
-### Lab Objectives
+### Objectives
 
 * Obtain a free development environment
 * Define new tables and views

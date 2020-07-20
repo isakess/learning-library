@@ -1,4 +1,4 @@
-# Lab 3: Working with the DOM and jQuery
+# Working with the DOM and jQuery
 
 ## Introduction
 

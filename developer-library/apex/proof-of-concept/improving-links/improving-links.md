@@ -4,6 +4,8 @@
 
 In this lab, you will learn how to modify the URL so that it can be used to display the content listed in a new window.
 
+Estimated Time: 5 minutes
+
 ### Objectives
 - Improve the Projects List of Values
 - Update the Links section of you application
@@ -152,7 +154,7 @@ If you review the Links form page, by clicking an edit icon on the report, you w
 
 ## **Summary**
 
-This completes Lab 7 and the workshop. You now know how to change a URL value to be a link to a separate browser tab or window.
+This completes Lab 6 and the workshop. You now know how to change a URL value to be a link to a separate browser tab or window.
 
 ## **Learn More** - *Useful Links*
 

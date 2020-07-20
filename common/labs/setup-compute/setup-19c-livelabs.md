@@ -1,4 +1,4 @@
-# Setup - LiveLabs
+# Environment Setup
 
 ## Introduction
 
@@ -33,7 +33,7 @@ This lab assumes you have already completed the following labs:
 
 This lab takes approximately 10 minutes to complete.
 
-## Step 1: Login and Create Stack using Resource Manager
+## **Step 1**: Login and Create Stack using Resource Manager
 
 1.  Click on the link below to download the Resource Manager zip file you need to build your enviornment.
     - [db19c-compute-v19-7.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/k52Q1PBzZUsUlTUEKwdfN63LY9naMuiOA9QaK5naUHE/n/c4u03/b/labfiles/o/db19c-compute-v19-7.zip) - Packaged terraform instance creation script
@@ -80,7 +80,7 @@ This lab takes approximately 10 minutes to complete.
 
     ![](./images/step1.7-stackcreated.png " ")
 
-## Step 2: Terraform Plan (OPTIONAL)
+## **Step 2**: Terraform Plan (OPTIONAL)
 
 When using Resource Manager to deploy an environment, execute a terraform **Plan** to verify the configuration. This is an optional step in this lab.
 
@@ -94,7 +94,7 @@ When using Resource Manager to deploy an environment, execute a terraform **Plan
 
     ![](./images/planjob1.png " ")
 
-## Step 3: Terraform Apply
+## **Step 3**: Terraform Apply
 
 When using Resource Manager to deploy an environment, execute a terraform **Plan** and **Apply**. Let's do that now.
 
@@ -112,7 +112,7 @@ When using Resource Manager to deploy an environment, execute a terraform **Plan
 
     ![](./images/applycomplete.png " ")
 
-## Step 4: Connect to your Instance
+## **Step 4**: Connect to your Instance
 
 Choose the environment where you created your ssh-key in the previous lab (Generate SSH Keys).
 
@@ -192,7 +192,7 @@ Choose the environment where you created your ssh-key in the previous lab (Gener
 
 8.  Click Open to begin your session with the instance.
 
-## Step 5: Verify the ORCL Database is Up
+## **Step 5**: Verify the ORCL Database is Up
 
 1.  From your connected session of choice **tail** the **dbsingle.log** file. This file configures the database.
 
@@ -259,10 +259,10 @@ Congratulations! You now have a fully functional Oracle Database 19c instance (O
 
 You may now proceed to the next lab.
 
-## Acknowledgements
+## **Acknowledgements**
 
 - **Author** - Kay Malcolm, Director, DB Product Management
-- **Contributors** - Quintin Hill, Brian McGraw, Oracle North America Technology
+- **Contributors** - Quintin Hill, Brian McGraw, Oracle North America Technology | Arabella Yao, Dylan McLeod, LiveLabs QA Team, DB Management
 - **Last Updated By/Date** - Kay Malcolm, June 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

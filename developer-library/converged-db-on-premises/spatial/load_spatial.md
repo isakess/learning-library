@@ -7,7 +7,7 @@ This lab walks you through the steps of creating spatial table with column type 
 **Below lab is completed and spatial data is already loaded into the tables.**
 
 
-## Before You Begin
+### Before You Begin
 
 This lab assumes you have completed the following labs:
 - Lab 1:  Login to Oracle Cloud
@@ -84,8 +84,8 @@ Insert into user_sdo_geom_metadata values (
 
 We have inserted spatial data and we have used two spatial functions for this.
  
-- we use sdo\_cs.transform() to convert to our desired coordinate system SRID of 4326, and 
-- we use sdo\_geom.validate\_geometry() to insert only valid geometries.
+- We use sdo\_cs.transform() to convert to our desired coordinate system SRID of 4326, and 
+- We use sdo\_geom.validate\_geometry() to insert only valid geometries.
 
 
 ## Step 3: Sample insert query 
@@ -112,7 +112,7 @@ The elements of the constructor are:
 ## Acknowledgements
 
 - **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K.
+- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel.
 - **Team** - North America Database Specialists.
 - **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
 - **Expiration Date** - June 2021   

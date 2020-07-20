@@ -39,7 +39,7 @@ Oracle’s JSON capabilities are focused on providing full support for schemales
 
 The first thing to realize about JSON is that it remains a simple text format, which is relatively easy to read and inspect with the naked eye. At a syntax level, what starts to set JSON apart from other formats is the characters used to separate data, which are mainly constrained to apostrophes ', brackets ( ), [ ], { }, colons :, and commas ,. This listing illustrates what a JSON payload looks like:
 
-![](./images/json_intro.PNG " ")
+![](./images/json_intro.png " ")
 
 
 ### Want to learn more
@@ -164,7 +164,7 @@ The first thing to realize about JSON is that it remains a simple text format, w
     Service name: JXLPDB
     ````
  
-  ![](./images/env_json.PNG " ") 
+  ![](./images/env_json.png " ") 
 
   4. Click Connect
 

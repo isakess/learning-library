@@ -1,10 +1,12 @@
 # Provisioning Autonomous Database (ADW and ATP)
 
-## Introduction
+## **Introduction**
 
 This lab walks you through the steps to get started using the Oracle Autonomous Database (Autonomous Data Warehouse [ADW] and Autonomous Transaction Processing [ATP]) on Oracle Cloud. You will provision a new ADW instance and connect to the database using Oracle SQL Developer Web.
 
 *Note: While this lab uses ADW, the steps are identical for creating and connecting to an ATP database.*
+
+Estimated time: 5 minutes
 
 ### Objectives
 
@@ -126,11 +128,12 @@ Please proceed to the next lab.
 
 Click [here](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/autonomous-workflow.html#GUID-5780368D-6D40-475C-8DEB-DBA14BA675C3) for documentation on the typical workflow for using Autonomous Data Warehouse.
 
-## Acknowledgements
+## **Acknowledgements**
 
 - **Author** - Nilay Panchal, ADB Product Management
 - **Adapted for Cloud by** - Richard Green, Principal Developer, Database User Assistance
+- **Contributors** - Oracle LiveLabs QA Team (Jeffrey Malcolm Jr, Intern | Arabella Yao, Product Manager Intern)
 - **Last Updated By/Date** - Richard Green, March 2020
-- **Contributors** - Jeffrey Malcolm Jr, Arabella Yao, June 2020
+
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

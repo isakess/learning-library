@@ -1,10 +1,10 @@
 # Sign up for an Oracle APEX Workspace
 
-## Introduction
+## **Introduction**
 
 Oracle Application Express (APEX) is a feature of Oracle Database, including the Autonomous Data Warehouse (ADW) and Autonomous Transaction Processing (ATP) services. To start, you will need to decide which Oracle Database you are going to use for the workshop, and then create an APEX workspace in that database.
 
-If you already have an APEX 19.2 Workspace provisioned, you can skip this lab and go straight to Lab 2 by clicking the navigation menu icon, in the upper-right corner of the header.
+If you already have an APEX 19.2 Workspace provisioned, you can skip this lab..
 
 Estimated Time: 5 minutes
 
@@ -72,6 +72,8 @@ In this part, you will create an Oracle Cloud trial account. Once you have signe
     Click **Open APEX**.
 
     ![](images/click-apex.png " ")
+
+    *Note: Always Free Autonomous Database will be stopped after being inactive for 7 days. If that happens, you need to click **More Actions** and then **Start** to start your Autonomous Database, and then **Open APEX**.*
 
 10. Enter the password for the Administration Services and click **Sign In to Administration**.     
     The password is the same as the one entered for the ADMIN user when creating the ATP instance: **```SecretPassw0rd```**

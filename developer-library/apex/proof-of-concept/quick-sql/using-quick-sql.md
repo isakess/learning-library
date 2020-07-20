@@ -4,6 +4,8 @@
 
 Memorizing the SQL to create and maintain database objects can be difficult. However, there are tools that can generate the code for you based on a shorthand syntax or a graphical user interface. In this lab, you will learn how to create tables and views by defining data structures in Quick SQL.
 
+Estimated Time: 15 minutes
+
 ### Problem Definition
 Within most organizations, the use of spreadsheets is prolific. Spreadsheets are excellent for doing simple data review and tracking personal data, however, they are very ill suited to gathering data amongst team members for example.
 
@@ -245,7 +247,7 @@ At this stage you have created a list of SQL statements. However, you first need
     *{Note: If you do not see 217 statements processed then return to Quick SQL and click _Generate SQL_, resave the script and then run it again. If you do not see 217 successful, then review the errors displayed in Feedback within the results.}*
 
 ## **Summary**
-This completes Lab 2. You now know how to utilize Quick SQL to build complex data structures, complete with sample data. [Click here to navigate to Lab 3](?lab=lab-3-creating-application)
+This completes Lab 1. You now know how to utilize Quick SQL to build complex data structures, complete with sample data. [Click here to navigate to Lab 2](?lab=lab-2-create-application)
 
 ## **Acknowledgments**
 

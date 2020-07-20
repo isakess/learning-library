@@ -43,10 +43,20 @@ Each table stores location using Oracle's native spatial data type, SDO\_GEOMETR
 
 
 ## Step: Connect to the Pluggable Database (PDB)
-1. Run the oraenv script to set the        
+1. Set the Oracle environment    
+    ````
+    <copy>
+    sudo su - oracle
+    </copy>
+    ````   
     ````
     <copy>
     . oraenv
+    </copy>
+    ````
+
+    ````
+    <copy>
     ConvergedCDB
     </copy>
     ````
@@ -65,19 +75,19 @@ Each table stores location using Oracle's native spatial data type, SDO\_GEOMETR
     Name    : Spatial
     Username: APPSPAT
     Password: Oracle_4U
-    Hostname: localhost
+    Hostname: PUBLIC-IP
     Port    : 1521
     Service name: SGRPDB
 
     </copy>
     ````
  
-  ![](./images/spatial_env.PNG " ") 
+  ![](./images/spatial_enva.png " ") 
 
 ## Acknowledgements
 
 - **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K.
+- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel.
 - **Team** - North America Database Specialists.
 - **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
 - **Expiration Date** - June 2021   

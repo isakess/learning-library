@@ -1,4 +1,4 @@
-# Workshop Introduction and Overview
+# Introduction
 
 The labs in this workshop walk you through all the steps to get started using the **Oracle Autonomous Database on Shared Infrastructure (ADB-S)**. You will provision a new ADB instance, load data from the object store and troubleshoot data loads, query external data residing on the object store, manage an ADB instance, scale an ADB instance, and use Oracle Machine Learning notebooks.
 

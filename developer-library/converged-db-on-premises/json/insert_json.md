@@ -6,7 +6,7 @@
 This lab walks you through the steps of inserting and updating json data. We can use standard database APIs to insert or update JSON data. We can work directly with JSON data contained in file-system files by creating an external table that exposes it to the database.
 In this lab we can add a row to our json table using insert query and  we can use Oracle SQL function json_mergepatch to update specific portions of a JSON document.
 
-## Before You Begin
+### Before You Begin
 
 **What Do You Need?**
 
@@ -27,7 +27,7 @@ This lab assumes you have completed the following labs:
     </copy>
   ````
     
-  ![](./images/insert_json.PNG " ")  
+  ![](./images/insert_json.png " ")  
 
  b. Insert a record.
 
@@ -108,7 +108,7 @@ c. **Verify the count after insert.**
 ````
     
     
-  ![](./images/json.PNG " ")
+  ![](./images/json.png " ")
    
   **Note:** Please copy the red highlighted id which we will use in our next section of update query.
 
@@ -131,7 +131,7 @@ c. **Verify the count after insert.**
     </copy>
     
   ````
- ![](./images/json_lab7_6.PNG " ")
+ ![](./images/json_lab7_6.png " ")
 
 
 

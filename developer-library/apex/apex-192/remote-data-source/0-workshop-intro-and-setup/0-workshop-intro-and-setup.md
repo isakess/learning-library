@@ -1,12 +1,12 @@
-# Building an App using a Remote Data Source for Oracle Autonomous Cloud Services
+# Introduction
 
-## Overview
-This lab utilizes Quick SQL to build a table in your local database. Then you will load the new table with data from a REST API call to a comma delimited file (.csv). Now you have the table with lots of great data, it is time to build an APEX application on top of it and then improve the application with an updated report, and a user driven chart.
+## Workshop Overview
+This workshop utilizes Quick SQL to build a table in your local database. Then you will load the new table with data from a REST API call to a comma delimited file (.csv). Now you have the table with lots of great data, it is time to build an APEX application on top of it and then improve the application with an updated report, and a user driven chart.
 
 The data used is the Big Mac Index from the Economist, which uses the price of McDonald’s Big Mac as the benchmark to measure the purchasing power parity between currencies.   
 *Note: this data is only updated every six months*
 
-### Lab Objectives
+### Objectives
 
 * Obtain a free development environment
 * Define and populate a table from a REST endpoint
@@ -15,7 +15,7 @@ The data used is the Big Mac Index from the Economist, which uses the price of M
 
 *Note: This lab assumes you are using Oracle APEX 19.2.*
 
-### Lab Modules
+### Labs
 
 | # | Module | Est. Time |
 | --- | --- | --- |

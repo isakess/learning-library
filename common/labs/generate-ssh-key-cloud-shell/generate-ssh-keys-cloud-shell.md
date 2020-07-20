@@ -8,7 +8,7 @@ We recommend you use the *Oracle Cloud Shell* to interface with the OCI compute 
 
 *IMPORTANT:  If the SSH key is not created correctly, you will not be able to connect to your environment and will get errors.  Please ensure you create your key properly.*
 
-## Oracle Cloud Shell
+## Step 1: Create SSH Key
 
 The Cloud Shell machine is a small virtual machine running a Bash shell which you access through the OCI Console (Homepage). Cloud Shell comes with a pre-authenticated OCI CLI (Command Line Interface), set to the Console tenancy home page region, as well as up-to-date tools and utilities. To use the Cloud Shell machine, your tenancy administrator must grant the required IAM (Identity and Access Management) policy.
 
@@ -40,7 +40,9 @@ The Cloud Shell machine is a small virtual machine running a Bash shell which yo
 
     ![](./images/cloudshell-ssh-keygen-2.png " ")
 
-3.  Examine the two files that you just created.
+## Step 2: Examine SSH Key
+
+1.  Examine the two files that you just created.
 
     ````
     <copy>ls</copy>
@@ -50,13 +52,16 @@ The Cloud Shell machine is a small virtual machine running a Bash shell which yo
 
     Note in the output that there are two files, a *private key:* ```<<sshkeyname>>``` and a *public key:* ```<<sshkeyname>>.pub```. Keep the private key safe and don't share its content with anyone. The public key will be needed for various activities and can be uploaded to certain systems as well as copied and pasted to facilitate secure communications in the cloud.
 
-4. To list the contents of the public key, use the cat command ```cat <<sshkeyname>>.pub```
+2. To list the contents of the public key, use the cat command 
+     ````
+    cat <<sshkeyname>>.pub
+    ````
 
     *Note: The angle brackets <<>> should not appear in your code.*
 
     ![](images/cat-in-cloudshell.png " ")
 
-5.  When pasting the key into the compute instance in future labs, make sure that you remove any hard returns that may have been added when copying. *The .pub key should be one line.*
+3.  When pasting the key into the compute instance in future labs, make sure that you remove any hard returns that may have been added when copying. *The .pub key should be one line.*
 
     ![](images/copy-publickey-cloudshell.png " ")
 

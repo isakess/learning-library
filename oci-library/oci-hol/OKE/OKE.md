@@ -7,7 +7,7 @@ A Kubernetes cluster is a group of nodes. The nodes are the machines running app
 - one or more master nodes (for high availability, typically there will be a number of master nodes)
 - one or more worker nodes (sometimes known as minions)
 
-A Kubernetes cluster can be organized into namespaces, to divide the cluster's resources between multiple users. Initially, a cluster has the following namespaces:
+A Kubernetes cluster can be organized into namespaces to divide the cluster's resources between multiple users. Initially, a cluster has the following namespaces:
 
 - default, for resources with no other namespace
 - kube-system, for resources created by the Kubernetes system
@@ -36,10 +36,14 @@ Estimated time: 1 hour
 1. From OCI Services menu, Click **Container Clusters (OKE)** under Developer Services.
 
     **No need to create any policies for OKE, all the policies are pre-configured**
+        ![](./../OKE/images/OKE_S1P1.PNG " ")
 
-2. Click **Create Cluster**. Choose **Quick Create** and click **Launch Workflow**. 
+2. Under **List Scope**, select the compartment in which you would like to create a cluster. 
+        ![](./../OKE/images/OKE_S1P2.PNG " ")
 
-3. Fill out the dialog box:
+3. Click **Create Cluster**. Choose **Quick Create** and click **Launch Workflow**. 
+
+4. Fill out the dialog box:
 
       - NAME: Provide a name (oke-cluster in this example)
       - COMPARTMENT: Choose your compartment
@@ -48,7 +52,7 @@ Estimated time: 1 hour
       - NUMBER OF NODES: 1
       - KUBERNETES DASHBOARD ENABLED: Make sure flag is checked
 
-4. Click **Next** and Click "**Create Cluster**.
+5. Click **Next** and Click "**Create Cluster**".
 
     **We now have a OKE cluster with 1 node and Virtual Cloud Network with all the necessary resources and configuration needed**
 
@@ -105,15 +109,13 @@ In this section we will install kubectl. You can use the Kubernetes command line
 
 ## Step 4: Download get-kubeconfig.sh file and Initialize your environment
 
-1. Switch to OCI console window and navigate to your cluster. In Cluster detail window click **Quick Start**, under **Resources**. 
+1. Switch to OCI console window and navigate to your cluster. In Cluster detail window, scroll down and click **Quick Start**, under **Resources**. 
 Follow the steps under the **Quick Start** Section.
+    ![](./../OKE/images/OKE_S4P1.PNG " ")
 
-2. The Commands listed will need to be executed in your local terminal.
+2. The **Quick Start** directions will direct you to copy and execute the following commands depicted below in your local terminal.
 
     ![](./../OKE/images/OKE_006.PNG " ")
-
-3. Next follow the instruction under **Access Kubernetes Dashboard** to access the dash board.
-
 
 ## Step 5: Deploying a Sample Nginx App on Cluster Using kubectl
 
@@ -127,21 +129,21 @@ Follow the steps under the **Quick Start** Section.
 2. Create nginx deployment with three replicas,  Enter Command:
     ```
     <copy> 
-    ./kubectl run nginx  --image=nginx --port=80 --replicas=3
+    kubectl run nginx  --image=nginx --port=80 --replicas=3
     </copy>
     ```
 
 3. Get Deployment data, Enter Command:
     ``` 
     <copy>
-    ./kubectl get deployments
+    kubectl get deployments
     </copy>
     ```
 
 4. get PODs data, Enter command:
     ```
     <copy>
-    ./kubectl get pods -o wide
+    kubectl get pods -o wide
     </copy>
     ```
 
@@ -152,13 +154,13 @@ Follow the steps under the **Quick Start** Section.
 5.  Create a service to expose the application. The cluster is integrated with the OCI Cloud Controller Manager (CCM). As a result, creating a service of type --type=LoadBalancer will expose the pods to the Internet using an OCI Load Balancer.In git-bash window Enter command:
     ```
     <copy>
-    ./kubectl expose deployment nginx --port=80 --type=LoadBalancer
+    kubectl expose deployment nginx --port=80 --type=LoadBalancer
     </copy>
     ```
 
 6. Switch to OCI console window. From OCI Services menu Click **Load Balancers** under Networking. A new OCI LB should be getting  provisioned (This is due to the command above). 
 
-    ![](./../OKE/images/OKE_011.PNG " ")
+    ![](./../OKE/images/OKE_S5P6.PNG " ")
 
 7. Once Load Balancer is Active, Click Load Balancer name and from Load Balancer details page note down its IP address.
 
@@ -189,12 +191,17 @@ Follow the steps under the **Quick Start** Section.
 
 ### Delete OKE Cluster
 
-1. In OCI Console window navigate to your cluster and Click **Delete Cluster**, Click **Delete** in the confirmation window.
+1. To navigate back to your OCI Console window, click **Container Clusters (OKE)** under **Developer Services**.
+
+   ![](./../OKE/images/OKE_S1P1.PNG " ")
+
+2. Navigate to your cluster. Click **Delete Cluster** and Click **Delete** in the confirmation window.
 
 
 ### Delete VCN
 
 1. From OCI services menu Click **Virtual Cloud Networks** under Networking, list of all VCNs will appear.
+![](./../OKE/images/OKE_S6VCN1.PNG " ")
 
 2. Locate your VCN , Click Action icon and then **Terminate**. Click **Delete All** in the Confirmation window. Click **Close** once VCN is deleted.
 
@@ -203,7 +210,12 @@ Follow the steps under the **Quick Start** Section.
 
 ### Delete API Key
 
-1. Navigate to user settings. Click on Action icon and Click **Delete** to delete the API key.
+1. To navigate to user settings, Click the **Profile** icon in the top right corner of the window. Then, select User Settings.
+    ![](./../OKE/images/OKE_S6API1.PNG " ")
+
+2. Scroll down to select **API Keys** under the **Resources** section. 
+
+3. Click on Action icon and Click **Delete** to delete the API key.
 
     ![](./../OKE/images/OKE_014.PNG " ")
 

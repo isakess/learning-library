@@ -69,12 +69,12 @@ In this lab you will build an interactive application on the data structures you
     ![](images/show-team-members.png " ")
 
 ## **Summary**
-This completes Lab 2. You now know how to utilize the Create Application wizard directly from SQL Scripts to create the first cut of your application. [Click here to navigate to Lab 3](?lab=lab-3-regenerate-application).
+This completes Lab 2. You now know how to utilize the Create Application wizard directly from SQL Scripts to create the first cut of your application. [Click here to navigate to Lab 3](?lab=lab-3-regenerating-application).
 
 ## **Acknowledgments**
 
 - **Author** - David Peake, Sr. Principal Product Manager, Oracle Database
-- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs
+- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs; Marilyn Isabella Kessinger, QA Intern, Oracle LiveLabs
 - **Last Updated By/Date** - Anoosha Pilli, Product Manager, DB Product Management, June 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

@@ -135,7 +135,7 @@ By indenting a table name, you can define the new table as a child table of the 
 
     Indent 2 or more spaces and enter the Column Names and directives:  
     <code>name /nn</code>   
-    <code>assignee /references team members</code>   
+    <code>assignee /references team_members</code>   
     <code>milestone id /references milestones</code>   
 
     ![](images/enter-tasks.png " ")
@@ -247,12 +247,12 @@ At this stage you have created a list of SQL statements. However, you first need
     *{Note: If you do not see 217 statements processed then return to Quick SQL and click _Generate SQL_, resave the script and then run it again. If you do not see 217 successful, then review the errors displayed in Feedback within the results.}*
 
 ## **Summary**
-This completes Lab 1. You now know how to utilize Quick SQL to build complex data structures, complete with sample data. [Click here to navigate to Lab 2](?lab=lab-2-create-application)
+This completes Lab 1. You now know how to utilize Quick SQL to build complex data structures, complete with sample data. [Click here to navigate to Lab 2](?lab=lab-2-creating-application)
 
 ## **Acknowledgments**
 
 - **Author** - David Peake, Sr. Principal Product Manager, Oracle Database
-- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs
+- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs; Marilyn Isabella Kessinger, QA Intern, Oracle LiveLabs
 - **Last Updated By/Date** - Anoosha Pilli, Product Manager, DB Product Management, June 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

@@ -149,7 +149,7 @@ If you review the Milestones select list you will notice that all milestones are
 
     ![](images/go-page8.png " ")
 
-2. In Page Designer, in the left pane click **Rendering**.
+2. In Page Designer, in the left pane click the **Rendering** icon.
     In the Rendering tree (left pane), click **P8\_MILESTONE_ID**
 
     In the Property Editor (right pane), enter the following:
@@ -186,12 +186,12 @@ If you review the Milestones select list you will notice that all milestones are
 
 ## **Summary**
 
-This completes Lab 4. You now know how to utilize different types of list of values, to display additional columns, and also how to define a Cascading-LOV. [Click here to navigate to lab 5](?lab=lab-5-improve-dos)
+This completes Lab 4. You now know how to utilize different types of list of values, to display additional columns, and also how to define a Cascading-LOV. [Click here to navigate to lab 5](?lab=lab-5-improving-dos)
 
 ## **Acknowledgments**
 
 - **Author** - David Peake, Sr. Principal Product Manager, Oracle Database
-- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs
+- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs; Marilyn Isabella Kessinger, QA Intern, Oracle LiveLabs
 - **Last Updated By/Date** - Anoosha Pilli, Product Manager, DB Product Management, June 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

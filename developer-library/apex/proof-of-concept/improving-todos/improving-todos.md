@@ -183,12 +183,12 @@ This same LOV is used on the Links form page so we can reuse it there as well.
 
 ## **Summary**
 
-This completes Lab 5. You now know how to enhance report and list of value queries to display related details. [Click here to navigate to Lab 6](?lab=lab-6-improve-links)
+This completes Lab 5. You now know how to enhance report and list of value queries to display related details. [Click here to navigate to Lab 6](?lab=lab-6-improving-links)
 
 ## **Acknowledgments**
 
 - **Author** - David Peake, Sr. Principal Product Manager, Oracle Database
-- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs
+- **Contributors** - Robbie Ruppel, Functional Lead, Oracle LiveLabs; Marilyn Isabella Kessinger, QA Intern, Oracle LiveLabs
 - **Last Updated By/Date** - Anoosha Pilli, Product Manager, DB Product Management, April 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.

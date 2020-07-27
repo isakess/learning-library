@@ -13,7 +13,7 @@
             "filename": "./../../../adb-provision/adb-provision.md"
         },
         {
-            "title": "Lab 2: Working with Free Sample Data Sets",
+            "title": "Lab 2: Explore SQL Developer Web",
             "filename": "./../../../adb-sqldevweb/adb-sqldevweb.md"
         },
         {
@@ -21,7 +21,7 @@
             "filename": "./../../../adb-loading/adb-loading.md"
         },
         {
-            "title": "Lab 4: Managing and Monitoring",
+            "title": "Lab 4: Monitoring",
             "filename": "./../../../adw-managing-monitoring/adw-managing-monitoring.md"
         }
     ]

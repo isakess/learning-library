@@ -12,35 +12,37 @@ Initially you will create a chart that displays the Dollar Exchange Rate for Aus
 
 ## **STEP 1** – Create a New Page
 
-1. From the runtime environment, in The Developer Toolbar (bottom of the screen), click **Application xxxxx**  
+1. From the runtime environment, in The Developer Toolbar (bottom of the screen), click **Application ###**.
 
-2. From the Application Home Page, click **Create Page**  
+    ![](images/developer-toolbar.png " ")
 
-    In the Create a Page dialog, for Page Type, click **Chart**  
+2. From the Application Home Page, click **Create Page**.
+
+    In the Create a Page dialog, for Page Type, click **Chart**.  
 
     ![](images/set-page-type.png " ")
 
-3. In the Create Chart dialog, for Chart Type, click **Line**
+3. In the Create Chart dialog, for Chart Type, click **Line**.
 
     ![](images/set-chart-type.png " ")
 
-4. In the Page and Region Attributes dialog, enter the following:
-    - Page Name - enter **Country Chart**
-    - Breadcrumb - select **Breadcrumb**
+4. In the Page and Region Attributes dialog, enter the following.
+    - **Page Name:** enter **Country Chart**
+    - **Breadcrumb:** select **Breadcrumb**
 
-    Click **Next**  
+    Click **Next**.
 
     ![](images/set-name.png " ")
 
-5. In the Navigation Menu dialog, for Navigation Preference, click **Create a new navigation entry**
+5. In the Navigation Menu dialog, for Navigation Preference, click **Create a new navigation entry**.
 
-    Click **Next**
+    Click **Next**.
 
     ![](images/set-navigation.png " ")
 
-6. In the Source dialog, enter the following:
-    - Source Type - click **SQL Query**
-    - SQL Query - cut and paste the following:
+6. In the Source dialog, enter the following.
+    - **Source Type:** click **SQL Query**
+    - **SQL Query:** cut and paste the following.
 
         ```
         <copy>select entry_date
@@ -49,71 +51,69 @@ Initially you will create a chart that displays the Dollar Exchange Rate for Aus
         where iso = 'AUS'
         order by entry_date</copy>
         ```
-    Click **Next**
+    Click **Next**.
 
     ![](images/set-source.png " ")
 
-7. In the Column Mapping dialog, enter the following:
-    - Label Column - select **ENTRY_DATE**
-    - Value Column - select **DOLLAR\_EXCHANGE\_RATE**
+7. In the Column Mapping dialog, enter the following.
+    - **Label Column:** select **ENTRY_DATE**
+    - **Value Column:** select **DOLLAR\_EXCHANGE\_RATE**
 
-    Click **Create**
+    Click **Create**.
 
     ![](images/set-columns.png " ")
 
-8. In the Page Designer toolbar, click **Save and Run**
+8. In the Page Designer toolbar, click **Save and Run**.
 
     ![](images/runtime.png " ")
 
 ## **STEP 2** – Adjust the Chart Attributes
 As can be seen by the appearance of the first cut of the chart, there is work to be done. Updating some attributes will help.
 
-1. From the runtime environment, in the Developer Toolbar
-(bottom of the screen), click **Quick Edit**.
-    Hover over the chart region until it is surrounded by a blue box.
-    Click the Chart.  
+1. From the runtime environment, in the Developer Toolbar (bottom of the screen), click **Quick Edit**.
+    Hover over the chart region until it is surrounded by a blue box. Click the Chart.  
 
     ![](images/quick-edit.png " ")
 
     Alternatively, navigate back to the APEX Application Builder tab or window, and then navigate to Page 4.
 
-2. Within Page Designer, in the Rendering tree (left pane), under **Chart**, click **Attributes**
+2. Within Page Designer, in the Rendering tree (left pane), under **Country Chart**, click **Attributes**.
 
-    In the Property Editor (right pane), enter the following:
+    In the Property Editor (right pane), enter the following.
 
-    - Settings > Time Axis Type - select **Mixed Frequency**
-    - Legend > Show - click **Yes**  
+    - **Settings > Time Axis Type:** select **Mixed Frequency**
+    - **Legend > Show:** click **Yes**  
 
     ![](images/set-attributes.png " ")
 
 ## **STEP 3** – Update the Chart Series
 Time to update the existing chart line (series), and add a few more data series.
 
-1. Within Page Designer, in the Rendering tree (left pane), under **Chart**, click **Series 1**
+1. Within Page Designer, in the Rendering tree (left pane), under **Country Chart**, click **Series 1**.
 
-    In the Property Editor (right pane), enter the following:
+    In the Property Editor (right pane), enter the following.
 
-    - Identification > Name - enter **Dollar Exchange Rate**
-    - Label > Show - click **No**  
+    - **Identification > Name:** enter **Dollar Exchange Rate**
+    - **Label > Show:** click **No**  
 
     ![](images/set-series1.png " ")
 
 2. The next two series are very similar to the first, so it is easiest to just duplicate the existing series.
 
-    In the Rendering tree (left pane), under **Chart**, _right-click_ **Dollar Exchange Rate**, click **Duplicate**
+    In the Rendering tree (left pane), under **Country Chart**, right-click **Dollar Exchange Rate**, click **Duplicate**.
 
     ![](images/duplicate-series.png " ")
 
-3. Repeat the step above to create a third series  
-    *{Note: You should now have Dollar Exchange Rate, Dollar Exchange Rate\_1, and Dollar Exchange Rate\_2 or Dollar Exchange Rate\_1\_1, depending on which series you duplicated to create the third series.}*
+3. Repeat the step above to create a third series.
+    *Note: You should now have Dollar Exchange Rate, Dollar Exchange Rate\_1, and Dollar Exchange Rate\_2 or Dollar Exchange Rate\_1\_1, depending on which series you duplicated to create the third series.*
 
 4. The second chart line (series) is going to display the Relative Exchange Rate.
 
-    In the Rendering tree (left pane), under **Chart**, click the second series.    
-    In the Property Editor (right pane), enter the following:
+    In the Rendering tree (left pane), under **Country Chart**, click the second series.    
+    In the Property Editor (right pane), enter the following.
 
-    - Identification > Name - enter **Relative Exchange Rate**
-    - Source > SQL Query, copy and paste the following:
+    - **Identification > Name:** enter **Relative Exchange Rate**
+    - **Source > SQL Query:** copy and paste the following.
 
         ```
         <copy>select entry_date
@@ -126,17 +126,17 @@ Time to update the existing chart line (series), and add a few more data series.
         where iso = 'AUS'
         order by entry_date</copy>
         ```
-    - Column Mapping > Value - select **RELATIVE\_EXCHANGE_RATE**  
+    - **Column Mapping > Value:** select **RELATIVE\_EXCHANGE_RATE**  
 
     ![](images/set-series2.png " ")
 
 5. The third chart line (series) is going to display the Percentage Difference between the currency and the US currency.
 
-    In the Rendering tree (left pane), under **Chart**, click the third series.    
-    In the Property Editor (right pane), enter the following:
+    In the Rendering tree (left pane), under **Country Chart**, click the third series.    
+    In the Property Editor (right pane), enter the following.
 
-    - Identification > Name - enter **Percentage Difference (Y2)**
-    - Source > SQL Query, cut and paste the following:
+    - **Identification > Name:** enter **Percentage Difference (Y2)**
+    - **Source > SQL Query:** cut and paste the following:
 
         ```
         <copy>select entry_date
@@ -152,19 +152,19 @@ Time to update the existing chart line (series), and add a few more data series.
         order by entry_date</copy>
         ```
 
-    - Column Mapping > Value - select **PERCENTAGE_DIFFERENCE**
-    - Appearance > Assigned To Y2 Axis, check **Yes**  
+    - **Column Mapping > Value:** select **PERCENTAGE_DIFFERENCE**
+    - **Appearance > Assigned To Y2 Axis:** check **Yes**  
 
     ![](images/set-series3.png " ")
 
-    *{Note: If you do not check ‘Assigned to Y2 Axis’ then the chart will not display well, and not look like the following page}*
+    *Note: If you do not check ‘Assigned to Y2 Axis’ then the chart will not display well, and not look like the following page.*
 
-6. In Page Designer, within the Toolbar, click **Save and Run**
+6. In Page Designer, within the Toolbar, click **Save and Run**.
 
     ![](images/final-runtime.png " ")
 
 ## **Summary**
-This completes Lab 4. In this lab you learnt how to create and modify a chart adding multiple series. [Click here to navigate to Lab 5](?lab=lab-5-adding-chart-criteria)
+This completes Lab 5. In this lab you learnt how to create and modify a chart adding multiple series. [Click here to navigate to Lab 6](?lab=lab-6-adding-chart-criteria)
 
 ## **Acknowledgements**
 
@@ -172,4 +172,5 @@ This completes Lab 4. In this lab you learnt how to create and modify a chart ad
  - **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
  - **Last Updated By/Date** - Tom McGinn, Database Innovations Architect, Product Management, July 2020
 
-See an issue? Please open up a request [here](https://github.com/oracle/learning-library/issues). Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

@@ -3,7 +3,8 @@
 ## Introduction
 Using Oracle Data Safe, create your own sensitive type and sensitive category.
 
-To log issues and view the Lab Guide source, go to the [github oracle](https://github.com/oracle/learning-library/issues/new) repository.
+### See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
 
 Watch the video below for an overview on how to create a Sensitive Type and Sensitive Category with Oracle Data Safe
 

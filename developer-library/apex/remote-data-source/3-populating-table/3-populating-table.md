@@ -16,19 +16,21 @@ Rather than running a one-off SQL statement to load the data, writing a SQL Scri
 
 The Big Mac Data is refreshed every 6 months. Therefore, this script can be used twice a year to keep the data current.
 
-1. From the runtime environment, in the Developer Toolbar (bottom of screen), click **Home**
+1. From the runtime environment, in the Developer Toolbar (bottom of screen), click **Home**.
 
     ![](images/go-home.png " ")
 
-2. Click **SQL Workshop**, and then select **SQL Scripts**
+2. Click **SQL Workshop**, and then select **SQL Scripts**.
 
     ![](images/go-sql-scripts.png " ")
 
 3. In the SQL Script page toolbar, click **Create**.
 
-4. In the Script Editor page, enter the following:
-    - Script Name - enter **Populate BIG\_MAC\_INDEX**
-    -  Copy and paste the following:
+    ![](images/create-script.png " ")
+
+4. In the Script Editor page, enter the following.
+    - **Script Name:** enter **Populate BIG\_MAC\_INDEX**
+    -  Copy and paste the following.
 
         ```
         <copy>-- Remove current data
@@ -50,18 +52,18 @@ The Big Mac Data is refreshed every 6 months. Therefore, this script can be used
         delete big_mac_index  
         where local_price = 0;</copy>
         ```
-5. Click **Run**
+5. Click **Run**.
 
     ![](images/set-script.png " ")
 
 6. On the Run Script page, click **Run Now**.
 
 7. The Script Results page will be displayed listing the statements processed, successful, and with errors.     
-    In February 2020, Results should show **1586 row(s) inserted** and **1 row(s) deleted**.
+    In February 2020, Results should show **1586 row(s) inserted** and **1 row(s) deleted**(your number of rows inserted/deleted may differ depending on the date you run the script).
 
     ![](images/script-results.png " ")
 
-    *{Note: If you do not see 3 statements processed successfully then double check your table definition and the script to populate the table.}*
+    *Note: If you do not see 3 statements processed successfully then double check your table definition and the script to populate the table.*
 
 ## **STEP 2** - Review the Data
 There are several ways to review the data.
@@ -73,7 +75,7 @@ There are several ways to review the data.
 
     ![](images/runtime.png " ")
 
-    *{Note: Many of the Dollar Exchange Rate values simply show 1.}*
+    *Note: Many of the Dollar Exchange Rate values simply show 1.*
 
 3. In the APEX Builder tab or window, click **SQL Workshop**, and then select **Object Browser**.
 
@@ -84,10 +86,10 @@ There are several ways to review the data.
 
     ![](images/review-data.png " ")
 
-    *{Note: Review the decimal places on the _DOLLAR\_EXCHANGE\_RATE_ column. In the next lab you will ensure the data displays properly.}*
+    Note: Review the decimal places on the DOLLAR\_EXCHANGE\_RATE column. In the next lab you will ensure the data displays properly.
 
 ## **Summary**
-This completes Lab 2. You now know how to utilize **apex\_data\_parser** and **apex\_web\_service.make\_rest\_request\_b** to populate a table in the Oracle database based on a REST endpoint. [Click here to navigate to Lab 3](?lab=lab-3-improving-report)
+This completes Lab 3. You now know how to utilize **apex\_data\_parser** and **apex\_web\_service.make\_rest\_request\_b** to populate a table in the Oracle database based on a REST endpoint. [Click here to navigate to Lab 4](?lab=lab-4-improving-report)
 
 ## **Acknowledgements**
 
@@ -95,4 +97,5 @@ This completes Lab 2. You now know how to utilize **apex\_data\_parser** and **a
  - **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
  - **Last Updated By/Date** - Tom McGinn, Database Innovations Architect, Product Management, July 2020
 
-See an issue? Please open up a request [here](https://github.com/oracle/learning-library/issues). Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

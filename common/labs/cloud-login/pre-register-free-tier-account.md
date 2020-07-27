@@ -1,12 +1,12 @@
 # Prerequisites
 
-## Introduction
+## **Introduction**
 
 Before you get started, you'll need an Oracle Cloud account. This 5-minute lab walks you through the steps of getting an Oracle Cloud Free Tier account and signing in.
 
 ### Existing Cloud Accounts
 
-If you already have an access to an Oracle Cloud Account, including an Oracle Cloud account using [Oracle Universal Credits](https://docs.oracle.com/en/cloud/get-started/subscriptions-cloud/csgsg/universal-credits.html), skip this lab and proceed to the **Introduction**.
+If you already have access to an Oracle Cloud Account, including an Oracle Cloud account using [Oracle Universal Credits](https://docs.oracle.com/en/cloud/get-started/subscriptions-cloud/csgsg/universal-credits.html), skip this lab and proceed to the **Introduction**.
 
 ### Two Cloud Offers in One
 
@@ -19,7 +19,7 @@ Oracle Cloud Free Tier allows you to sign up for an Oracle Cloud account which p
 * A valid email address
 * Ability to receive SMS text verification (only if your email isn't recognized)
 
-## STEP 1: Create Your Free Trial Account
+## **STEP 1**: Create Your Free Trial Account
 
 In this section, you will fill out the registration form at [oracle.com/cloud/free](https://oracle.com/cloud/free).
 
@@ -31,7 +31,7 @@ In this section, you will fill out the registration form at [oracle.com/cloud/fr
     ![](images/signup-for-freetier.png " ")
 
 2.  Enter a few details for your new Oracle Cloud account.
-    * You can choose almost anything for your Cloud Account Name. Remember what you wrote. You'll need this name later to sign in.
+    * You can choose almost anything for your **Cloud Account Name**. Remember what you wrote. You'll need this name later to sign in.
     * Click **Enter Password**.
 
 3.  If your email wasn't recognized or you're using a different email address, you'll need to provide additional information.
@@ -44,17 +44,17 @@ In this section, you will fill out the registration form at [oracle.com/cloud/fr
 
 6. Click **Review Terms and Conditions**. Read and agree to the Terms & Conditions by checking the box and click **Complete Sign-Up**.
 
-7. Your account is provisioning and should be available in a few seconds! When it's ready, you're automatically taken to a sign in page. You'll also receive a confirmation email containing sign in information.
+7. Your account is provisioning and should be available in a few seconds! When it's ready, you're automatically taken to a sign-in page. You'll also receive a confirmation email containing sign-in information.
 
-## STEP 2: Sign in to Your Account
+## **STEP 2**: Sign in to Your Account
 
-If you've signed out of the Oracle Cloud, use these steps to sign back in.
+If you've signed out of the Oracle Cloud, use these steps to sign back in. Click **View Accounts** to bring up a menu.
 
 1. Go to [cloud.oracle.com](https://cloud.oracle.com).
 
     ![](images/cloud-login-1.png " ")
 
-2. Click **View Accounts** to bring up a menu.  Click **Sign in to Cloud**.
+2. Click **Sign in to Cloud**.
 
     ![](images/cloud-login-2.png " ")
 
@@ -72,9 +72,10 @@ If you've signed out of the Oracle Cloud, use these steps to sign back in.
 
 You may now *proceed to the next lab*.
 
-## Acknowledgements
+## **Acknowledgements**
 
 - **Created By/Date** - Tom McGinn, Database Innovations Architect, Database Product Management, March 2020
 - **Last Updated By/Date** - Kay Malcolm, Database Product Management, June 2020
 
-See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.    Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.    Please include the workshop name and lab in your request.

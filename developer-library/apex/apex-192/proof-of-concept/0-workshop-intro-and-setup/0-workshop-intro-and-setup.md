@@ -30,8 +30,6 @@ components to improve the initial app.
 | 6 | [Improving To Dos](?lab=lab-6-improving-todos) | 10 min |
 | 7 | [Improving Links](?lab=lab-7-improving-links) | 5 min |
 
-***To log issues***, click here to go to the [github oracle repository](https://github.com/oracle/learning-library/issues/new) issue submission form.
-
 ### **Let's Get Started!**
 
 If the menu is not displayed, you can open by clicking the menu button (![Menu icon](./images/menu-button.png)) at the top of the page.
@@ -53,4 +51,5 @@ If the menu is not displayed, you can open by clicking the menu button (![Menu i
  - **Author/Contributors** -  David Peake, Consulting Member of Technical Staff
  - **Last Updated By/Date** - Tom McGinn, Database Cloud Services, Product Management, June 2020
 
-See an issue? Please open up a request [here](https://github.com/oracle/learning-library/issues). Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Before you get started, you should have a LiveLabs reservation. Go to [LiveLabs 2.0](https://apexapps-stage.oracle.com/pls/apex/dbpm/r/livelabs-v2-0) and click  ![](images/reserve.png) to request a reservation for this workshop.
+Before you get started, you should have a LiveLabs reservation. Go to [LiveLabs 2.0](http://bit.ly/golivelabs) and click  ![](images/reserve.png) to request a reservation for this workshop.
 
 If you already have a reservation, start your workshop by reading through the Introduction!
 
@@ -29,5 +29,7 @@ If you already have a reservation, start your workshop by reading through the In
 ## Acknowledgements
 
 - **Last Updated By/Date** - Tom McGinn, Database Innovations Architect, DB Product Management, July 2020
+- **Contributors** - Kay Malcolm, Director, Database Product Management
 
-See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).   Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

@@ -14,7 +14,7 @@
             "filename": "./../../../intro/intro-ziplab.md"
         },
         {
-            "title": "Lab 1: Provision an ADW Instance",
+            "title": "Lab 1: Provision Autonomous Database",
             "description": "Provision a new ADW instance and connect to the database",
             "partnumber": "Ennnnn_01",
             "publisheddate": "04/29/2020",

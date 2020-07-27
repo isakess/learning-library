@@ -22,7 +22,7 @@
             "filename": "./../../../adb-provision/adb-provision.md"
         },
         {
-            "title": "Lab 2: ADB Loading",
+            "title": "Lab 2: Loading Data",
             "description": "Provision a new ADW instance and connect to the database",
             "partnumber": "Ennnnn_01",
             "publisheddate": "04/29/2020",

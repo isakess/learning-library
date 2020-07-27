@@ -21,13 +21,12 @@ Estimated Time: 50 minutes
 
 | # | Module | Est. Time |
 | --- | --- | --- |
-| 1 | [Creating the Table](?lab=lab-1-creating-table) | 10 minutes |
-| 2 | [Populating the Table](?lab=lab-2-populating-table) | 5 minutes |
-| 3 | [Improving the Report](?lab=lab-3-improving-report) | 15 minutes |
-| 4 | [Adding a Chart](?lab=lab-4-adding-chart) | 5 minutes |
-| 5 | [Adding Chart Criteria](?lab=lab-5-adding-chart-criteria) | 5 minutes |
-
-**To log issues**, click here to go to the [github oracle repository](https://github.com/oracle/learning-library/issues/new) issue submission form.
+| 1 | [Create an Oracle APEX Workspace](?lab=lab-1-create-oracle-apex-workspace) | 5 minutes |
+| 2 | [Creating the Table](?lab=lab-2-creating-table) | 10 minutes |
+| 3 | [Populating the Table](?lab=lab-3-populating-table) | 5 minutes |
+| 4 | [Improving the Report](?lab=lab-4-improving-report) | 15 minutes |
+| 5 | [Adding a Chart](?lab=lab-5-adding-chart) | 5 minutes |
+| 6 | [Adding Chart Criteria](?lab=lab-6-adding-chart-criteria) | 5 minutes |
 
 ### **Let's Get Started!**
 
@@ -51,4 +50,5 @@ If the menu is not displayed, you can open by clicking the menu button (![Menu i
  - **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
  - **Last Updated By/Date** - Tom McGinn, Database Innovations Architect, Product Management, July 2020
 
-See an issue? Please open up a request [here](https://github.com/oracle/learning-library/issues). Please include the workshop name and lab in your request.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

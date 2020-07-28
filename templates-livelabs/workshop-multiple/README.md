@@ -12,8 +12,8 @@
 
 In this example, the goal is to create several "children" workshops from one longer "parent" workshop. The children are made up of parts from the parent.
 
-workshop-with-shareds/
-  
+workshop-multiple/
+
     product-solution-short-name/
 
         -- individual labs

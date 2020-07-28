@@ -1,4 +1,4 @@
-# Analyze Lab
+# Analyze Data
 
 ## Introduction
 

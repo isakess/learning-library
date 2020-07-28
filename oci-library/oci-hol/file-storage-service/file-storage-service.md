@@ -10,13 +10,13 @@ In this lab you will create and mount File Storage System to a compute instance 
 
 **Some Key points:**
 
-*We recommend using Chrome or Edge as the broswer. Also set your browser zoom to 80%*
+*We recommend using Chrome or Edge as the browser. Also set your browser zoom to 80%*
 
 - All screen shots are examples ONLY. Screen shots can be enlarged by Clicking on them
 
 - Login credentials are provided later in the guide (scroll down). Every User MUST keep these credentials handy.
 
-- Do NOT use compartment name and other data from screen shots.Only use  data(including compartment name) provided in the content section of the lab
+- Do NOT use compartment name and other data from screen shots. Only use  data(including compartment name) provided in the content section of the lab
 
 - Mac OS Users should use ctrl+C / ctrl+V to copy and paste inside the OCI Console
 
@@ -80,7 +80,7 @@ In this lab you will create and mount File Storage System to a compute instance 
     *VCN, Public subnet, Private subnet, Internet gateway (IG), NAT gateway (NAT), Service gateway (SG)*
 
 7. Click **View Virtual Cloud Network** to display your VCN details.
-              
+
 8. In your VCN details page, Click **Security List** and then **Default Security list for YOUR\_VCN\_NAME**
 
      ![](./../oci-quick-start/images/Customer_Lab_001.PNG " ")
@@ -144,7 +144,7 @@ In this section we will create File System Storage.
 4. OCI console will show your File System details. Under **Exports** Click your mount target name under **Mount Target**. In Mount Target details page, note down the IP address.
 
      ![](./../file-storage-service/images/FSS_003.png " ")
-              
+
      ![](./../file-storage-service/images/FSS_004.png " ")
 
 We now have a File Storage system created. Next we will create a SSH key pair that will be used to login to a compute instance and mount the file system.
@@ -155,14 +155,14 @@ We now have a File Storage system created. Next we will create a SSH key pair th
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL006.PNG " ")
 
-2. Enter command 
-    
+2. Enter command
+
     ```
     <copy>
     ssh-keygen
     </copy>
     ```
-    **HINT:** You can swap between OCI window, 
+    **HINT:** You can swap between OCI window,
     git-bash sessions and any other application (Notepad, etc.) by Clicking the Switch Window icon.
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL007.PNG " ")
@@ -177,22 +177,22 @@ We now have a File Storage system created. Next we will create a SSH key pair th
 
     /C/Users/PhotonUser/.ssh/id\_rsa.pub (Public Key)
 
-    **NOTE:** id\_rsa.pub will be used to create 
+    **NOTE:** id\_rsa.pub will be used to create
     Compute instance and id\_rsa to connect via SSH into compute instance.
 
-    **HINT:** Enter command 
+    **HINT:** Enter command
     ```
     <copy>
-    cd /C/Users/PhotonUser/.ssh (No Spaces) 
+    cd /C/Users/PhotonUser/.ssh (No Spaces)
     </copy>
     ```
-    and then 
+    and then
     ```
     <copy>
-    ls 
+    ls
     </copy>
     ```
-    to verify the two files exist. 
+    to verify the two files exist.
 
 5. In git-bash Enter command  
 
@@ -201,7 +201,7 @@ We now have a File Storage system created. Next we will create a SSH key pair th
     cat /C/Users/PhotonUser/.ssh/id_rsa.pub
     </copy>
     ```
-    , highlight the key and copy 
+    , highlight the key and copy
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL009.PNG " ")
 
@@ -213,17 +213,17 @@ We now have a File Storage system created. Next we will create a SSH key pair th
 
 8. Click **Create Instance**. Fill out the dialog box:
 
-     - **Name your instance**: Enter a name 
+     - **Name your instance**: Enter a name
      - **Choose an operating system or image source**: For the image, we recommend using the Latest Oracle Linux available.
      - **Availability Domain**: Select availability domain
-     - **Instance Type**: Select Virtual Machine 
-     - **Instance Shape**: Select VM shape 
+     - **Instance Type**: Select Virtual Machine
+     - **Instance Shape**: Select VM shape
 
      **Under Configure Networking**
      - **Virtual cloud network compartment**: Select your compartment
-     - **Virtual cloud network**: Choose the VCN 
-     - **Subnet Compartment:** Choose your compartment. 
-     - **Subnet:** Choose the Public Subnet under **Public Subnets** 
+     - **Virtual cloud network**: Choose the VCN
+     - **Subnet Compartment:** Choose your compartment.
+     - **Subnet:** Choose the Public Subnet under **Public Subnets**
      - **Use network security groups to control traffic** : Leave un-checked
      - **Assign a public IP address**: Check this option
 
@@ -239,7 +239,7 @@ We now have a File Storage system created. Next we will create a SSH key pair th
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0011.PNG " ")
 
 10. Wait for Instance to be in **Running** state. In git-bash Enter Command:
-    
+
     ```
     <copy>
     cd /C/Users/PhotonUser/.ssh
@@ -248,7 +248,7 @@ We now have a File Storage system created. Next we will create a SSH key pair th
 
 11. Enter **ls** and verify id\_rsa file exists
 
-12. Enter command 
+12. Enter command
     ```
     <copy>
     bash
@@ -261,34 +261,34 @@ We now have a File Storage system created. Next we will create a SSH key pair th
 13. Enter 'Yes' when prompted for security message
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0014.PNG " ")
- 
+
 14. Verify opc@COMPUTE\_INSTANCE\_NAME appears on the prompt
 
 ## Step 4: Mount the File Storage System to Compute Instance
 
 Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance) can use the command line to connect to a file system and write files. Mount targets serve as file system network access points. After your mount target is assigned an IP address, you can use it to mount the file system. You need to install an NFS client and create a mount point. When you mount the file system, the mount point effectively represents the root directory of the File Storage file system, allowing you to write files to the file system from the instance.
 
-1. In ssh session to Compute instance Enter command: 
+1. In ssh session to Compute instance Enter command:
 
-    ``` 
+    ```
     <copy>
-    sudo yum install nfs-utils 
+    sudo yum install nfs-utils
     </copy>
     ```
     (This is just to ensure nfs-utils is installed)
 
 
 2. Enter command:
-    
+
     ```
     <copy>
-    sudo mkdir -p /mnt/nfs-data 
+    sudo mkdir -p /mnt/nfs-data
     </copy>
     ```
     to create a mount point.
 
-3. Mount the file system, Enter command: 
-    
+3. Mount the file system, Enter command:
+
     ```
     <copy>
     bash
@@ -303,7 +303,7 @@ Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance
      ![](./../file-storage-service/images/FSS_006.png " ")
 
  4. Enter command:
-    
+
     ```
     <copy>
     df -h OR mount | grep /mnt/nfs-data
@@ -325,7 +325,7 @@ Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance
      ![](./../file-storage-service/images/FSS_009.png " ")
 
 6. **Optional Step**. Second compute instance can be created and same file system mounted on it following earlier steps
-             
+
 You have now mounted Enterprise grade File System storage created in OCI to your compute instance. You can place files in this file system and all other VM instances that have mounted the same file system will have access to it.
 
 ## Step 5: Delete the resources
@@ -351,7 +351,7 @@ In this section we will delete all the resources we created in this lab.
 
 2. If your Compute instance is not displayed, From OCI services menu Click **Instances** under Compute
 
-3. Locate compute instance, Click Action icon and then **Terminate** 
+3. Locate compute instance, Click Action icon and then **Terminate**
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0016.PNG " ")
 
@@ -362,20 +362,20 @@ In this section we will delete all the resources we created in this lab.
 
 **Delete VCN**
 
-1. From OCI services menu Click **Virtual Cloud Networks** under Networking, list of all VCNs will 
+1. From OCI services menu Click **Virtual Cloud Networks** under Networking, list of all VCNs will
 appear.
 
 2. Locate your VCN , Click Action icon and then **Terminate**. Click **Delete All** in the Confirmation window. Click **Close** once VCN is deleted
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0018.PNG " ")
 
+*Congratulations! You have successfully completed the lab.*
 
 ## Acknowledgements
-*Congratulations! You have successfully completed the lab.*
 
 - **Author** - Flavio Pereira, Larry Beausoleil
 - **Adapted by** -  Yaisah Granillo, Cloud Solution Engineer
 - **Last Updated By/Date** - Yaisah Granillo, June 2020
 
 ## See an issue?
-Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section. 
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

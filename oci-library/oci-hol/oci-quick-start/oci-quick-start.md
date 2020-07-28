@@ -161,6 +161,7 @@ Lab 2: Create SSH Keys - Cloud Shell
 
     - **Volume Attachment Type:** Choose Paravirtualized
     - **Block Volume In:** Click the drop down and choose the block volume created earlier
+    - **Device Path:** Select /dev/oracleoci/oraclevdb
     ![](./../oci-quick-start/images/QuickStart_S3P6.PNG " ")
 
     *NOTE: We can also use ISCSI mode. For more information please refer to https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm#attachtype OR refer Appendix section at the end of the lab.*
@@ -170,7 +171,8 @@ Lab 2: Create SSH Keys - Cloud Shell
 8. Verify Block volume is attached on compute instance details page (Refresh the screen if needed).
     ![](./../oci-quick-start/images/QuickStart_S3P8.PNG " ")
 
-## Step 4: Install httpd on compute instance and an app on Block Volume
+## Step 4: Install httpd on compute instance and an app on block volume.
+
 
 1. Switch to ssh session to compute install. Install httpd server, Enter Command:
 
@@ -179,6 +181,11 @@ Lab 2: Create SSH Keys - Cloud Shell
       sudo yum -y install httpd 
       </copy>
       ```
+
+      ![](./../oci-quick-start/images/Quick_S4P1.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S4P1.5.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S4P1.6.PNG " ")
+
 
 2. Configure Compute instance firewall, Enter commands:
 
@@ -197,6 +204,9 @@ Lab 2: Create SSH Keys - Cloud Shell
       ```
       (Reload the firewall to activate the rules).
 
+      ![](./../oci-quick-start/images/Quick_S4P2.PNG " ")
+      **NOTE:** The above screenshot shows parts 2-5
+
 3. Start httpd, Enter command:
    
       ```
@@ -205,7 +215,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
 
-4. Enter command lsblk to verify the Block volume storage is initialized. This could be sda, sdb or somethig else strting with 'sd'. In below example this volume is called sdb. Below screen shot shows a 1 TB volume though in this lab we have created a 50GB volume thus the size in your compute instance will be 50GB.
+4. Enter command lsblk to verify the Block volume storage is initialized. 
 
       ```
       <copy>
@@ -213,33 +223,38 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
 
-     ![](./../oci-quick-start/images/OCI_Quick_Start001.PNG " ")
+     ![](./../oci-quick-start/images/Quick_S4P4.PNG " ")
 
-      **HINT:** The Name sdb is the block volume storage. This name could change for your specific attachment (i.e sdc).
+      **HINT:** The name of the block volume storage will start with 'sd'. In this case it is sdb, but could change for your specific attachment (i.e sdc, sda). In the above example this volume is called sdb, shown by its 50GB volume. 
 
 5. To format the block volume, Enter Command: 
+      **NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step. 
 
       ```
       <copy>
       bash            
-      sudo fdisk <DEVICE_PATH> -l 
+      sudo fdisk /dev/VOLUME_NAME -l 
       </copy>
       ```
-      **For example sudo fdisk /dev/sdb -l**   
+      **For example: sudo fdisk /dev/sdb -l**   
       Wait for formatting to complete
 
 6. Create a file system on the block volume, Enter Command: 
+      **NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step.     
 
       ```
       <copy>
       bash
-      sudo mkfs.ext4 -L datapartition DEVICE_PATH
+      sudo mkfs.ext4 -L datapartition /dev/VOLUME_NAME
       </copy>
       ```  
 
       This will create the file system on the entire disk. Enter y when prompted with 'Proceed anyway'.
-
       **NOTE:** For this lab we will not be creating additional partitions.
+
+
+      ![](./../oci-quick-start/images/Quick_S4P6.PNG " ")
+      **NOTE:** The above screenshot shows parts 6 & 7.
 
 7. Create a directory where the disk will be mounted,Enter commands:
 
@@ -249,14 +264,17 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>         
       ```
 
-8. Mount the disk to the newly created directory,
-Enter command:
+8. Mount the disk to the newly created directory. Enter command:
+**NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step. 
 
       ```
       <copy>
-      sudo mount  /dev/<VOLUME_NAME>  /mnt/www/html
+      sudo mount  /dev/VOLUME_NAME  /mnt/www/html
       </copy>
       ```
+
+      ![](./../oci-quick-start/images/Quick_S4P8.PNG " ")
+      **NOTE:** The above screenshot shows parts 8 & 9.
 
 9. Verify /dev/`<VOLUME_NAME>` volume is now mounted to /mnt/www/html directory, Enter command:
 
@@ -276,6 +294,8 @@ Enter command:
       cd /home/opc
       </copy>
       ```
+      ![](./../oci-quick-start/images/Quick_S4P10.PNG " ")
+      **NOTE:** The above screenshot shows parts 10 & 11.
 
 11. Enter Command:
 
@@ -291,6 +311,8 @@ Enter command:
       unzip master.zip
       </copy>
       ```
+      ![](./../oci-quick-start/images/Quick_S4P12.PNG " ")
+      **NOTE:** The above screenshot shows parts 12-14.
 
 13. Enter Command:
   
@@ -301,28 +323,23 @@ Enter command:
       ```
 
 14. Modify httpd.conf file, Enter Command:
-   
       ```
       <copy>
-      sudo vi /etc/httpd/conf/httpd.conf (for vi) 
+      sudo nano  /etc/httpd/conf/httpd.conf
       </copy>
       ```
 
-      OR 
+15. Search for string /var/www and replace it with /mnt/www/html. This will be done in 3 locations
 
-      ```
-      <copy>
-      sudo nano  /etc/httpd/conf/httpd.conf  (for nano)
-      </copy>
-      ```
-
-      **NOTE:** in vi you can save the file after modification by using Esc :wq 
-
-15. Search for string /var/www and replace it with /mnt/www/html . This will be done in 3 locations
+'''
+<copy>
+/mnt/www/html
+</copy>
+'''
 
      ![](./../oci-quick-start/images/Customer_Lab_007.PNG " ")
 
-16. Save and Exit (in vi user Esc :wq)
+16. To Save and Exit, Control+Z. When asked 'Save modified buffer?', type y for yes. Then press enter to preserve the name of the file. 
 
 17. Enter command:
 
@@ -331,6 +348,8 @@ Enter command:
       sudo chcon -R --type=httpd_sys_rw_content_t /mnt
       </copy>
       ```
+      ![](./../oci-quick-start/images/Quick_S4P17.PNG " ")
+      **NOTE:** The above screenshot shows parts 17-19.
 
 18. Restart httpd server, Enter command:
 
@@ -345,11 +364,10 @@ Enter command:
       ```
       <copy>
       bash
-      http://COMPUTE_INSTANCE_PUBLIC_IP
       </copy>
       ```
 
-20. Screen like below should appear.
+20. Open a new tab and enter 'http://COMPUTE_INSTANCE_PUBLIC_IP' and a screen like below should appear.
 
      ![](./../oci-quick-start/images/Customer_Lab_008.PNG " ")
 
@@ -364,7 +382,7 @@ In this section we will detach the block volume, Stop the compute instance, use 
       ```
       <copy>
       bash
-      sudo umount /dev/<VOLUME_NAME> 
+      sudo umount /dev/VOLUME_NAME
       </copy>
       ```
 2. In OCI console window, Click your compute instance name and in **Attached Block Volume** section  Click the action icon and **Click Detach**.
@@ -383,39 +401,18 @@ In this section we will detach the block volume, Stop the compute instance, use 
 
 7. In the Boot Volume Details window Click **Create Instance:**
 
-      - **Name your instance**: Enter a name 
-      - **Choose an operating system or image source**: Leave as is (It should show the boot volume of the terminated instance)
+8. Repeat the settings detailed in **STEP 2** to create an instance.
 
-      - **Availability Domain**: Select availability domain
+13. Once the instance is in Running state, attach the block volume to this new instance using OCI Console using the settings detailed in **STEP 3**. 
+**NOTE:** Ensure to use Paravirtualized mode and wait for the block volume to change from 'Attaching' to 'Attached'.
 
-      **NOTE :** Boot Volume field is set to BOOT VOLUME and to the boot volume you detached from the original Instance.
-
-      - **Instance Type**: Select Virtual Machine 
-      - **Instance Shape**: Select VM shape 
-
-      **Under Configure Networking**
-      - **Virtual cloud network compartment**: Select your compartment
-      - **Virtual cloud network**: Choose the VCN 
-      - **Subnet Compartment:** Choose your compartment. 
-      - **Subnet:** Choose the Public Subnet under **Public Subnets** 
-      - **Use network security groups to control traffic** : Leave un-checked
-      - **Assign a public IP address**: Check this option
-
-      - **Boot Volume:** Leave the default
-      - **Add SSH Keys:** Choose 'Paste SSH Keys' and paste the Public Key saved earlier.
-
-8. Click **Create**.
-
-   **NOTE:** If 'Service limit' error is displayed choose a different shape such as VM.Standard.E2.2 OR VM.Standard2.2 OR Choose a different AD.
-
-9. Once the instance is in Running state, attach the block volume to this new instance using OCI Console.**Ensure to use Paravirtualized mode.**
-
-10. ssh to compute instance and mount the block volume as before, Enter Command:
+14. To compute instance and mount the block volume as before, Enter Command:
+**NOTE:** replace VOLUME_NAME with the location of the block volume starting with 'sd'.s
 
       ```
       <copy>
       bash
-      sudo mount  /dev/<VOLUME_NAME>  /mnt/www/html
+      sudo mount  /dev/VOLUME_NAME  /mnt/www/html
       </copy>
       ```
 

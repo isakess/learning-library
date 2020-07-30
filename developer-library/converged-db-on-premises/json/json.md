@@ -17,7 +17,7 @@ In this lab we can add a row to our json table using insert query and  we can us
 Steps 10-14
 This lab walks you through modules where we will see improvements in the simplicity of querying JSON documents using SQL. We will also see materialized views query rewriting has been enhanced so that queries with JSON\_EXISTS, JSON\_VALUE and other functions can utilize a materialized view created over a query that contains a JSON\_TABLE function.
 
-**Lab Prerequisites**
+### Lab Prerequisites
 
 This lab assumes you have completed the following labs:
 - Lab 1:  Login to Oracle Cloud
@@ -26,7 +26,7 @@ This lab assumes you have completed the following labs:
 - Lab 4:  Environment setup
 - Note :  All scripts for this lab are stored in the /u01/workshop/json folder and are run as the oracle user.
 
-**About Oracle JSON**
+### About Oracle JSON
 
 JSON (JavaScript Object Notation) is a syntax for storing and exchanging data. When exchanging data between a browser and a server, the data can only be text.
 
@@ -54,167 +54,79 @@ The first thing to realize about JSON is that it remains a simple text format, w
 
 ![](./images/json_intro.png " ")
 
+## Step 1: Connect to the Pluggable Database (PDB)
 
-**Want to learn more**
-- [JSON](https://docs.oracle.com/en/database/oracle/oracle-database/19/adjsn/index.html)
+1. Open a terminal window and sudo to the user **oracle**
 
-## Step 1: Connect to your Instance
-
-**Oracle Cloud Shell**
-1. Open Oracle Cloud Shell by clicking on the Cloud Shell icon in the top right corner.
-
-    ![](./images/oracleshell.png " ")
-
-2. Go to Compute -> Instance and select the instance you created (make sure you choose the correct compartment)
-
-3. On the instance homepage, find the Public IP addresss for your instance.
-
-4. Enter the command below to login to your instance.
-
-    ````
-    ssh -i ~/<sshkeylocation> opc@<Your Compute Instance Public IP address>
-    ````
-
-5. When prompted, answer yes to continue connecting.
-
-**MAC or Windows CYGWIN Emulator**
-1. Go to Compute -> Instance and select the instance you created (make sure you choose the correct compartment)
-
-2. On the instance homepage, find the Public IP addresss for your instance.
-
-3. Open up a terminal (MAC) or cygwin emulator as the opc user. Enter yes when prompted.
-
-4. Enter the command below to login to your instance
-
-    ````
-    ssh -i ~/<sshkeylocation> opc@<Your Compute InstancePublic IP address>
-    ````
-
-**Windows using Putty**
-1. Open up putty and connect to your instance.
-
-    ````
-    ssh -i ~/.ssh/optionskey opc@<Your Compute Instance Public IP Address>
-    ````
-    ![](./images/sshconnect.png " ")
-
-2. Enter a name for the session and Click "Save".
-
-    ![](./images/puttyconnect.png " ")
-
-3. Click **Connection > Data** in the left navigation pane and set the Auto-login username to root.
-
-4. Click **Connection > SSH > Auth** in the left navigation pane and configure the SSH private key to use by clicking Browse under Private key file for authentication.
-
-5. Navigate to the location where you saved your SSH private key file, select the file, and click Open. NOTE: You may not be able to connect while on any corporate VPN or in the Oracle office on clear-corporate (choose clear-internet if you are in an Oracle office).
-
-    ![](./images/puttyconfig.png " ")
-
-6. The file path for the SSH private key file now displays in the Private key file for authentication field.
-
-7. Click Session in the left navigation pane, then click Save in the Load, save or delete a stored session Step.
-
-8. Click Open to begin your session with the instance.
-
-## Step 2: Setup
-**Setup your Oracle Environment**
-1. Open the Oracle Cloud Shell by clicking on the icon next to the reigon name.
-
-    ![](./images/oracleshell.png " ")
-
-
-2. As oracle user navigate to the json workshop directory by entering the following commands.
-
-    ````
+````
     <copy>
     sudo su - oracle
     </copy>
-    ````
-
-    ````
+````
+2. Navigate to the json directory.
+````
     <copy>
     cd /u01/workshop/json
     </copy>
-    ````
-    ![](./images/json1.png " ")
+````
 
-2. Set your environment variables to the ConvergedCDB home.
+3. Set your environment.
 
-    ````
+````
     <copy>
     . oraenv
     </copy>
-    ````
-
-    ````
+````
+4. When prompted paste the following:
+````
     <copy>
-    ConvergedCDB
+    convergedcdb
     </copy>
-    ````
-    ![](./images/json2.png " ")
-
-    ````
+````
+5. Open sqlplus as the user appjson
+````
     <copy>
     sqlplus appjson/Oracle_4U@JXLPDB
     </copy>
-    ````
-    ![](./images/json3.png " ")
+````
 
-**Connect to Sql Developer**
+## Step 2: Connect to SQL Developer
 
-1. Download Sql Developer for your device.[https://www.oracle.com/tools/downloads/sqldev-downloads.html](https://www.oracle.com/tools/downloads/sqldev-downloads.html). You will also need JDK 11 which can be downloaded here [https://www.oracle.com/java/technologies/javase-jdk11-downloads.html](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+1. Make a connection to sqldeveloper. Use the details as below and click on connect.
 
-2. Under connections right click on "Oracle Connections" and click "New Connection"
-
-    ![](./images/json4.png " ")
-
-3.  Provide the details as below and click on connect.
-
-    ````
-    Name: opc
+````
+    Name: JSON
     Username: appjson
     Password: Oracle_4U
-    Hostname: Instance Public IP address
+    Hostname: PUBLIC-IP
     Port: 1521
     Service name: JXLPDB
-    ````
-
-  ![](./images/env_json.png " ")
-
-4. Click Connect
-
-**Create a directory**
-
-We will create a directory which will point to the location where json dump file is stored-
-
-  ````
-
-  create or replace directory ORDER_ENTRY
-  as '/home/oracle/Spatial/script/db-sample-schemas-19.2/order_entry/';
-
-  ````
-
-**Create a simple table to store JSON documents**
-In Oracle there is no dedicated JSON data type. JSON documents are stored in the database using standard Oracle data types such as VARCHAR2, CLOB and BLOB.
-
-In order to ensure that the content of the column is valid JSON data, a new constraint **IS JSON**, is provided that can be applied to a column. This constraint returns TRUE if the content of the column is well-formed, valid JSON and FALSE otherwise.
-
-This first statement in this module creates a table which will be used to contain JSON documents. These statements can be entered using SQLdeveloper or the connection to SQLdeveloper from your local terminal.
-
-````
-create table PURCHASE_ORDER (
-  ID            RAW(16) NOT NULL,
-  DATE_LOADED   TIMESTAMP(6) WITH TIME ZONE,
-  PO_DOCUMENT CLOB CHECK (PO_DOCUMENT IS JSON)
-  )
-/
 ````
 
-This statement creates a very simple table, PURCHASE\_ORDER. The table has a column PO\_DOCUMENT of type CLOB. The IS JSON constraint is applied to the column PO\_DOCUMENT, ensuring that the column can store only well formed JSON documents.
+  ![](./images/sql_developer_json.png " ")
 
 ## Step 3: Loading JSON Documents into the database  
 
-This statement creates a simple external table that can read JSON documents from a dump file generated by a typical No-SQL style database. In this case, the documents are contained in the file PurchaseOrders.dmp. The SQL directory object ORDER\_ENTRY points to the folder containing the dump file, and also points to the database’s trace folder which will contain any ‘log’ or ‘bad’ files generated when the table is processed.
+**For Step 3 only the SQL statements have already been run. The SQL has been provided as reference.**
+
+1. We will create a directory which will point to the location where json dump file is stored.
+
+````
+create or replace directory ORDER_ENTRY as '/u01/workshop/dump';
+````
+
+2. This statement creates a very simple table, PURCHASE\_ORDER. The table has a column PO\_DOCUMENT of type CLOB. The IS JSON constraint is applied to the column PO\_DOCUMENT, ensuring that the column can store only well formed JSON documents. In Oracle there is no dedicated JSON data type. JSON documents are stored in the database using standard Oracle data types such as VARCHAR2, CLOB and BLOB. In order to ensure that the content of the column is valid JSON data, a new constraint IS JSON, is provided that can be applied to a column. This constraint returns TRUE if the content of the column is well-formed, valid JSON and FALSE otherwise. This first statement in this module creates a table which will be used to contain JSON documents.
+
+````
+create table PURCHASE_ORDER (
+	ID RAW(16) NOT NULL,
+	DATE_LOADED  TIMESTAMP(6) WITH TIME ZONE,
+	PO_DOCUMENT CLOB CHECK (PO_DOCUMENT IS JSON)
+	)
+	/
+````
+
+3. This statement creates a simple external table that can read JSON documents from a dump file generated by a typical No-SQL style database. In this case, the documents are contained in the file PurchaseOrders.dmp. The SQL directory object ORDER\_ENTRY points to the folder containing the dump file, and also points to the database’s trace folder which will contain any ‘log’ or ‘bad’ files generated when the table is processed.
 
 ````
 CREATE TABLE PURCHASE_EXT(
@@ -241,9 +153,7 @@ CREATE TABLE PURCHASE_EXT(
 /
 ````
 
-## Steps 4: Loading data from the external table into JSON table
-
-The following statement copies the JSON documents from the dump file into the PURCHASE\_ORDER table.
+4. The following statement copies the JSON documents from the dump file into the PURCHASE\_ORDER table.
 
 ````
 insert into PURCHASE_ORDER
@@ -255,12 +165,9 @@ commit
 /
 ````
 
-![](./images/purchase_order_count.png " ")
-![](./images/insert_ot.png " ")
+## Step 4: Insert a record.
 
-## Step 5: Insert a record.
-
-1. **Take a count of the rows in the json table-**
+1. Take a count of the rows in the json table
 
 ````
 <copy>
@@ -312,32 +219,7 @@ commit
  </copy>
 ````
 
-The above insert query is also available as a sql file in the directory “/u01/workshop/json”.
-The script is called as insert.sql. You can run this connecting to the SQL prompt.
-
-Set your oracle environment and connect to PDB as **oracle** user.
-````
-<copy>
-      . oraenv
-      </copy>
-````
-````
-<copy>
-      ConvergedCDB
-<copy>
-````
-````
-<copy>
-      sqlplus appjson/Oracle_4U@JXLPDB
-</copy>
-````
-````
-<copy>
-      @insert.sql
-</copy>
-````
-
-3. **Verify the count after insert.**
+3. Verify the count after insert. Please copy the red highlighted ID and save it. We will use that ID the update section of the lab.
 
 ````
 <copy>
@@ -347,12 +229,10 @@ Set your oracle environment and connect to PDB as **oracle** user.
 
 ![](./images/json.png " ")
 
-**Note:** Please copy the red highlighted id which we will use in our next section of update query.
+## Step 5: Update a Table.
+1. We can use Oracle SQL function json-mergepatch or PL/SQL object-type method json-mergepatch() to update specific portions of a JSON document. In both cases we provide a JSON Merge Patch document, which declaratively specifies the changes to make to a a specified JSON document. JSON Merge Patch is an IETF standard.    
 
-## Step 6: Update a Table.
-We can use Oracle SQL function json-mergepatch or PL/SQL object-type method json-mergepatch() to update specific portions of a JSON document. In both cases we provide a JSON Merge Patch document, which declaratively specifies the changes to make to a a specified JSON document. JSON Merge Patch is an IETF standard.    
-
-**Note:** In the above update query replace the id which we copied in previous step.
+2. Copy the following update statement and substitute the ID you saved from the previous step in where it says ID\_copied\_from\_previous\_step. Run the statement.
 
 ````
 <copy>
@@ -370,8 +250,8 @@ We can use Oracle SQL function json-mergepatch or PL/SQL object-type method json
 
 ![](./images/json_lab7_6.png " ")
 
-## Step 7: Example Queries
-1. Customers who ordered products from specific Geo location   
+## Step 6: Example Queries
+1. Let's look at customers who ordered products from a specific location. The Oracle database allows a simple ‘dotted’ notation to be used to perform a limited set of operations on columns containing JSON. In order to use the dotted notation, a table alias must be assigned to the table in the FROM clause, and any reference to the JSON column must be prefixed with the assigned alias. All data is returned as VARCHAR2(4000).
 
 ````
 <copy>
@@ -387,10 +267,7 @@ We can use Oracle SQL function json-mergepatch or PL/SQL object-type method json
 
 ![](./images/select_count.png " ")
 
-**Note:** Oracle database allows a simple ‘dotted’ notation to be used to perform a limited set of operations on columns containing JSON. In order to use the dotted notation, a table alias must be assigned to the table in the FROM clause, and any reference to the JSON column must be prefixed with the assigned alias. All data is returned as VARCHAR2(4000).
-
-
-2. Find all customers who purchased an items tagged with a specific UPC
+2. Find all customers who purchased an items tagged with a specific UPC. The JSON\_EXISTS operator is used in the WHERE clause of a SQL statement. It is used to test whether or not a JSON document contains content that matches the provided JSON path expression. The JSON\_EXISTS operator takes two arguments, a JSON column and a JSON path expression. It returns TRUE if the document contains a key that matches the JSON path expression, FALSE otherwise. JSON\_EXISTS provides a set of modifiers that provide control over how to handle any errors encountered while evaluating the JSON path expression. The UPC, Universal Product Code, is a type of code printed on retail product packaging to aid in identifying a particular item. It consists of two parts – the machine-readable barcode, which is a series of unique black bars, and the unique 12-digit number beneath it.
 
 ````
 <copy>
@@ -401,13 +278,6 @@ We can use Oracle SQL function json-mergepatch or PL/SQL object-type method json
 ````
 
 ![](./images/count_po_document.png " ")
-
-**Note:** The JSON\_EXISTS operator is used in the WHERE clause of a SQL statement. It is used to test whether or not a JSON document contains content that matches the provided JSON path expression.
-
-The JSON\_EXISTS operator takes two arguments, a JSON column and a JSON path expression. It returns TRUE if the document contains a key that matches the JSON path expression, FALSE otherwise. JSON\_EXISTS provides a set of modifiers that provide control over how to handle any errors encountered while evaluating the JSON path expression.
-
-[UPC, short form for  Universal Product Code, is a type of code printed on retail product packaging to aid in identifying a particular item. It consists of two parts – the machine-readable barcode, which is a series of unique black bars, and the unique 12-digit number beneath it.]
-
 
 3. Find the customers who all are purchased a specific products based on PONumber
 ````
@@ -438,10 +308,10 @@ The JSON\_EXISTS operator takes two arguments, a JSON column and a JSON path exp
 </copy>
 ````
 
-        ![](./images/specific_product1.png " ")
+![](./images/specific_product1.png " ")
 
 
-4. Find the customers who all are purchased a specific products based on the description of the product
+4. Find the customers who all are purchased a specific products based on the description of the product. The JSON\_TABLE operator uses a set of JSON path expressions to map content from a JSON document into columns in the view. Once the contents of the JSON document have been exposed as columns, all of the power of SQL can be brought to bear on the content of JSON document.
 
 ````
 <copy>
@@ -472,9 +342,7 @@ The JSON\_EXISTS operator takes two arguments, a JSON column and a JSON path exp
 
 ![](./images/specific_product2.png " ")
 
-**Notes:** The JSON\_TABLE operator uses a set of JSON path expressions to map content from a JSON document into columns in the view. Once the contents of the JSON document have been exposed as columns, all of the power of SQL can be brought to bear on the content of JSON document.
-
-5. How Many orders were done by a customer with minimum 7 quantity and unit price minimum 25$ in each order
+5. How Many orders were done by a customer with minimum 7 quantity and unit price minimum $25 in each order. To accomplish this we will create two relational views. The statements show how, once the relational views have been created, the full power of SQL can now be applied to JSON content, without requiring any knowledge of the structure of the JSON or how to manipulate JSON using SQL.
 
 For this , we will create two views as below:
 
@@ -556,16 +424,10 @@ create or replace view PURCHASE_ORDER_DETAIL_VIEW
 
 </copy>
 ````
-
-![](./images/json_fun_view1.png " ")
-![](./images/json_fun_view2.png " ")  
 ![](./images/lab5_snap3.png " ")    
 
 
-
-**Notes** The above statements show how, once the relational views have been created, the full power of SQL can now be applied to JSON content, without requiring any knowledge of the structure of the JSON or how to manipulate JSON using SQL.
-
-6. Customer Purchase History Details with PRETTY
+6. Customer Purchase History Details with PRETTY. JSON\_QUERY finds one or more specified JSON values in JSON data and returns the values in a character string. expr. Use this clause to specify the JSON data to be evaluated. For expr , specify an expression that evaluates to a text literal.
 
 ````
 <copy>
@@ -578,7 +440,7 @@ select JSON_QUERY(PO_DOCUMENT,'$.LineItems[0]' PRETTY) LINEITEMS
 
 ![](./images/json_fun_5a.png " ")  
 
-7. Customer Purchase History Details without PRETTY**
+7. Customer Purchase History Details without PRETTY. JSON\_VALUE selects a scalar value from JSON data and returns it as a SQL value. You can also use json\_value to create function-based B-tree indexes for use with JSON data — see Indexes for JSON Data. Function json\_value has two required arguments and accepts optional returning and error clauses.
 
 ````
 <copy>
@@ -591,17 +453,13 @@ select JSON_QUERY(PO_DOCUMENT,'$.LineItems[0]') LINEITEMS
 
 ![](./images/json_fun_5b.png " ")  
 
-**Notes:** JSON\_QUERY finds one or more specified JSON values in JSON data and returns the values in a character string. expr. Use this clause to specify the JSON data to be evaluated. For expr , specify an expression that evaluates to a text literal.
-
-JSON\_VALUE selects a scalar value from JSON data and returns it as a SQL value. You can also use json\_value to create function-based B-tree indexes for use with JSON data — see Indexes for JSON Data. Function json\_value has two required arguments and accepts optional returning and error clauses.
+##Want to learn more
+- [JSON](https://docs.oracle.com/en/database/oracle/oracle-database/19/adjsn/index.html)
 
 ## Acknowledgements
+* **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
+* **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel, David Start
+* **Last Updated By/Date** - David Start, Product Manager, Database Product Management, July 2020
 
-- **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel.
-- **Team** - North America Database Specialists.
-- **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
-- **Expiration Date** - June 2021   
-
-**Issues-**
-Please submit an issue on our [issues](https://github.com/oracle/learning-library/issues) page. We review it regularly.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

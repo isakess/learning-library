@@ -49,36 +49,36 @@ Oracle XML DB also supports the SQL/XML standard, which allows SQL-centric devel
 
 Oracle XML DB allows an organization to manage XML content in the same way that ii manages traditional relational data. This allows organizations to save costs and improve return on investment by using a single platform to manage and secure all of their mission critical data. Oracle XML DB was first released with Oracle 9iR2, and it has been enhanced in each subsequent major release of the database.
 
-
-### Want to learn more
-- [XML](https://docs.oracle.com/en/database/oracle/oracle-database/19/adjsn/index.html)
-
 ## Step 1: Connect to the Pluggable Database (PDB)
 
-1. As oracle user navigate to below path-
+1. Open a terminal window and sudo to the user **oracle**
 
 ````
     <copy>
     sudo su - oracle
     </copy>
 ````
-
+2. Navigate to the xml directory.
 ````
     <copy>
     cd /u01/workshop/xml
     </copy>
 ````
 
-  ![](./images/xml_inputa.png " ")
-
- 2. Enter instructions.  Choose the ConvergedCDB sid
+ 3. Set your environment.
 
 ````
     <copy>
     . oraenv
     </copy>
 ````
-
+4. When prompted paste the following:
+````
+    <copy>
+    convergedcdb
+    </copy>
+````
+5. Open sqlplus as the user appjson
 ````
     <copy>
     sqlplus appxml/Oracle_4U@JXLPDB
@@ -93,12 +93,12 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
     Name: XML
     Username: appxml
     Password: Oracle_4U
-    Hostname: localhost
+    Hostname: PUBLIC-IP
     Port: 1521
     Service name: JXLPDB
 ````
 
-  ![](./images/env_xmla.png " ")
+![](./images/xml_sql_developer.png " ")
 
 ## Step 3: XML Query
 
@@ -110,7 +110,7 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
 </copy>
 ````
 
-     ![](./images/xml_m1a.png " ")
+![](./images/xml_m1a.png " ")
 
 2. Retrieving the content of an XML document-using pseudocolumn OBJECT_VALUE
 
@@ -118,12 +118,9 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
 <copy>
       SELECT t.object_value.getclobval()FROM   purchaseorder t
       WHERE  rownum = 1;  
-
-
 </copy>
 ````
 
-![](./images/xml_query_m2a.png " ")
 ![](./images/xml_m2a.png " ")
 
 3. Accessing text node value
@@ -138,7 +135,6 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
       </copy>
      ````
 
-![](./images/xml_m4a.png " ")
 ![](./images/xml_query_meth4a.png " ")
 
 
@@ -151,6 +147,8 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
 
 </copy>
 ````
+
+![](./images/xml_step3_search.png " ")
 
 ## Step 4: Insert XML record.
 
@@ -179,7 +177,7 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
   ````
   ````
     <copy>
-    ConvergedCDB
+    convergedcdb
     </copy>
   ````
   ````
@@ -193,7 +191,7 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
     </copy>
   ````
 
-    ![](./images/xml_input2a.png " ")
+  ![](./images/xml_input2a.png " ")
   ````
     <copy>
     @insert.sql
@@ -226,7 +224,7 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
 
   ````
     <copy>
-    ConvergedCDB
+    convergedcdb
     </copy>
   ````
   ````
@@ -260,9 +258,8 @@ Oracle XML DB allows an organization to manage XML content in the same way that 
 
 ## Step 6: Example Queries
 
-1. Get the list of the customer and their purchased information from a geo graphical location
-
-XMLEXISTS is an SQL/XML operator that you can use to query XML values in SQL, in a regular query I can use the xmlexists function to look if a specific value is present in an xmltype column
+1. Get the list of the customer and their purchased information from a geo graphical location.  
+**XMLEXISTS** is an SQL/XML operator that you can use to query XML values in SQL, in a regular query I can use the xmlexists function to look if a specific value is present in an xmltype column.
 
 ````
 <copy>
@@ -272,13 +269,10 @@ XMLEXISTS is an SQL/XML operator that you can use to query XML values in SQL, in
 </copy>
 ````
 
-     ![](./images/xml_m6a.png " ")
-
-**Notes:** XMLEXISTS is an SQL/XML operator that we can use to query XML values in SQL, in a regular query we can use the xmlexists function to look if a specific value is present in an xmltype column.
+![](./images/xml_m6a.png " ")
 
 2. Customer purchase history  
-
-XMLTABLE: Convert XML Data into Rows and Columns using SQL. The XMLTABLE operator, which allows you to project columns on to XML data in an XMLTYPE , making it possible to query the data directly from SQL as if it were relational data.
+**XMLTABLE** converts XML Data into Rows and Columns using SQL. The XMLTABLE operator, which allows you to project columns on to XML data in an XMLTYPE , making it possible to query the data directly from SQL as if it were relational data.
 
 ````
 <copy>
@@ -289,15 +283,10 @@ XMLTABLE: Convert XML Data into Rows and Columns using SQL. The XMLTABLE operato
 </copy>
 ````
 
-![](./images/xml_m7a.png " ")
+![](./images/xml_step_6_q2.png " ")
 
-**Notes:** The XMLTABLE operator, which allows you to project columns on to XML data in an XMLTYPE , making it possible to query the data directly from SQL as if it were relational data.
-
-
-3. Listing the product description those unit price matches to ‘$xx’
-
-
-XMLSERIALIZE is a SQL/XML operator that you can use to convert an XML type to a character type.
+3. Listing the product description those unit price matches to ‘$xx’.  
+**XMLSERIALIZE** is a SQL/XML operator that you can use to convert an XML type to a character type.
 
 ````
 <copy>
@@ -319,11 +308,8 @@ XMLSERIALIZE is a SQL/XML operator that you can use to convert an XML type to a 
 
 ![](./images/xml_m8a.png " ")
 
-**Notes:** XMLSERIALIZE is a SQL/XML operator that you can use to convert an XML type to a character type.
-
-4. Customer order summary – Cost center wise
-
-XMLQUERY lets you query XML data in SQL statements. It takes an XQuery expression as a string literal, an optional context item, and other bind variables and returns the result of evaluating the XQuery expression using these input values. XQuery string is a complete XQuery expression, including prolog.
+4. Customer order summary – Cost center wise.  
+**XMLQUERY** lets you query XML data in SQL statements. It takes an XQuery expression as a string literal, an optional context item, and other bind variables and returns the result of evaluating the XQuery expression using these input values. XQuery string is a complete XQuery expression, including prolog.
 
 ````
 <copy>
@@ -348,11 +334,8 @@ XMLQUERY lets you query XML data in SQL statements. It takes an XQuery expressio
 
 ![](./images/xml_m9a.png " ")
 
-**Notes:** XMLQUERY lets you query XML data in SQL statements. It takes an XQuery expression as a string literal, an optional context item, and other bind variables and returns the result of evaluating the XQuery expression using these input values. XQuery string is a complete XQuery expression, including prolog.
-
-5. Custer Delivery Priority Instruction for e.g Ex - Courier, Expidite, Surface Mail, Air Mail etc..  
-
-Condition -1: Special_Instructions="Next Day Air
+5. Next Day Air - Customer Delivery Priority Instruction for e.g Ex - Courier, Expidite, Surface Mail, Air Mail etc..  
+**ExistsNodechecks** if xpath-expression returns at least one XML element or text node. If so, existsNode returns 1, otherwise, it returns 0. existsNode should only be used in the where clause of the select statement.
 
 ````
 <copy>
@@ -362,10 +345,10 @@ Condition -1: Special_Instructions="Next Day Air
 </copy>
 ````
 
+![](./images/xml_m10_gg.png " ")
 
-![](./images/xml_m10_aa.png " ")
-
-Condition -2: Special_Instructions="Priority Overnight
+6. Priority Overnight - Customer Delivery Priority Instruction for e.g Ex - Courier, Expidite, Surface Mail, Air Mail etc..  
+**ExistsNodechecks** if xpath-expression returns at least one XML element or text node. If so, existsNode returns 1, otherwise, it returns 0. existsNode should only be used in the where clause of the select statement.
 
 ````
 <copy>
@@ -377,6 +360,14 @@ Condition -2: Special_Instructions="Priority Overnight
 ````
 
 ![](./images/xml_m10_ba.png " ")
-![](./images/xml_m10_ca.png " ")
 
-**Notes**: ExistsNodechecks if xpath-expression returns at least one XML element or text node. If so, existsNode returns 1, otherwise, it returns 0. existsNode should only be used in the where clause of the select statement.
+## Want to learn more
+- [XML](https://docs.oracle.com/en/database/oracle/oracle-database/19/adjsn/index.html)
+
+## Acknowledgements
+* **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
+* **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel, David Start
+* **Last Updated By/Date** - David Start, Product Manager, Database Product Management, July 2020
+
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

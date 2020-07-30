@@ -1,10 +1,10 @@
 # Workshop Introduction and Overview
 
-## Introduction to Oracle Node.js 
+## Introduction to Oracle Node.js
 
 Node.js is an open-source and cross-platform JavaScript runtime environment. It runs the V8 JavaScript engine, outside of the browser. This allows Node.js to be very performant.
 
-A Node.js app is run in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm. 
+A Node.js app is run in a single process, without creating a new thread for every request. Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.
 
 When Node.js needs to perform an I/O operation, like reading from the network, accessing a database or the filesystem, instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.
 
@@ -16,7 +16,7 @@ When Node.js needs to perform an I/O operation, like reading from the network, a
 	     Sends the task to the computer's file system.
          Ready to handle the next request.
          When the file system has opened and read the file, the server returns the content to the client.
-         
+
 -	Node.js eliminates the waiting, and simply continues with the next request.
 -	Node.js runs single-threaded, non-blocking, asynchronously programming, which is very memory efficient.
 
@@ -34,10 +34,10 @@ When Node.js needs to perform an I/O operation, like reading from the network, a
    Npm with its simple structure helped the ecosystem of Node.js proliferate, and now the npm registry hosts over 1,000,000 open source packages you can freely use.
 
 ## Oracle Node.js Video
-  
+
  [](youtube:zQtRwTOwisI)
 
-## Want to learn more
+## Want to Learn More
 
 - [Node-js](https//nodejs.org/en/)
 - [Node-js for oracle Linux](https//yum.oracle.com/oracle-linux-nodejs.html)  
@@ -56,5 +56,3 @@ When Node.js needs to perform an I/O operation, like reading from the network, a
 
 ## See an issue?
 Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
-
-

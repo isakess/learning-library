@@ -1,8 +1,8 @@
 # File System Storage Service
 
-## Introduction
+## **Introduction**
 
-Welcome to the Cloud Storage (File System) self-paced lab from Oracle!
+Welcome to the Cloud Storage (File System Storage) self-paced lab from Oracle!
 
 Oracle Cloud Infrastructure File Storage Service provides a durable, scalable, distributed, enterprise-grade network file system. You can connect to a File Storage Service file system from any bare metal, virtual machine, or container instance in your Virtual Cloud Network (VCN). You can also access a file system from outside the VCN using Oracle Cloud Infrastructure FastConnect and Internet Protocol security (IPSec) virtual private network (VPN).
 
@@ -16,12 +16,19 @@ Lab 2: Create SSH Keys - Cloud Shell
 
 ### Recommended Resources
 1. [OCI Training](https://cloud.oracle.com/en_US/iaas/training)
-2. [Familiarity with OCI console](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/console.htm)
+
+2. [Familiarizing with OCI console](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/console.htm)
+
 3. [Overview of Networking](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm)
-4. [Familiarity with Compartment](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/concepts.htm)
+
+4. [Familiarizing with Compartment](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/concepts.htm)
+
 5. [Connecting to a compute instance](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/accessinginstance.htm)
 
-**Note:** OCI UI is being updated thus some screenshots in the instructions might be different than actual UI.
+6. Completed **Lab 1: Generate SSH Keys** on the Contents menu on the right
+
+*Note: OCI UI is being updated, thus some screenshots in the instructions may be different from the actual UI*
+
 
 ## Step 1: Create VCN
 
@@ -31,15 +38,15 @@ Lab 2: Create SSH Keys - Cloud Shell
 2. Select the compartment assigned to you from drop down menu on left part of the screen under Networking and Click **Start VCN Wizard**
     ![](./../file-storage-service/images/QuickStart_S1P2.PNG " ")
 
-    **NOTE:** Ensure the correct Compartment is selected under COMPARTMENT list
+    ![](images/vcn_wizard.PNG " ")
+    *NOTE: Ensure the correct Compartment is selected under COMPARTMENT list*
 
-3. Click **VCN with Internet Connectivity** and click **Start Workflow**.
-    ![](./../file-storage-service/images/QuickStart_S1P3.PNG " ")
+3. Click **VCN with Internet Connectivity** and click **Start VCN Wizard**.
 
 4. Fill out the dialog box:
 
       - **VCN NAME**: Provide a name
-      - **COMPARTMENT**: Ensure your compartment is selected
+      - **COMPARTMENT**: Ensure your assigned compartment is selected
       - **VCN CIDR BLOCK**: Provide a CIDR block (10.0.0.0/16)
       - **PUBLIC SUBNET CIDR BLOCK**: Provide a CIDR block (10.0.1.0/24)
       - **PRIVATE SUBNET CIDR BLOCK**: Provide a CIDR block (10.0.2.0/24)
@@ -57,7 +64,7 @@ Lab 2: Create SSH Keys - Cloud Shell
 6. Click **View Virtual Cloud Network** to display your VCN details.
     ![](./../file-storage-service/images/QuickStart_S1P7.PNG " ")
 
-7. In your VCN details page, Click **Security List** and then **Default Security list for YOUR\_VCN\_NAME**
+8. In your VCN Details page, click **Security Lists** and then **Default Security list for YOUR\_VCN\_NAME**
 
      ![](./../file-storage-service/images/File_S1P7.PNG " ")
 
@@ -73,7 +80,7 @@ Lab 2: Create SSH Keys - Cloud Shell
     - **SOURCE TYPE:** CIDR
     - **SOURCE CIDR:** 10.0.0.0/16
     - **IP PROTOCOL:** TCP
-    - **SOURCE PORT RANGE:** ALL
+    - **SOURCE PORT RANGE:** All
     - **DESTINATION PORT RANGE:** 2048-2050
 
     ![](./../file-storage-service/images/File_S1P9.PNG " ")
@@ -113,15 +120,13 @@ Lab 2: Create SSH Keys - Cloud Shell
 
 13. Click **Add Ingress Rule**
 
-    **NOTE:** Note down the Subnet and Availability domain. We will create File Storage system and compute instance in the same subnet and Availability domain later on.
-
     ![](./../file-storage-service/images/File_S1P13.PNG " ")
 
 ## Step 2: Create File System Storage
 
-In this section we will create File System Storage.
+In this section, we will create File System Storage.
 
-1. From OCI Services menu, Click **File System** under **File Storage**.
+1. Click navigation button to open OCI Services menu. Under **File Storage**, click **File Systems**
 
     ![](./../file-storage-service/images/File_S2P1.PNG " ")
 
@@ -129,11 +134,15 @@ In this section we will create File System Storage.
 
     ![](./../file-storage-service/images/File_S2P2.PNG " ")
 
-3. Click **Edit Details**, under **Export Information**. Change **Export Path** to a easy to remember name and click **Create**
+3. Under **Export Information**, click **Edit Details**. Change **EXPORT PATH** to an easy-to-remember name.
+   
+   Under **Mount Target Information**, click **Edit Details**. Click **CREATE NEW MOUNT TARGET**, select the VCN you justed created for **VIRTUAL CLOUD NETWORK**. Choose **Public Subnet-YOUR\_VCN\_NAME (Regional)** for **SUBNET**.
+   
+   Click **Create**
 
     ![](./../file-storage-service/images/File_S2P3.PNG " ")
 
-4. OCI console will show your File System details. Under **Exports** Click your mount target name under **Mount Target**. In Mount Target details page, note down the IP address.
+4. OCI console will show your File System details. Under **Exports** Click your mount target name under **Mount Target**. In Mount Target Details page, note down the IP address.
 
     ![](./../file-storage-service/images/File_S2P4.PNG " ")
     ![](./../file-storage-service/images/File_S2P4.5.PNG " ")
@@ -198,36 +207,36 @@ We now have a File Storage system created. Next we will create a SSH key pair th
     </copy>
     ```
 
-    **HINT:** If 'Permission denied error' is seen, ensure you are using '-i' in the ssh command. You MUST type the command, do NOT copy and paste ssh command.
+    *Hint: If 'Permission denied error' is seen, ensure you are using '-i' in the ssh command. You MUST type the command, do NOT copy and paste ssh command.*
 
 11. Enter 'Yes' when prompted 'Are you sure you want to continue connecting (yes/no)?'
 
 12. Verify opc@COMPUTE\_INSTANCE\_NAME appears on the prompt
 
-## Step 4: Mount the File Storage System to Compute Instance
+## **Step 4**: Mount the File System Storage to Compute Instance
 
-Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance) can use the command line to connect to a file system and write files. Mount targets serve as file system network access points. After your mount target is assigned an IP address, you can use it to mount the file system. You need to install an NFS client and create a mount point. When you mount the file system, the mount point effectively represents the root directory of the File Storage file system, allowing you to write files to the file system from the instance.
+Users of Ubuntu and Linux operating systems (we launched a Oracle Linux instance) can use the command line to connect to a file system and write files. Mount targets serve as file system network access points. After your mount target is assigned an IP address, you can use it to mount the file system. You need to install an NFS client and create a mount point. When you mount the file system, the mount point effectively represents the root directory of the File Storage system, allowing you to write files to the file system from the instance.
 
-1. In ssh session to Compute instance Enter command:
+1. Click the navigation button, under **File Storage**, click **File Systems**. Click your File System. Under **Exports**, click the mount target name under **Mount Target**. Click Action icon on the right, and select **Mount Commands**. Execute the three commands in Mount Commands in your Cloud shell / Terminal. *If you finish this part, you can skip part 2-4 in this Step.*
+
+    ![](./../file-storage-service/images/FSS_006.png " ")
+    ![](images/mount_commands.PNG " ")  
+2. After you ssh to your compute instance, enter command:
 
     ```
-    <copy>
-    sudo yum install nfs-utils
-    </copy>
+    <copy>sudo yum install nfs-utils</copy>
     ```
     (This is just to ensure nfs-utils is installed)
 
 
-2. Enter command:
+3. Enter command:
 
     ```
-    <copy>
-    sudo mkdir -p /mnt/nfs-data
-    </copy>
+    <copy>sudo mkdir -p /mnt/nfs-data</copy>
     ```
     to create a mount point.
 
-3. Mount the file system, Enter command:
+4. Mount the file system, enter command:
 
     ```
     <copy>
@@ -235,77 +244,73 @@ Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance
     sudo mount 10.x.x.x:/EXPORT_PATH_NAME /mnt/nfs-data
     </copy>
     ```
-    **NOTE:** The 10.x.x.x should be replaced with the  IP of File Storage system and EXPORT\_PATH\_NAME should be replaced with Export path name used earlier (Example: If '/' was the EXPORT\_PATH\_NAME then **sudo mount 10.0.0.3:/ /mnt/nfs-data**).
 
-    **NOTE:** Mount commands can also be seen by Clicking Action icon in File Storage detail, and selecting ‘Mount Commands’.
+    **HINT:** Mount commands can also be seen by Clicking Action icon in File Storage detail, and selecting ‘Mount Commands’.
+    
 
+    **NOTE:** The 10.x.x.x should be replaced with the IP of File System Storage. EXPORT\_PATH\_NAME should be replaced with Export path name used earlier. (Example: If 10.0.0.3 is the IP of File System Storage, and '/' is the EXPORT\_PATH\_NAME, then **sudo mount 10.0.0.3:/ /mnt/nfs-data**).
 
-     ![](./../file-storage-service/images/FSS_006.png " ")
-
- 4. Enter command:
+5. Enter command:
 
     ```
-    <copy>
-    df -h OR mount | grep /mnt/nfs-data
-    </copy>
+    <copy>df -h</copy>
+    ```
+    and
+    ```
+    <copy>mount | grep /mnt/nfs-data</copy>
     ```
     and verify the mounted File System Storage.
+
+    *Note: You may need to change `nfs-data` to the mount point directory you just created.*
 
      ![](./../file-storage-service/images/FSS_007.png " ")
 
      ![](./../file-storage-service/images/FSS_008.png " ")
 
-5. If you want to ping the mount point then modify the security list of the VCN for Ingress ICMP rule:
+6. Go to your VCN instance, click **Security Lists** and then **Default Security List for YOUR\_VCN\_NAME**. If you do NOT see any Ingress Rule with *ICMP* as IP Protocal and want to ping the mount point, then you can add an Ingress Rule:
 
       - Source CIDR: 0.0.0.0/0
       - IP Protocol: ICMP
-      - Source port range: All
-      - Destination port range: All
+      - Leave other fields blank
 
-     ![](./../file-storage-service/images/FSS_009.png " ")
+    *Note: If you already had one or multiple ICMP Ingress Rules, you can skip this part.*
 
-6. **Optional Step**. Second compute instance can be created and same file system mounted on it following earlier steps
+7. **Optional Step**. Second compute instance can be created and have the same file system mounted on it, following Step 3 and Step 4.
 
-You have now mounted Enterprise grade File System storage created in OCI to your compute instance. You can place files in this file system and all other VM instances that have mounted the same file system will have access to it.
+You have now mounted Enterprise grade File System Storage created in OCI to your compute instance. You can place files in this file system. All other VM instances that have mounted this file system will have access to it.
 
-## Step 5: Delete the resources
+## **Step 5**: Delete the Resources
 
-In this section we will delete all the resources we created in this lab.
+In this section, we will delete all the resources we created in this lab.
 
-**Delete File System Storage**
-1. From OCI Services menu, Click **File Systems**, then File System name that was created.
+### Delete File System Storage
+1. From OCI Services menu, Click **File Systems**, then click your File System name.
 
-2. Under Exports, Click the action icon and select **Delete**
+2. Under Exports, click the action icon and select **Delete**, and confirm **Delete**.
 
      ![](./../file-storage-service/images/FSS_010.png " ")
 
-3. Verify there is no data under **Exports**.
+3. Verify there is no data under **Exports**. It may take some time.
 
+4. Click **File Systems** on the top of the page, click the action icon next to your File System, and click **Delete**.
 
-4. Click **File Systems**, select your File system and Click **Delete**.
+### Delete Compute Instance
 
+1. From OCI services menu, under **Compute**, click **Instances** 
 
-**Delete Compute instance**
-
-1. Switch to  OCI console window
-
-2. If your Compute instance is not displayed, From OCI services menu Click **Instances** under Compute
-
-3. Locate compute instance, Click Action icon and then **Terminate**
+2. Locate your compute instance, click action icon, and then **Terminate**
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0016.PNG " ")
 
-
-4. Make sure Permanently delete the attached Boot Volume is checked, Click Terminate Instance. Wait for instance to fully Terminate
+3. Make sure **Permanently delete the attached Boot Volume** is ***checked***, click **Terminate Instance**. Wait for instance to fully terminated
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0017.PNG " ")
 
-**Delete VCN**
+### Delete VCN
 
-1. From OCI services menu Click **Virtual Cloud Networks** under Networking, list of all VCNs will
-appear.
+1. From OCI services menu, under **Networking**, click **Virtual Cloud Networks**. A list of all VCNs will appear.
 
-2. Locate your VCN , Click Action icon and then **Terminate**. Click **Delete All** in the Confirmation window. Click **Close** once VCN is deleted
+2. Locate your VCN, click Action icon, and then **Terminate**. Click **Terminate All** in the Confirmation window. Click **Close** once VCN is deleted
 
      ![](./../oci-quick-start/images/RESERVEDIP_HOL0018.PNG " ")
 
@@ -315,7 +320,7 @@ appear.
 
 - **Author** - Flavio Pereira, Larry Beausoleil
 - **Adapted by** -  Yaisah Granillo, Cloud Solution Engineer
-- **Last Updated By/Date** - Yaisah Granillo, June 2020
+- **Last Updated By/Date** - Arabella Yao, Product Manager Intern, DB Product Management, July 2020
 
 ## See an issue?
 Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

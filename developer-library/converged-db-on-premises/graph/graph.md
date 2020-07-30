@@ -2,12 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps of setting up the environment for property graph. Below are the prerequisites:
-
--	The Oracle Graph Server and Graph Client must be installed.
--	max\_string\_size must be enabled.
--	AL16UTF16 (instead of UTF8) must be specified as the NLS\_NCHAR\_CHARACTERSET.
--	AL32UTF8 (UTF8) should be the default character set,  but  AL16UTF16 must be the NLS\_NCHAR\_CHARACTERSET.
+This lab walks you through the steps of setting up the environment for property graph.
 
 ### Before You Begin
 
@@ -19,36 +14,7 @@ This lab assumes you have completed the following labs:
 - Lab 3:  Create Compute instance
 - Lab 4:  Environment setup
 
-**Oracle Graph Server and Client**
-
-It is a software package for use with the Property Graph feature of Oracle Database. Oracle Graph Server and Client includes the high speed in-memory analytics server (PGX) and client libraries required for graph applications.
-
-Oracle Graph Client: A zip file containing Oracle Graph Client.
-
-Oracle Graph Server: An rpm file containing an easy to deploy Oracle Graph Server.
-
-**For installing the Graph server, the prerequisites are:**
--	Oracle Linux 6 or 7 x64 or a similar Linux distribution such as RedHat
--	Oracle JDK 8
-
-**For installing the Graph client, the prerequisites are:**
--	A Unix-based operation system (such as Linux) or macOS or Microsoft Windows
--	Oracle JDK 11
-
-
-**Note:** Graph client and Sever installation is completed and the setup is ready for use.
-
-### Interactive Graph Shell
-
-Both the Oracle Graph server and client packages contain an interactive command-line application for interacting with all the Java APIs of the product, locally or on remote computers.
-
-This interactive graph shell dynamically interprets command-line inputs from the user, executes them by invoking the underlying functionality, and can print results or process them further.
-
-This graph shell is implemented on top of the Java Shell tool (JShell).
-
-The graph shell automatically connects to a PGX instance (either remote or embedded depending on the --base_url command-line option) and creates a PGX session.
-
-**About Oracle Graph**
+### Overview of Oracle Graph
 
 Oracle’s converged, multi-model database natively supports graphs and delivers high performance, scalable graph data management, query, and analytics for enterprise applications. State-of-the-art graph features are available along with functionality required for enterprise grade applications: fine-grained security, high availability, easy manageability, and integration with other data in an application.
 
@@ -57,7 +23,6 @@ Oracle’s mission is to help people see data in new ways, discover insights, an
 
 **For example,** graph algorithms can identify what individual or item is most connected to others in social networks or business processes.  They can identify communities, anomalies, common patterns, and paths that connect individuals or related transactions.
 Every Oracle Database now includes both property graph and RDF graph data models as well as algorithms, query languages, and visualization tools.
-
 
 **Property Graph database includes:**
 
@@ -78,6 +43,11 @@ Customers use Property Graphs in fraud analytics, vulnerability analysis, recomm
 
 Customers use RDF Graphs in linked data and data sharing applications in pharma, publishing, public sector and more.
 This workbook provides an overview of Oracle Graph support for property graph features.
+
+Here is are two videos that talk more about Oracle Graph.
+
+[](youtube:-DYVgYJPbQA)
+[](youtube:zfefKdNfAY4)
 
 
 ### Introduction to Property Graph
@@ -128,116 +98,45 @@ PGQL provides a specific construct known as the MATCH clause for matching graph 
 []  indicates an edge variable
 
 
-### Oracle Graph Video
 
-[](youtube:-DYVgYJPbQA)
-[](youtube:zfefKdNfAY4)
+## Step 1: Connect to Graph Server and Client
 
-### Want to learn more
-- [Oracle Graph](https://docs.oracle.com/en/database/oracle/oracle-database/19/spatl/index.html)
-- [GeoRaster Developer's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/geors/index.html)
+**The graph server has already been setup for you. For more information on the graph server setup see the "Want to learn more section" of this lab.**
 
-
-## Step 1: Graph Server
-
-1. For connecting to graph server, open a terminal in VNC and execute below steps as oracle user.
+1. For connecting to graph server, open a terminal and execute below steps as oracle user.
  ````
 <copy>
-   cd /opt/oracle/graph/pgx/bin
-</copy>
+   cd /u01/script/graph_startup
+   </copy>
 ````
-
-2. Start Graph server
 ````
 <copy>
-./start-server
+   nohup ./01_graph_server.sh &
 </copy>
 ````
-![](./images/g1.png)
-
-![](./images/g2.png)
-
-The PGX server is now ready to accept requests.
-Now that the server is started, will keep this window open and will proceed to start the client now.
-
-3. Connect to Graph Client
-
-The Graph Shell uses JShell, which means the shell needs to run on Java 11 or later. In our case the installation is completed, the shell executables can be found in /u01/graph/oracle-graph-client-20.1.0/bin after server installation or <\INSTALL\_DIR>/bin after client installation.
-
-For connecting to graph client, open a putty session and execute below commands as oracle user.
-
+2. After running the above script, once we get the prompt will run below script to start the graph client.
 ````
 <copy>
-export JAVA_HOME=/u01/graph/jdk-11.0.5/
-cd /u01/graph/oracle-graph-client-20.1.0/bin
-</copy>
-````
-
-The graph shell automatically connects to a PGX instance (either remote or embedded depending on the --base_url command-line option) and creates a PGX session.
-
-To launch the shell in remote mode, specify the base URL of the server with the --base_url option. For example:
-
-````
-<copy>
-[oracle@bigdata bin]$ ./opg-rdbms-jshell --base_url http://machine-IP-address:7007
+./02_graph_client.sh
 </copy>
 ````
 Below screenshot is an example how Connection to a PGX server using Jshell looks like
 
 ![](./images/IMGG4.PNG)
 
-4. Make a JDBC connection to the database:
-At the jshell prompt.
+3. Make a JDBC connection to the database, run the below at the jshell prompt.
 
 ````
 <copy>
-var jdbcUrl = "jdbc:oracle:thin:@<\instance_ip_address>:<\DB_Port>/SGRPDB";
-
+   /open /u01/script/graph_startup/03_graphload.jsh
 </copy>
 ````
-
-````
-<copy>
-var user = "appgrph";
-</copy>
-````
-
-````
-<copy>
-var pass = "Oracle_4U";
-</copy>
-````
-
-````
-<copy>
-var conn = DriverManager.getConnection(jdbcUrl, user, pass) ;
-</copy>
-````
-
-Set auto commit to false.
-
-This is needed for PGQL DDL and other queries.
-
-````
-<copy>
-conn.setAutoCommit(false);
-</copy>
-````
-
-Get a PgqlConnection.This will run PGQL queries directly against the VT$ (vertex) and GE$ (edge) tables
-
-````
-<copy>
-var pgql = PgqlConnection.getConnection(conn);
-</copy>
-````
-![](./images/IMGG5.PNG)
 
 ## Step 2: Create Graph
 
-**Note: Below steps are already completed.**
+**For Step 2 the SQL statements have already been run as a part of the script 03_graphload.jsh. The SQL has been provided as reference.**
 
-We have created the views for the use of orders and order_items as multiple edge tables using below commands.
+1. We have created the views for the use of orders and order_items as multiple edge tables using below commands.
 
 ````
 <copy>
@@ -253,7 +152,7 @@ Create or replace view po_edge as select * from order_items;
 ![](./images/IMGG6.PNG)
 
 
-We used a property graph query language [PGQL](http://pgql-lang.org) DDL to define and populate the graph.  The statement is as follows:
+2. We used a property graph query language [PGQL](http://pgql-lang.org) DDL to define and populate the graph.  The statement is as follows:
 
 ````
 <copy>
@@ -303,7 +202,7 @@ LATITUDE, LONGITUDE)
   )
 </copy>
 ````
-The above PQGL query is saved as sql file (CreatePropertyGraph.sql) and stored in path /u01/graph and is run at jshell prompt.
+3. The above PQGL query is saved as sql file (CreatePropertyGraph.sql) and stored in path /u01/graph and is run at jshell prompt.
 
 ````
 <copy>
@@ -311,7 +210,7 @@ pgql.prepareStatement(Files.readString(Paths.get("/u01/graph/CreatePropertyGraph
 </copy>
 ````
 
-The Graph Server kit includes the necessary components (a server application and JShell client) that will execute the above CREATE PROPERTY GRAPH statement and create the graph representation.
+4. The Graph Server kit includes the necessary components (a server application and JShell client) that will execute the above CREATE PROPERTY GRAPH statement and create the graph representation.
 
 The graph itself is stored in a set of tables named
 
@@ -321,31 +220,8 @@ The graph itself is stored in a set of tables named
 
 The important ones are the ones that store the vertices (OE SAMPLE GRAPHVT$) and edges (OE SAMPLE GRAPHGE$).
 
-Let’s look at the number of vertices and edges in the graph.
 
-**SQL query**
-
-There will be multiple entries with the same vid one each for the labels and properties.
-
-````
-<copy>
-select count(distinct vid) from oe_sample_graphvt$ ;
-</copy>
-````
-(Vid is the vertex id.)
-
-There can be multiple entries with the same eid one each for the label and properties.
-
-````
-<copy>
-select count(distinct eid) from oe_sample_graphge$;
-</copy>
-````
-
-(eid is the edge id)
-**Required step to print the result of a PGQL statement**
-
-Create a convenience function which prepares, executes, and prints the result of a PGQL statement
+4. Create a convenience function which prepares, executes, and prints the result of a PGQL statement
 
 ````
 <copy>
@@ -354,8 +230,6 @@ Consumer<\String> query = q -> { try(var s = pgql.prepareStatement(q)) { s.execu
 ````
 
 ## Step 3: Querying graph using PGQL
-
-Below are some of the examples where we can query against the graph we created using PGQL:
 
 1. Find the edge labels. We used labels here to tag an edge with a relationship type
 
@@ -367,8 +241,7 @@ query.accept("select distinct label(e) from oe_sample_graph match ()-[e]->(m)");
 
 ![](./images/g3.png " ")
 
-2. Finding vertex label using PGQL
-Find the vertex labels. We used labels here to tag a vertex as an entity type.
+2. Finding vertex label using PGQL. We used labels here to tag a vertex as an entity type.
 ````
 <copy>
 query.accept("select distinct label(v) from oe_sample_graph match (v)") ;
@@ -376,10 +249,8 @@ query.accept("select distinct label(v) from oe_sample_graph match (v)") ;
 ````
 ![](./images/g4.png " ")
 
-## Step 4: Examples
-Lets look at some of the examples about customers and their orders.
 
-1. Getting count from customer table
+3. Getting count from customer table
 
 ````
 <copy>
@@ -390,7 +261,7 @@ query.accept("select count(v) from oe_sample_graph match (v:CUSTOMERS)");
 ![](./images/g5.png " ")
 
 
-2. Identifying the store using PGQL
+4. Identifying the store using PGQL
 
  ````
  <copy>
@@ -401,7 +272,7 @@ query.accept("select count(v) from oe_sample_graph match (v:CUSTOMERS)");
 ![](./images/IMGG11.PNG " ")
 
 
-3. Identifying customer's purchases using PGQL
+5. Identifying customer's purchases using PGQL
 
 ````
 <copy>
@@ -414,7 +285,7 @@ query.accept(
 
 
 
-4. What did people buy from the Online Store. Return first 50 results.
+6. What did people buy from the Online Store. Return first 50 results.
 
  ````
  <copy>
@@ -427,7 +298,7 @@ query.accept(
 
 
 
-5. Who bought how much of product  with id 19
+7. Who bought how much of product  with id 19
 
 ````
 <copy>
@@ -439,7 +310,7 @@ query.accept("select c.FULL_NAME, op.QUANTITY from oe_sample_graph match (c)-[co
 
 
 
-6. Which customers bought products that customer 202 bought? Return the first 10 results  that had the most products in common with 202
+8. Which customers bought products that customer 202 bought? Return the first 10 results  that had the most products in common with 202
 
 ````
 <copy>
@@ -460,61 +331,16 @@ query.accept(qStr);
 
 ![](./images/IMGG15.PNG)
 
-- Note : All of the above 5  queries are run against the database tables. Let’s load the graph into memory and perform that same set of PGQL queries against the in-memory graph.
+## Step 4: Load the graph into memory and publish it.
 
-7. Loading the Graph into memory
-
-8. Run the below command in jshell prompt.
-
+1. Run the below command in jshell prompt so that queries can be run about customers and their orders after the graph is loaded into memory.
 ````
 <copy>
-Supplier<GraphConfig> pgxConfig = () -> { return GraphConfigBuilder.forPropertyGraphRdbms()
- .setJdbcUrl(jdbcUrl)
- .setUsername(user)
- .setPassword(pass)
- .setName("oe_sample_graph")
- .addVertexProperty("STORE_NAME", PropertyType.STRING)
- .addVertexProperty("PRODUCT_NAME", PropertyType.STRING)
- .addVertexProperty("FULL_NAME", PropertyType.STRING)
- .addVertexProperty("WEB_ADDRESS", PropertyType.STRING)
- .addVertexProperty("EMAIL_ADDRESS", PropertyType.STRING)
- .addVertexProperty("PHYSICAL_ADDRESS", PropertyType.STRING)
- .addVertexProperty("UNIT_PRICE", PropertyType.DOUBLE)
- .addVertexProperty("STORE_ID", PropertyType.INTEGER)
- .addVertexProperty("ORDER_ID", PropertyType.INTEGER)
- .addVertexProperty("CUSTOMER_ID", PropertyType.INTEGER)
- .addVertexProperty("ORDER_STATUS", PropertyType.STRING)
- .addVertexProperty("ORDER_DATETIME", PropertyType.STRING)
- .addVertexProperty("LATITUDE", PropertyType.DOUBLE)
- .addVertexProperty("LONGITUDE", PropertyType.DOUBLE)
- .addVertexProperty("PRODUCT_ID", PropertyType.INTEGER)
- .addEdgeProperty("LINE_ITEM_ID", PropertyType.INTEGER)
- .addEdgeProperty("QUANTITY", PropertyType.INTEGER)
- .addEdgeProperty("UNIT_PRICE", PropertyType.DOUBLE)
- .setPartitionWhileLoading(PartitionWhileLoading.BY_LABEL)
- .setLoadVertexLabels(true)
- .setLoadEdgeLabel(true)
- .setKeystoreAlias("alias")
- .build(); }
+/open /u01/script/graph_startup/04_graphintoMemory.jsh
 </copy>
 ````
 
-![](./images/IMGG16.PNG)
-
-Load the graph. This can take 10-15 minutes or more depending on network bandwidth
-
-````
-<copy>
-var graph = session.readGraphWithProperties(pgxConfig.get()) ;
-</copy>
-````
-
-9. Examples about customers and their orders after the graph is loaded into memory
-
-Run similar PGQL queries against the in-memory graph
-
-
-10. Which stores did customer with id 202 order from?
+2. Which stores did customer with id 202 order from?
 
 ````
 <copy>
@@ -525,7 +351,7 @@ session.queryPgql("select s.STORE_NAME from oe_sample_graph match (c:CUSTOMERS)-
 ![](./images/IMGG17.PNG)
 
 
-10. What products did customer 202 buy?
+3. What products did customer 202 buy?
 
 ````
 <copy>
@@ -535,9 +361,7 @@ session.queryPgql("select s.STORE_NAME, o.ORDER_ID, p.PRODUCT_NAME from oe_sampl
 
 ![](./images/IMGG18.PNG)
 
-
-
-11. List the first 50 other customers who ordered from the same store(s) as customer 202
+4. List the first 50 other customers who ordered from the same store(s) as customer 202
 
 ````
 <copy>
@@ -548,8 +372,7 @@ session.queryPgql("Select c.CUSTOMER_ID, c.FULL_NAME from oe_sample_graph match 
 ![](./images/IMGG19.PNG)
 
 
-
-12. List the first 30 products that customers ordered from the same stores as customer 202
+5. List the first 30 products that customers ordered from the same stores as customer 202
 
 ````
 <copy>
@@ -560,8 +383,7 @@ session.queryPgql("select c2.FULL_NAME, p2.PRODUCT_NAME from oe_sample_graph mat
 ![](./images/IMGG20.PNG)
 
 
-
-13. List the 10 customers who had the most product purchases in common with customer 202, see definition of qStr above or just enter qStr in the shell to see its content
+6. List the 10 customers who had the most product purchases in common with customer 202, see definition of qStr above or just enter qStr in the shell to see its content
 
 ````
 <copy>
@@ -572,11 +394,7 @@ session.queryPgql(qStr).print().close();
 
 ![](./images/IMGG21.PNG)
 
-It is required to have the graph loaded into memory and published before visualizing it. So before moving to the next lab , please make sure Lab-2 and Lab -3 are completed.
-
-So, our graph is loaded into the memory, let’s publish it
-
-14. Publish the graph
+7. It is required to have the graph loaded into memory and published before visualizing it. The previous steps loaded the graph into memory. This step will publish the graph. Make sure you have completed the previous steps before running this step.
 
 ````
 <copy>
@@ -585,6 +403,14 @@ graph.publish(VertexProperty.ALL, EdgeProperty.ALL) ;
 ````
 
 ## Step 5: Visualize the Graph
+
+We will use the Graph Visualization component to run some PGQL queries and visualize the results as a graph instead of a tabular result.
+
+GraphViz should be accessible at http://&lt;instance\_ip\_address&gt;:7007/ui
+
+The principal points of entry for the GraphViz application are the query editor and the graph lists.
+When you start GraphViz, the graph list will be populated with the graphs loaded in the graph server. To run queries against a graph, select that graph. The query lets you write PGQL queries that can be visualized. (PGQL is the SQL-like query language supported by GraphViz.)
+Once the query is ready and the desired graph is selected, click Run to execute the query.
 
 1. What products did customer 202 buy from which store(s)?
 
@@ -598,22 +424,13 @@ where c.CUSTOMER_ID=202;
 
 ![](./images/IMGG22.PNG)
 
-**Add some labels to the vertices**
+2. Add some labels to the vertices. Click on Settings -> Then choose the Visualization tab
 
-Click on Settings -> Then choose the Visualization tab
-
-![](./images/IMGG23.PNG)
-
-Select label as the vertex label and then click OK
+3. Select label as the vertex label and then click OK.
 
 ![](./images/IMGG23.PNG)
 
-**The result should look like as below**
-
-![](./images/IMGG23.PNG)
-
-
-2. Which customers placed orders from store with id 1 (the Online store)? Show the first 100 results
+4. Which customers placed orders from store with id 1 (the Online store)? Show the first 100 results
 
 ````
 <copy>
@@ -625,63 +442,58 @@ Where s.STORE_ID=1 LIMIT 100;
 
 ![](./images/IMGG26.PNG)
 
-Let’s add some highlights to indicate Cancelled or Refunded orders.
-
-Click on Settings-> Highlights-> New Highlight
+5. Let’s add some highlights to indicate Cancelled or Refunded orders. Click on Settings-> Highlights-> New Highlight
 
 ![](./images/IMGG27.PNG)
 
-We will add two conditions that match cancelled or refunded orders.
+6. We will add two conditions that match cancelled or refunded orders. Select Apply To Vertices (i.e. the conditions apply to Vertices)
 
-Select Apply To Vertices (i.e. the conditions apply to Vertices)
+7. Click on the +  sign to add a condition
 
-Click on the +  sign to add a condition
+8. Choose label = ORDERS
 
-Choose label = ORDERS
+9. Again, Click + sign  to add another condition
 
-Again, Click + sign  to add another condition
+10. Choose ORDER_STATUS = CANCELLED
 
-Choose ORDER_STATUS = CANCELLED
-
-Click the checkbox for Color (vertex color) and choose a red color from the color-picker
+11. Click the checkbox for Color (vertex color) and choose a red color from the color-picker
 
 ![](./images/IMGG28.PNG)
 
-Scroll down and enter Cancelled as the Legend Title and then Click Add Highlight.
+12. Scroll down and enter Cancelled as the Legend Title and then Click Add Highlight.
 
 ![](./images/IMGG29.PNG)
 
-Repeat the above process to add one more highlight for Refunded Orders.
+13. Repeat the above process to add one more highlight for Refunded Orders.
 
-Select Apply To Vertices (i.e. the conditions apply to Vertices)
+14. Select Apply To Vertices (i.e. the conditions apply to Vertices)
 
-Click on the +  sign to add a condition
+15. Click on the +  sign to add a condition
 
-Choose label = ORDERS
+16. Choose label = ORDERS
 
-Click + to add another condition
+17. Click + to add another condition
 
-Choose ORDER_STATUS = REFUNDED
+18. Choose ORDER_STATUS = REFUNDED
 
-Click the checkbox for Color (vertex color) and choose a yellow color from the color-picker
+19. Click the checkbox for Color (vertex color) and choose a yellow color from the color-picker
 
-Set the Legend Title to Refunded
+20. Set the Legend Title to Refunded
 
-Then Click Add Highlight.
+21. Then Click Add Highlight.
 
 ![](./images/IMGG30.PNG)
 
-There should now be two highlights. Click OK
+22. There should now be two highlights. Click OK
 
 ![](./images/IMGG31.PNG)
 
-
-The resulting viz should look like
+23. The resulting viz should look like
 
 ![](./images/IMGG32.PNG)
 
 
-3. What products did customer buy?
+24. What products did customer buy?
 
 ````
 <copy>
@@ -693,13 +505,13 @@ where customer.FULL_NAME='Dale Hughes';
 
 ![](./images/IMGG33.PNG)
 
-Add highlights on edges for Order items that had Quantity > 1 and unit_Price > 25
+25. Add highlights on edges for Order items that had Quantity > 1 and unit_Price > 25
 
-Click on settings-> Highlights-> New Highlights -> Select Apply To Edge
+26. Click on settings-> Highlights-> New Highlights -> Select Apply To Edge
 
-Add two conditions
+27. Add two conditions
 
-Click on the +  sign to add conditions
+28. Click on the +  sign to add conditions
 
 - One for QUANTITY > 1
 - Another for UNIT_PRICE > 25
@@ -710,7 +522,7 @@ Click on the +  sign to add conditions
 ![](./images/IMGG35.PNG)
 
 
-4. Which customers bought product with id 44? Show 100 results per page**
+29. Which customers bought product with id 44? Show 100 results per page**
 
 ````
 <copy>
@@ -724,7 +536,7 @@ where store.STORE_ID=1;
 ![](./images/IMGG36.PNG)
 
 
-5. Which customers bought product with id 44? Show 100 results per page**
+30. Which customers bought product with id 44? Show 100 results per page**
 
 ````
 <copy>
@@ -737,7 +549,7 @@ where product.PRODUCT_ID=44;
 ![](./images/IMGG37.PNG)
 
 
-6. Deleting the Graph
+31. Deleting the Graph
 
 Once you are done using PGViz at host:7007/ui and trying some other PGQL queries then execute the following statements to delete the in-memory graph
 
@@ -747,13 +559,41 @@ graph.destroy();
 </copy>
 ````
 
+## Want to learn more
+- [Oracle Graph](https://docs.oracle.com/en/database/oracle/oracle-database/19/spatl/index.html)
+- [GeoRaster Developer's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/geors/index.html)
+
+**Oracle Graph Server and Client**
+
+It is a software package for use with the Property Graph feature of Oracle Database. Oracle Graph Server and Client includes the high speed in-memory analytics server (PGX) and client libraries required for graph applications.
+
+Oracle Graph Client: A zip file containing Oracle Graph Client.
+
+Oracle Graph Server: An rpm file containing an easy to deploy Oracle Graph Server.
+
+For installing the Graph server, the prerequisites are:
+-	Oracle Linux 6 or 7 x64 or a similar Linux distribution such as RedHat
+-	Oracle JDK 8
+
+For installing the Graph client, the prerequisites are:
+-	A Unix-based operation system (such as Linux) or macOS or Microsoft Windows
+-	Oracle JDK 11
+
+**Interactive Graph Shell**
+
+Both the Oracle Graph server and client packages contain an interactive command-line application for interacting with all the Java APIs of the product, locally or on remote computers.
+
+This interactive graph shell dynamically interprets command-line inputs from the user, executes them by invoking the underlying functionality, and can print results or process them further.
+
+This graph shell is implemented on top of the Java Shell tool (JShell).
+
+The graph shell automatically connects to a PGX instance (either remote or embedded depending on the --base_url command-line option) and creates a PGX session.
+
+
 ## Acknowledgements
+* **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
+* **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel, David Start
+* **Last Updated By/Date** - David Start, Product Manager, Database Product Management, July 2020
 
-- **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K.
-- **Team** - North America Database Specialists.
-- **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
-- **Expiration Date** - June 2021   
-
-**Issues-**
-Please submit an issue on our [issues](https://github.com/oracle/learning-library/issues) page. We review it regularly.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

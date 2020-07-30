@@ -11,7 +11,7 @@ This lab assumes you have completed the following labs:
 - Lab 1: Login to Oracle Cloud
 - Lab 2: Generate SSH Key
 - Lab 3: Create Compute Instance
-- Lab 4: Environment Setup (Is this one needed for this lab - Kay)
+- Lab 4: Environment Setup
 
 ### About Oracle Node.js
 
@@ -43,36 +43,21 @@ When Node.js needs to perform an I/O operation, like reading from the network, a
 
 **Download Node.js**
 
-   The official Node.js website has installation instructions for Node.js: https://nodejs.org
-
-**A Vast Number of Libraries**
-   Npm with its simple structure helped the ecosystem of Node.js proliferate, and now the npm registry hosts over 1,000,000 open source packages you can freely use.  
-
-### Want to learn more
-
-   - [Node-js](https//nodejs.org/en/)
-   - [Node-js for oracle Linux](https//yum.oracle.com/oracle-linux-nodejs.html)  
-   - [Node-js Driver](https//oracle.github.io/node-oracledb/)
-   - [Oracle Instant Client](https//www.oracle.com/in/database/technologies/instant-client/downloads.html)
-   - [Docker](https//www.docker.com/)
-   - [Postman](https//www.postman.com/)
+   The official Node.js website has installation instructions for [Node.js](https://yum.oracle.com/oracle-linux-nodejs.html).
 
 ## Step 1:  Verify Application
 
-1.  The script (env_setup_script.sh) which was run in Lab-4 has started the application. Also at the end of the script. you      will be presented with two URLs.
+1.  The script (env\_setup\_script.sh) which was run in Lab-4 has started the application. Also at the end of the script. you      will be presented with two URLs.
 
-   ![](./images/appscript4a.png " ")
+![](./images/appscript4a.png " ")
 
-2. Open up a web browser and visit the Application URL indicated in your terminal.   http://your address:3000/
+2. Open up a web browser and visit the Application URL indicated in your terminal. Make sure to substitute the ip address of your server for the &lt;PUBLIC-IP&gt;:   
+http://&lt;PUBLIC-IP&gt;:3000/
 
-      - your address - Your Public IP Address
+3. Open up a web browser and visit the Application API indicated in your terminal. Make sure to substitute the ip address of your server for the &lt;PUBLIC-IP&gt;:   
+http://&lt;PUBLIC-IP&gt;:3001/
 
-3. Open up a web browser and visit the Application API indicated in your terminal.   http://your address:3000/
-      - your address - Your Public IP Address
-
-    ![](./images/env_nodejsa.png " ")
-
-You may proceed to the next lab.
+![](./images/application_home_pageupdated.png " ")
 
 ## Step 2: Download Postman
 
@@ -86,15 +71,14 @@ You may proceed to the next lab.
  2. Launch the Postman.
     ![](./images/nodejs-postman1a.png " ")
 
- 3. Open a new tab.
-    ![](./images/nodejs-postman2a.png " ")
+ 3. Open a new tab by clicking File then New Tab or by clicking the plus button in the center of the screen next to launch pad.
+    ![](./images/new_postman_tab.png " ")
 
- 4. Select POST Method and enter the request URL
-    - Method: - POST
-    - URL: - <\PUBLIC-IP>:3001/addproduct
-    - Data Format: - Insert the data in the Body in the form of JSON (check the image below attached)
-    - Product details: - Example
+ 4. In the center of the screen from the drop down select **POST** Method and enter the information below. See the screenshot for additional details.
 
+    - For the URL Enter: &lt;PUBLIC-IP&gt;:3001/addproduct Make sure to substitute your ip address for the &lt;PUBLIC-IP&gt;.
+    - Click on Body and select raw and then in the drop down choose JSON
+    - In the data portion of the Body insert the JSON data below
       ````
       <copy>  
       {
@@ -110,76 +94,67 @@ You may proceed to the next lab.
     ![](./images/nodejs2a.png " ")
 
 
-5. Click on the **Submit** button, Postman return the HTTP 200 after successfully adding the product in oracle database.
-
+5. Click on the **Send** button, Postman should return the HTTP 200 after successfully adding the product in oracle database.
+![](./images/postman_return.png " ")
 
 ## Step 3: Using HTTP GET method.
 
 1. Open a new tab
 
-2. Select GET Method and enter the request URL http://&lt;PUBLIC-IP&gt;:3001/products/31
-
-  -  Method: - GET
-    To get list of all the product details
-  -  URL: - <\PUBLIC-IP>:3001/products
-    To get the specific product details by using PID.
-  -  URL: - <\PUBLIC-IP>:3001/products/31
+2. To get product details you can use the get method. Fill out the form using the following information.  
+- From the Method drop down in the center select - GET  
+- To get list of all the product details enter the URL: - http://&lt;PUBLIC-IP&gt;:3001/products  
+- To get the specific product details by using PID enter URL: - http://&lt;PUBLIC-IP&gt;:3001/products/31  
+- Click on the **Send** button, Postman return the HTTP 200 Ok which is a successful GET.
 
 ![](./images/postman10a.png " ")
 
+3. Open the browser and verify the above using link- http://&lt;PUBLIC-IP&gt;:3001/products/31
 
- 3. Open the browser and verify the above using link- "PUBLIC-IP:3001/products/31"
-
-  ![](./images/nodejs-postman5a.png " ")
+![](./images/nodejs-postman5a.png " ")
 
 ## Step 4: Using HTTP POST Method
 
 
-1. Open a new tab. Before applying the POST method, please check the product table format by using GET Method and the URL http://&lt;localhost&gt;:3001/products/13.
+1. Open a new tab. Before applying the POST method, please check the product table format by using GET Method and the URL http://&lt;PUBLIC-IP&gt;:3001/products/13.
 
-  ![](./images/postman11a.png " ")
+  ![](./images/postman_pid_13_check.png " ")
 
-  We are going to update the price from 9$ to 12$ for the product PID=13.
+2. We are going to update the price from $10 to $12 for the product PID=13. We do this by issuing a POST and giving it the new {"Key": "Value"} pair in our case our Key is price and the new Value is 12.
 
-  Check the key value format for the price field.
+3. In the center of the screen from the drop down select **POST** Method and enter the information below.
 
-		{"Key": "value"}
-
-    	{"price": "9"}
-
-3. Select POST Method and enter the request URL to update the price value for the PID=13
-
-  -	Method: - POST
-  - URL: - <\PUBLIC-IP>:3001/updateProduct/13
-  - Data Format: - Insert the data in the Body in the form of JSON (check the image below attached)
-	- Product details: - Example
-
-
-       {"Key": "value"}
-
-    ````
+-Method: - POST  
+- URL: - http://&lt;PUBLIC-IP&gt;:3001/updateProduct/13  
+- Click on Body and select raw and then in the drop down choose JSON
+- In the data portion of the Body insert the JSON data below
+- Click on the Send button, Postman return the HTTP 200 OK after successfully updating the product price.
+````
   <copy>
 	{"price": "12"}
   </copy>
-    ````
+````
 
+![](./images/postman12a.png " ")
 
-    ![](./images/postman12a.png " ")
+5. Verify product details by using HTTP GET method. Select the GET method, enter the URL http://&lt;PUBLIC-IP&gt;:3001/products/13 and click on Send. Notice the data in the body section and price is updated.  
 
+![](./images/postman_after_update.png " ")
 
+## Want to learn more
 
-4. Verify product details by using HTTP GET method.  
-
-![](./images/nodejs-postman9a.png " ")
+   - [Node-js](https://nodejs.org/en/)
+   - [Node-js for Oracle Linux](https://yum.oracle.com/oracle-linux-nodejs.html)  
+   - [Node-js Driver](https://oracle.github.io/node-oracledb/)
+   - [Oracle Instant Client](https://www.oracle.com/in/database/technologies/instant-client/downloads.html)
+   - [Docker](https://www.docker.com/)
+   - [Postman](https://www.postman.com/)
 
 
 ## Acknowledgements
+* **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
+* **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel, David Start
+* **Last Updated By/Date** - David Start, Product Manager, Database Product Management, July 2020
 
-- **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
-- **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K.
-- **Team** - North America Database Specialists.
-- **Last Updated By** - Kay Malcolm, Director, Database Product Management, June 2020
-- **Expiration Date** - June 2021   
-
-**Issues-**
-Please submit an issue on our [issues](https://github.com/oracle/learning-library/issues) page. We review it regularly.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

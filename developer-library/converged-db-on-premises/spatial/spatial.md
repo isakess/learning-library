@@ -43,55 +43,58 @@ Each table stores location using Oracle's native spatial data type, SDO\_GEOMETR
 
 
 ## Step 1: Connect to the Pluggable Database (PDB)
-1. Set the Oracle environment    
-    ````
+1. Open a terminal window and sudo to the user **oracle**
+
+````
     <copy>
     sudo su - oracle
     </copy>
-    ````   
-    ````
+````
+2. Set your environment.
+
+````
     <copy>
     . oraenv
     </copy>
-    ````
-
-    ````
+````
+3. When prompted paste the following:
+````
     <copy>
-    ConvergedCDB
+    convergedcdb
     </copy>
-    ````
-
-2.  Login as the appspat user using SQL*Plus
-    ````
+````
+4. Open sqlplus as the user appjson
+````
     <copy>
-    sqlplus APPSPAT/Oracle_4U@SGRPDB
+    sqlplus appspat/Oracle_4U@SGRPDB
     </copy>
-    ````
+````
 
-3. Make a connection to sqldeveloper.  Provide the details as below and click on connect.
 
-    ````
-    <copy>
-    Name    : Spatial
-    Username: APPSPAT
+## Step 2: Connect to SQL Developer
+
+1. Make a connection to sqldeveloper. Use the details as below and click on connect.
+
+````
+    Name: Spatial
+    Username: appspat
     Password: Oracle_4U
     Hostname: PUBLIC-IP
-    Port    : 1521
+    Port: 1521
     Service name: SGRPDB
+````
 
-    </copy>
-    ````
-
-  ![](./images/spatial_enva.png " ")
+![](./images/spatial_sql_developer.png " ")
 
 
-## Step 2: Create spatial tables
+## Step 3: Setting Up Spatial
 
-We have created tables and spatial metadata for CUSTOMERS, WAREHOUSES and WAREHOUSES\_DTP
+**For Step 3 only the SQL statements have already been run. The SQL has been provided as reference.**
+
+1. We have created tables and spatial metadata for CUSTOMERS, WAREHOUSES and WAREHOUSES\_DTP
 Notice that each has a column of type SDO\_GEOMETRY to store location.
 
 ````
-      <copy>
       CREATE TABLE CUSTOMERS                                             
   (
     CUSTOMER_ID NUMBER(6, 0),
@@ -119,19 +122,12 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   	"DRIVE_TIME_MIN" NUMBER,
   	"GEOMETRY" "SDO_GEOMETRY"
   );
-
-      </copy>
 ````
 
-## Step 3: Add spatial metadata
-
-  Next we added Spatial metadata for the CUSTOMERS, WAREHOUSES and WAREHOUSES\_DTP
-  tables to the USER\_SDO\_GEOM\_METADATA view. Each SDO\_GEOMETRY column is registered with a row in USER\_SDO\_GEOM\_METADATA.
-
+2. Next we added Spatial metadata for the CUSTOMERS, WAREHOUSES and WAREHOUSES\_DTP tables to the USER\_SDO\_GEOM\_METADATA view. Each SDO\_GEOMETRY column is registered with a row in USER\_SDO\_GEOM\_METADATA.
 
   ````
-      <copy>
-   EXECUTE SDO_UTIL.INSERT_SDO_GEOM_METADATA (sys_context('userenv','current_user'), -
+     EXECUTE SDO_UTIL.INSERT_SDO_GEOM_METADATA (sys_context('userenv','current_user'), -
    'CUSTOMERS', 'CUST_GEO_LOCATION', -  SDO_DIM_ARRAY(SDO_DIM_ELEMENT('X',-180, 180, 0.05), - SDO_DIM_ELEMENT('Y', -90, 90, 0.05)),-  4326);
 
   EXECUTE SDO_UTIL.INSERT_SDO_GEOM_METADATA (sys_context('userenv','current_user'), -
@@ -139,10 +135,7 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
 
   Insert into user_sdo_geom_metadata values (
   'WAREHOUSES_DTP','GEOMETRY',MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', -180, 180, 0.05), MDSYS.SDO_DIM_ELEMENT('Y', -90, 90, 0.05)),4326);
-        </copy>
-
   ````
-
 
   **Here is a description of the items that were entered:**
 
@@ -152,34 +145,25 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   -	4326: Spatial reference system id (SRID): a foreign key to an Oracle dictionary table  (MDSYS.CS-SRS) tha  contains all the     supported coordinate systems. It is important to associate your customer's location to a coordinate system. In this example, 4326    corresponds to "Longitude / Latitude (WGS 84).".
 
 
-  We have inserted spatial data and we have used two spatial functions for this.
+We have inserted spatial data and we have used two spatial functions for this.
 
-  - We use sdo\_cs.transform() to convert to our desired coordinate system SRID of 4326, and
-  - We use sdo\_geom.validate\_geometry() to insert only valid geometries.
+We use sdo\_cs.transform() to convert to our desired coordinate system SRID of 4326, and we use sdo\_geom.validate\_geometry() to insert only valid geometries.
 
-
-## Step 4: Sample insert query
-
-  Below is the sample insert query-
+3. Below is the sample insert query-
 
   ````
-      <copy>
-  Insert into WAREHOUSES (WAREHOUSE_ID,WAREHOUSE_NAME,LOCATION_ID,WH_GEO_LOCATION) values (1,'Speedway Facility',1400,MDSYS.SDO_GEOMETRY(2001, 4326, MDSYS.SDO_POINT_TYPE(-86.2508, 39.7927, NULL), NULL, NULL));
-      </copy>
-
+    Insert into WAREHOUSES (WAREHOUSE_ID,WAREHOUSE_NAME,LOCATION_ID,WH_GEO_LOCATION) values (1,'Speedway Facility',1400,MDSYS.SDO_GEOMETRY(2001, 4326, MDSYS.SDO_POINT_TYPE(-86.2508, 39.7927, NULL), NULL, NULL));
   ````
 
   The elements of the constructor are:
-  -	2001: SDO\_GTYPE attribute and it is set to 2001 when storing a two-dimensional single point such as a customer's location.
-  -	4326: This is the spatial reference system ID (SRID): a foreign key to an Oracle dictionary table (MDSYS.CS\_SRS) that contains all the supported coordinate systems. It is important to associate your customer's location to a coordinate system. In this example, 4326 corresponds to "Longitude / Latitude (WGS 84)."
-  -	MDSYS.SDO-POINT-TYPE: This is where you store your longitude and latitude values within the SDO\_GEOMETRY constructor. Note that you can store a third value also, but for these tutorials, all the customer data is two-dimensional.
-  -	NULL, NULL: The last two null values are for storing linestrings, polygons, and geometry collections. For more information on all the fields of the SDO\_GEOMETRY object, please refer to the Oracle Spatial Developer's Guide. For this tutorial with point data, these last two fields should be set to NULL.
+2001: SDO\_GTYPE attribute and it is set to 2001 when storing a two-dimensional single point such as a customer's location.
+4326: This is the spatial reference system ID (SRID): a foreign key to an Oracle dictionary table (MDSYS.CS\_SRS) that contains all the supported coordinate systems. It is important to associate your customer's location to a coordinate system. In this example, 4326 corresponds to "Longitude / Latitude (WGS 84)."
+MDSYS.SDO-POINT-TYPE: This is where you store your longitude and latitude values within the SDO\_GEOMETRY constructor. Note that you can store a third value also, but for these tutorials, all the customer data is two-dimensional.
+NULL, NULL: The last two null values are for storing linestrings, polygons, and geometry collections. For more information on all the fields of the SDO\_GEOMETRY object, please refer to the Oracle Spatial Developer's Guide. For this tutorial with point data, these last two fields should be set to NULL.
 
-## Step 5:  Create Indexes
-  We have created indexes for each table- CUSTOMERS, WAREHOUSES and WAREHOUSES_DTP
+4. We have created indexes for each table- CUSTOMERS, WAREHOUSES and WAREHOUSES_DTP
 
   ````
-      <copy>
   CREATE INDEX customers_sidx ON customers(CUST_GEO_LOCATION)
   indextype is mdsys.spatial_index;
 
@@ -188,11 +172,15 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
 
   CREATE INDEX "WAREHOUSES_DTP_SIDX" ON "WAREHOUSES_DTP" ("GEOMETRY")
   INDEXTYPE IS "MDSYS"."SPATIAL_INDEX" ;
-  </copy>
   ````
-## Step 6: Example Queries
+## Step 4: Example Queries
 
 1. Find the five customers closest to the warehouse whose warehouse name  is 'Ferndale Facility'
+
+-	The SDO\_NN operator returns the SDO_NUM\_RES value of the customers from the CUSTOMERS table who are closest to warehouse 3. The first argument to SDO\_NN (c.cust-geo-location in the example above) is the column to search. The second argument to SDO\_NN (w.wh\_geo\_location in the example above) is the location you want to find the neighbors nearest to. No assumptions should be made about the order of the returned results. For example, the first row returned is not guaranteed to be the customer closest to warehouse 3. If two or more customers are an equal distance from the warehouse, then either of the customers may be returned on subsequent calls to SDO\_NN.
+
+- When using the SDO\_NUM\_RES parameter, no other constraints are used in the WHERE clause. SDO\_NUM\_RES takes only proximity into account. For example, if you added a criterion to the WHERE clause because you wanted the five closest female customers, and four of the five closest customers are male, the query above would return one row. This behavior is specific to the SDO-NUM-RES parameter, and its results may not be what you are looking for. You will learn how to find the five closest female customers in the discussion of query 3.
+
 
   ````
       <copy>
@@ -210,15 +198,14 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   ````
   ![](./images/spatial_module1a.png " ")
 
-  Notes:
+2. Find the five customers closest to warehouse named 'Livonia Facility' and put the results in order of distance
 
-  -	The SDO\_NN operator returns the SDO_NUM\_RES value of the customers from the CUSTOMERS table who are closest to warehouse 3. The first argument to SDO\_NN (c.cust-geo-location in the example above) is the column to search. The second argument to SDO\_NN (w.wh\_geo\_location in the example above) is the location you want to find the neighbors nearest to. No assumptions should be made about the order of the returned results. For example, the first row returned is not guaranteed to be the customer closest to warehouse 3. If two or more customers are an equal distance from the warehouse, then either of the customers may be returned on subsequent calls to SDO\_NN.
-  - When using the SDO\_NUM\_RES parameter, no other constraints are used in the WHERE clause. SDO\_NUM\_RES takes only proximity into account. For example, if you added a criterion to the WHERE clause because you wanted the five closest female customers, and four of the five closest customers are male, the query above would return one row. This behavior is specific to the SDO-NUM-RES parameter, and its results may not be what you are looking for. You will learn how to find the five closest female customers in the discussion of query 3.
-
-2. Find the five customers closest to warehouse named 'Livonia Facility'and put the results in order of distance
+- The SDO\_NN\_DISTANCE operator is an ancillary operator to the SDO\_NN operator; it can only be used within the SDO\_NN operator. The argument for this operator is a number that matches the number specified as the last argument of SDO_NN; in this example it is 1. There is no hidden meaning to this argument, it is simply a tag. If SDO\_NN\_DISTANCE() is specified, you can order the results by distance and guarantee that the first row returned is the closest. If the data you are querying is stored as longitude and latitude, the default unit for SDO\_NN\_DISTANCE is meters.
+- The SDO_NN operator also has a UNIT parameter that determines the unit of measure returned by SDO\_NN\_DISTANCE.
+- The ORDER BY DISTANCE clause ensures that the distances are returned in order, with the shortest distance first.
 
   ````
-      <copy>
+  <copy>
   SELECT c.customer_id,c.cust_last_name,
   c.GENDER,   round( sdo_nn_distance (1), 2) distance_in_miles FROM warehouses w,
   customers c WHERE w.WAREHOUSE_NAME = 'Livonia Facility' AND sdo_nn (c.cust_geo_location, w.wh_geo_location, 'sdo_num_res=5  unit=mile', 1) = 'TRUE'ORDER BY distance_in_miles;
@@ -227,14 +214,12 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   ````
   ![](./images/spatial_module2a.png " ")
 
-  **Notes**:
-
-  - The SDO\_NN\_DISTANCE operator is an ancillary operator to the SDO\_NN operator; it can only be used within the SDO\_NN operator. The argument for this operator is a number that matches the number specified as the last argument of SDO_NN; in this example it is 1. There is no hidden meaning to this argument, it is simply a tag. If SDO\_NN\_DISTANCE() is specified, you can order the results by distance and guarantee that the first row returned is the closest. If the data you are querying is stored as longitude and latitude, the default unit for SDO\_NN\_DISTANCE is meters.
-  - The SDO_NN operator also has a UNIT parameter that determines the unit of measure returned by SDO\_NN\_DISTANCE.
-  - The ORDER BY DISTANCE clause ensures that the distances are returned in order, with the shortest distance first.
-
-
 3. Find the five female customers closest to warehouse named 'Livonia Facility', put the results in order of distance, and give the distance in miles
+
+- SDO\_BATCH\_SIZE is a tunable parameter that may affect your query's performance. SDO\_NN internally calculates that number of distances at a time. The initial batch of rows returned may not satisfy the constraints in the WHERE clause, so the number of rows specified by SDO\_BATCH\_SIZE is continuously returned until all the constraints in the WHERE clause are satisfied. You should choose a SDO\_BATCH\_SIZE that initially returns the number of rows likely to satisfy the constraints in your WHERE clause.
+-The UNIT parameter used within the SDO_NN operator specifies the unit of measure of the SDO\_NN\_DISTANCE parameter. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters.
+- c.gender = 'F' and rownum < 6 are the additional constraints in the WHERE clause. The rownum < 6 clause is necessary to limit the number of results returned to fewer than 6.
+- The ORDER BY DISTANCE\_IN\_MILES clause ensures that the distances are returned in order, with the shortest distance first and the distances measured in miles.
 
   ````
       <copy>
@@ -253,14 +238,11 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
 
   ![](./images/spatial_module3a.png " ")
 
-  **Notes:**
-  - SDO\_BATCH\_SIZE is a tunable parameter that may affect your query's performance. SDO\_NN internally calculates that number of distances at a time. The initial batch of rows returned may not satisfy the constraints in the WHERE clause, so the number of rows specified by SDO\_BATCH\_SIZE is continuously returned until all the constraints in the WHERE clause are satisfied. You should choose a SDO\_BATCH\_SIZE that initially returns the number of rows likely to satisfy the constraints in your WHERE clause.
-  -The UNIT parameter used within the SDO_NN operator specifies the unit of measure of the SDO\_NN\_DISTANCE parameter. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters.
-  - c.gender = 'F' and rownum < 6 are the additional constraints in the WHERE clause. The rownum < 6 clause is necessary to limit the number of results returned to fewer than 6.
-  - The ORDER BY DISTANCE\_IN\_MILES clause ensures that the distances are returned in order, with the shortest distance first and the distances measured in miles.
-
-
 4. Find all the customers within 100 miles of warehouse named 'Livonia Facility'
+
+- The SDO\_WITHIN\_DISTANCE operator returns the customers from the customers table that are within 100 miles of warehouse 3. The first argument to SDO\_WITHIN\_DISTANCE (c.cust\_geo\_location I n the example above) is the column to search. The second argument to SDO\_WITHIN\_DISTANCE (w.wh\_geo\_location in the example above) is the location you want to determine the distances from. No assumptions should be made about the order of the returned results. For example, the first row returned is not guaranteed to be the customer closest to warehouse 3.
+- The DISTANCE parameter used within the SDO\_WITHIN\_DISTANCE operator specifies the distance value; in this example it is 100.
+- The UNIT parameter used within the SDO\_WITHIN\_DISTANCE operator specifies the unit of measure of the DISTANCE parameter. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters; in this example, it is miles.
 
   ````
       <copy>
@@ -274,12 +256,13 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   ![](./images/spatial_module4a.png " ")
 
 
-  **Notes**:
-  - The SDO\_WITHIN\_DISTANCE operator returns the customers from the customers table that are within 100 miles of warehouse 3. The first argument to SDO\_WITHIN\_DISTANCE (c.cust\_geo\_location I n the example above) is the column to search. The second argument to SDO\_WITHIN\_DISTANCE (w.wh\_geo\_location in the example above) is the location you want to determine the distances from. No assumptions should be made about the order of the returned results. For example, the first row returned is not guaranteed to be the customer closest to warehouse 3.
-  - The DISTANCE parameter used within the SDO\_WITHIN\_DISTANCE operator specifies the distance value; in this example it is 100.
-  - The UNIT parameter used within the SDO\_WITHIN\_DISTANCE operator specifies the unit of measure of the DISTANCE parameter. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters; in this example, it is miles.
 
 5. Find all the customers within 100 miles of warehouse named 'Livonia Facility', put the results in order of distance, and give the distance in miles.
+
+- The SDO\_GEOM.SDO\_DISTANCE function computes the exact distance between the customer's location and warehouse 3. The first argument to SDO\_GEOM.SDO\_DISTANCE (c.cust\_geo\_location in the example above) contains the customer's location whose distance from warehouse 3 is to be computed. The second argument to SDO\_WITHIN\_DISTANCE (w.wh\_geo\_location in the example above) is the location of warehouse 3, whose distance from the customer's location is to be computed.
+- The third argument to SDO\_GEOM.SDO\_DISTANCE (0.005) is the tolerance value. The tolerance is a round-off error value used by Oracle Spatial. The tolerance is in meters for longitude and latitude data. In this example, the tolerance is 5 mm.
+- The UNIT parameter used within the SDO\_GEOM.SDO\_DISTANCE parameter specifies the unit of measure of the distance computed by the SDO\_GEOM.SDO\_DISTANCE function. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters. In this example it is miles.
+- The ORDER BY DISTANCE\_IN\_MILES clause ensures that the distances are returned in order, with the shortest distance first and the distances measured in miles.
 
   ````
       <copy>
@@ -297,13 +280,10 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
   ![](./images/spatial_module5a.png " ")
 
 
-  **Notes**:
-  - The SDO\_GEOM.SDO\_DISTANCE function computes the exact distance between the customer's location and warehouse 3. The first argument to SDO\_GEOM.SDO\_DISTANCE (c.cust\_geo\_location in the example above) contains the customer's location whose distance from warehouse 3 is to be computed. The second argument to SDO\_WITHIN\_DISTANCE (w.wh\_geo\_location in the example above) is the location of warehouse 3, whose distance from the customer's location is to be computed.
-  - The third argument to SDO\_GEOM.SDO\_DISTANCE (0.005) is the tolerance value. The tolerance is a round-off error value used by Oracle Spatial. The tolerance is in meters for longitude and latitude data. In this example, the tolerance is 5 mm.
-  - The UNIT parameter used within the SDO\_GEOM.SDO\_DISTANCE parameter specifies the unit of measure of the distance computed by the SDO\_GEOM.SDO\_DISTANCE function. The default unit is the unit of measure associated with the data. For longitude and latitude data, the default is meters. In this example it is miles.
-  - The ORDER BY DISTANCE\_IN\_MILES clause ensures that the distances are returned in order, with the shortest distance first and the distances measured in miles.
-
 6. Find all the customers customers inside 30min drive time polygons  
+
+- Drive Time polygons are simply the areas reachable from a location within an amount of time. They are used for things like placing new stores or office locations; i.e. locate a new office so that all our employees can reach our office within a given drive time. Or locate a new store with a drive time polygon containing new target customers and not cannibalizing another store location.
+
   ````
       <copy>
   select customer_id, warehouse_name
@@ -317,6 +297,10 @@ Notice that each has a column of type SDO\_GEOMETRY to store location.
 
   ![](./images/spatial_module6a.png " ")
 
+## Acknowledgements
+* **Authors** - Balasubramanian Ramamoorthy, Arvind Bhope
+* **Contributors** - Laxmi Amarappanavar, Kanika Sharma, Venkata Bandaru, Ashish Kumar, Priya Dhuriya, Maniselvan K, Robert Ruppel, David Start
+* **Last Updated By/Date** - David Start, Product Manager, Database Product Management, July 2020
 
-  **Notes**:
-  - Drive Time polygons are simply the areas reachable from a location within an amount of time. They are used for things like placing new stores or office locations; i.e. locate a new office so that all our employees can reach our office within a given drive time. Or locate a new store with a drive time polygon containing new target customers and not cannibalizing another store location.
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.

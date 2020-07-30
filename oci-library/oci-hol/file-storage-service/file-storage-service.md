@@ -6,63 +6,35 @@ Welcome to the Cloud Storage (File System) self-paced lab from Oracle!
 
 Oracle Cloud Infrastructure File Storage Service provides a durable, scalable, distributed, enterprise-grade network file system. You can connect to a File Storage Service file system from any bare metal, virtual machine, or container instance in your Virtual Cloud Network (VCN). You can also access a file system from outside the VCN using Oracle Cloud Infrastructure FastConnect and Internet Protocol security (IPSec) virtual private network (VPN).
 
-In this lab you will create and mount File Storage System to a compute instance and verify availability of the File Storage system.
-
-**Some Key points:**
-
-*We recommend using Chrome or Edge as the browser. Also set your browser zoom to 80%*
-
-- All screen shots are examples ONLY. Screen shots can be enlarged by Clicking on them
-
-- Login credentials are provided later in the guide (scroll down). Every User MUST keep these credentials handy.
-
-- Do NOT use compartment name and other data from screen shots. Only use  data(including compartment name) provided in the content section of the lab
-
-- Mac OS Users should use ctrl+C / ctrl+V to copy and paste inside the OCI Console
-
-- Login credentials are provided later in the guide (scroll down). Every User MUST keep these credentials handy.
-
-
-    **Cloud Tenant Name**
-
-    **User Name**
-
-    **Password**
-
-    **Compartment Name (Provided Later)**
-
-    **Note:** OCI UI is being updated thus some screenshots in the instructions might be different than actual UI
+### Objectives
+- Create and mount File Storage System to a compute instance
+- Verify availability of the File Storage system.
 
 ### Pre-Requisites
+Lab 1: Login to Oracle Cloud  
+Lab 2: Create SSH Keys - Cloud Shell
 
+### Recommended Resources
 1. [OCI Training](https://cloud.oracle.com/en_US/iaas/training)
-
 2. [Familiarity with OCI console](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/console.htm)
-
 3. [Overview of Networking](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm)
-
 4. [Familiarity with Compartment](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/concepts.htm)
-
 5. [Connecting to a compute instance](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/accessinginstance.htm)
 
 **Note:** OCI UI is being updated thus some screenshots in the instructions might be different than actual UI.
 
-## Step 1: Sign in to OCI Console and create VCN
+## Step 1: Create VCN
 
-* **Tenant Name:** {{Cloud Tenant}}
-* **User Name:** {{User Name}}
-* **Password:** {{Password}}
-* **Compartment:**{{Compartment}}
+1. From the OCI Services menu,Click **Virtual Cloud Networks** under Networking. 
+    ![](./../file-storage-service/images/QuickStart_S1P1.PNG " ")
 
-
-1. Sign in using your tenant name, user name and password. Use the login option under **Oracle Cloud Infrastructure**.
-    ![](./../grafana/images/Grafana_015.PNG " ")
-
-2. From the OCI Services menu,Click **Virtual Cloud Networks** under Networking. Select the compartment assigned to you from drop down menu on left part of the screen under Networking and Click **Start VCN Wizard**
+2. Select the compartment assigned to you from drop down menu on left part of the screen under Networking and Click **Start VCN Wizard**
+    ![](./../file-storage-service/images/QuickStart_S1P2.PNG " ")
 
     **NOTE:** Ensure the correct Compartment is selected under COMPARTMENT list
 
 3. Click **VCN with Internet Connectivity** and click **Start Workflow**.
+    ![](./../file-storage-service/images/QuickStart_S1P3.PNG " ")
 
 4. Fill out the dialog box:
 
@@ -73,25 +45,30 @@ In this lab you will create and mount File Storage System to a compute instance 
       - **PRIVATE SUBNET CIDR BLOCK**: Provide a CIDR block (10.0.2.0/24)
       - Click **Next**
 
+    ![](./../file-storage-service/images/File_S1P4.PNG " ")
+
+
 5. Verify all the information and  Click **Create**
 
-6. This will create a VCN with followig components.
+    This will create a VCN with following components.
 
     *VCN, Public subnet, Private subnet, Internet gateway (IG), NAT gateway (NAT), Service gateway (SG)*
 
-7. Click **View Virtual Cloud Network** to display your VCN details.
+6. Click **View Virtual Cloud Network** to display your VCN details.
+    ![](./../file-storage-service/images/QuickStart_S1P7.PNG " ")
 
-8. In your VCN details page, Click **Security List** and then **Default Security list for YOUR\_VCN\_NAME**
+7. In your VCN details page, Click **Security List** and then **Default Security list for YOUR\_VCN\_NAME**
 
-     ![](./../oci-quick-start/images/Customer_Lab_001.PNG " ")
+     ![](./../file-storage-service/images/File_S1P7.PNG " ")
 
     **NOTE:** Note down the Subnet and Availability domain.We will create File Storage system and compute instance in the same subnet and Availability domain later on​​.
 
-9. In Security list details page, Click **Add Ingress Rule**.Click **+Additional Ingress Rule** and add below two rules:
+8. In Security list details page, Click **Add Ingress Rule**. 
+    ![](./../file-storage-service/images/File_S1P8.PNG " ")
 
-    **Rule # 1 for access of NFS and NLM traffic with Destination Port Range of 2048-2050. (Type the values).**
+**NOTE:** You will be adding **FOUR** Ingress Rules so do not Click the blue confirm **Add Ingress Rule** Button until Step 13.
 
-
+9. Click **+Additional Ingress Rule** and add the first rule for access of NFS and NLM traffic with Destination Port Range of 2048-2050. (Type the values).
     - **Make sure STATELESS Flag in un-checked**
     - **SOURCE TYPE:** CIDR
     - **SOURCE CIDR:** 10.0.0.0/16
@@ -99,8 +76,9 @@ In this lab you will create and mount File Storage System to a compute instance 
     - **SOURCE PORT RANGE:** ALL
     - **DESTINATION PORT RANGE:** 2048-2050
 
-    **Rule # 2 for access of NFS and NLM traffic with Destination Port Range of 2048-2050. (Type the values).**
+    ![](./../file-storage-service/images/File_S1P9.PNG " ")
 
+10. Click **+Additional Ingress Rule**  and add the second rule for access of NFS and NLM traffic with Destination Port Range of 2048-2050. (Type the values).
 
     - **Make sure STATELESS Flag in un-checked**
     - **SOURCE TYPE:** CIDR
@@ -109,160 +87,122 @@ In this lab you will create and mount File Storage System to a compute instance 
     - **SOURCE PORT RANGE:** 2048-2050
     - **DESTINATION PORT RANGE:** All
 
-10. Click **+Additional Ingress Rule** to add third ingress rule allowing traffic to a Destination Port Range of 111 for the NFS rpcbind utility.
+    ![](./../file-storage-service/images/File_S1P10.PNG " ")
 
-    - Source CIDR: 10.0.0.0/16
-    - IP Protocol: TCP
-    - Source Port Range: All
-    - Destination Port Range: 111
+11. Click **+Additional Ingress Rule** to add third ingress rule allowing traffic to a Destination Port Range of 111 for the NFS rpcbind utility.
 
-11. Click **+Additional Ingress** Rule  to add fourth ingress rule allowing traffic to a Source Port Range of 111 for the NFS rpcbind utility.
+    - **Make sure STATELESS Flag in un-checked**
+    - **SOURCE TYPE:** CIDR
+    - **SOURCE CIDR:** 10.0.0.0/16
+    - **IP PROTOCOL:** TCP
+    - **SOURCE PORT RANGE:** All
+    - **DESTINATION PORT RANGE:** 111
 
-    - Source CIDR: 10.0.0.0/16
-    - IP Protocol: TCP
-    - Source Port Range: 111
-    - Destination Port Range: All
+    ![](./../file-storage-service/images/File_S1P11.PNG " ")
 
-12. Click **Add Ingress Rule**
+12. Click **+Additional Ingress** Rule  to add fourth ingress rule allowing traffic to a Source Port Range of 111 for the NFS rpcbind utility.
+
+    - **Make sure STATELESS Flag in un-checked**
+    - **SOURCE TYPE:** CIDR
+    - **SOURCE CIDR:** 10.0.0.0/16
+    - **IP PROTOCOL:** TCP
+    - **SOURCE PORT RANGE:** 111
+    - **DESTINATION PORT RANGE:** All
+
+    ![](./../file-storage-service/images/File_S1P12.PNG " ")
+
+13. Click **Add Ingress Rule**
 
     **NOTE:** Note down the Subnet and Availability domain. We will create File Storage system and compute instance in the same subnet and Availability domain later on.
+
+    ![](./../file-storage-service/images/File_S1P13.PNG " ")
 
 ## Step 2: Create File System Storage
 
 In this section we will create File System Storage.
 
-1. From OCI Services menu, Click **File System** under **File Storage**
+1. From OCI Services menu, Click **File System** under **File Storage**.
+
+    ![](./../file-storage-service/images/File_S2P1.PNG " ")
 
 2. Click **Create File System**
 
+    ![](./../file-storage-service/images/File_S2P2.PNG " ")
+
 3. Click **Edit Details**, under **Export Information**. Change **Export Path** to a easy to remember name and click **Create**
 
-     ![](./../file-storage-service/images/FSS_001.png " ")
-
-     ![](./../file-storage-service/images/FSS_002.png " ")
+    ![](./../file-storage-service/images/File_S2P3.PNG " ")
 
 4. OCI console will show your File System details. Under **Exports** Click your mount target name under **Mount Target**. In Mount Target details page, note down the IP address.
 
-     ![](./../file-storage-service/images/FSS_003.png " ")
-
-     ![](./../file-storage-service/images/FSS_004.png " ")
+    ![](./../file-storage-service/images/File_S2P4.PNG " ")
+    ![](./../file-storage-service/images/File_S2P4.5.PNG " ")
 
 We now have a File Storage system created. Next we will create a SSH key pair that will be used to login to a compute instance and mount the file system.
 
-## Step 3: Create ssh keys and compute instance
+## Step 3: Compute instance
+1. . Switch to the OCI console. From OCI services menu, Click **Instances** under **Compute**.
+    ![](./../file-storage-service/images/QuickStart_S2P1.PNG " ")
 
-1. Click the Apps icon in the toolbar and select  Git-Bash to open a terminal window.
+2. On the left sidebar, select the **Compartment** in which you placed your VCN under **List Scope**. The, Click **Create Instance**. 
+      ![](./../file-storage-service/images/QuickStart_S2P2.PNG " ")
 
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL006.PNG " ")
+3. Enter a **Name** for your Instance and the **Compartment** in which you placed your VCN. The select **Show Shape, Network, and Storage Options**. Leave **Image or Operating System** and **Availability Domain** as the default values.
+      ![](./../file-storage-service/images/File_S3P3.PNG " ")
 
-2. Enter command
+4. Scroll down to **Shape** and click **Change Shape**. Select **Virtual Machine** and **VM.Standar2.1**. Click **Select Shape**
+      ![](./../file-storage-service/images/QuickStart_S2P4.PNG " ")
+      ![](./../file-storage-service/images/QuickStart_S2P4.5.PNG " ")
+
+5. Scroll Down to **Configure Networking** and select the following.
+      - **Virtual Cloud Network Compartment**: Choose the compartment in whih you created your VCN
+      - **Virtual Cloud Network**: The VCN you created in Step 1
+      - **Subnet Compartment**: Choose the compartment in whih you created your VCN 
+      - **Subnet**: Public Subnet (Which should be named Public Subnet-NameofVCN)
+      - **Use network security groups to control traffic**: Un-checked.
+      - **Assign a public IP address**: Checked
+      - **Boot Volume:**: Leave default
+      
+      ![](./../file-storage-service/images/File_S3P5.PNG " ")
+
+6. Choose 'Paste SSH Keys' under **Add SSH Keys:** and paste the Public Key saved from Lab 2 and click **Create**.
+      ![](./../file-storage-service/images/QuickStart_S2P6.PNG " ")
+
+   **NOTE:** If 'Service limit' error is displayed choose a different shape from VM.Standard2.1, VM.Standard.E2.1, VM.Standard1.1, VM.Standard.B1.1 OR choose a different AD.
+
+7. Wait for Instance to be in **Running** state. Then, copy the public IP of the instance. 
+
+      ![](./../file-storage-service/images/File_S3P8-12.PNG " ")
+    **NOTE:** The screenshot shows steps 8-12
+8. Open the Oracle Cloud Shell Terminal. Then, enter the Command:
 
     ```
     <copy>
-    ssh-keygen
+    cd .ssh
     </copy>
     ```
-    **HINT:** You can swap between OCI window,
-    git-bash sessions and any other application (Notepad, etc.) by Clicking the Switch Window icon.
 
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL007.PNG " ")
-
-3. Press Enter When asked for 'Enter File in which to save the key', 'Created Directory, 'Enter passphrase', and 'Enter Passphrase again.
-
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL008.PNG " ")
-
-4. You should now have the Public and Private keys:
-
-    /C/Users/ PhotonUser/.ssh/id\_rsa (Private Key)
-
-    /C/Users/PhotonUser/.ssh/id\_rsa.pub (Public Key)
-
-    **NOTE:** id\_rsa.pub will be used to create
-    Compute instance and id\_rsa to connect via SSH into compute instance.
-
-    **HINT:** Enter command
-    ```
-    <copy>
-    cd /C/Users/PhotonUser/.ssh (No Spaces)
-    </copy>
-    ```
-    and then
+9. Enter **ls** and verify id\_rsa file exists
     ```
     <copy>
     ls
     </copy>
     ```
-    to verify the two files exist.
 
-5. In git-bash Enter command  
+10. Enter the command below, replacing <SSH-KEY-NAME> with the name of the ssh key used to create the instance and <PUBLIC_IP_OF_COMPUTE> with the IP address copied in part 7. 
 
-    ```
-    <copy>
-    cat /C/Users/PhotonUser/.ssh/id_rsa.pub
-    </copy>
-    ```
-    , highlight the key and copy
-
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL009.PNG " ")
-
-6. Click the apps icon, launch notepad and paste the key in Notepad (as backup)
-
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL0010.PNG " ")
-
-7. Switch to the OCI console. From OCI services menu, Click **Instances** under **Compute**.
-
-8. Click **Create Instance**. Fill out the dialog box:
-
-     - **Name your instance**: Enter a name
-     - **Choose an operating system or image source**: For the image, we recommend using the Latest Oracle Linux available.
-     - **Availability Domain**: Select availability domain
-     - **Instance Type**: Select Virtual Machine
-     - **Instance Shape**: Select VM shape
-
-     **Under Configure Networking**
-     - **Virtual cloud network compartment**: Select your compartment
-     - **Virtual cloud network**: Choose the VCN
-     - **Subnet Compartment:** Choose your compartment.
-     - **Subnet:** Choose the Public Subnet under **Public Subnets**
-     - **Use network security groups to control traffic** : Leave un-checked
-     - **Assign a public IP address**: Check this option
-
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL0011.PNG " ")
-
-      - **Boot Volume:** Leave the default
-      - **Add SSH Keys:** Choose 'Paste SSH Keys' and paste the Public Key saved earlier.
-
-9. Click **Create**
-
-    **NOTE:** If 'Service limit' error is displayed choose a different shape from VM.Standard2.1, VM.Standard.E2.1, VM.Standard1.1, VM.Standard.B1.1  OR choose a different AD.
-
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL0011.PNG " ")
-
-10. Wait for Instance to be in **Running** state. In git-bash Enter Command:
-
-    ```
-    <copy>
-    cd /C/Users/PhotonUser/.ssh
-    </copy>
-    ```
-
-11. Enter **ls** and verify id\_rsa file exists
-
-12. Enter command
     ```
     <copy>
     bash
-    ssh -i id_rsa opc@<PUBLIC_IP_OF_COMPUTE>
+    ssh -i SSH-KEY-NAME opc@PUBLIC_IP_OF_COMPUTE
     </copy>
     ```
 
     **HINT:** If 'Permission denied error' is seen, ensure you are using '-i' in the ssh command. You MUST type the command, do NOT copy and paste ssh command.
 
-13. Enter 'Yes' when prompted for security message
+11. Enter 'Yes' when prompted 'Are you sure you want to continue connecting (yes/no)?'
 
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL0014.PNG " ")
-
-14. Verify opc@COMPUTE\_INSTANCE\_NAME appears on the prompt
+12. Verify opc@COMPUTE\_INSTANCE\_NAME appears on the prompt
 
 ## Step 4: Mount the File Storage System to Compute Instance
 
@@ -292,10 +232,10 @@ Users of Ubuntu and Linux operating systems (We launched a Oracle Linux instance
     ```
     <copy>
     bash
-    sudo mount 10.x.x.x:/<EXPORT_PATH_NAME> /mnt/nfs-data
+    sudo mount 10.x.x.x:/EXPORT_PATH_NAME /mnt/nfs-data
     </copy>
     ```
-    **NOTE:** The 10.x.x.x should be replaced with the  IP of File Storage system  and EXPORT\_PATH\_NAME should be replaced with Export path name used earlier(Example: If '/' was the EXPORT\_PATH\_NAME then **sudo mount 10.0.0.3:/ /mnt/nfs-data**).
+    **NOTE:** The 10.x.x.x should be replaced with the  IP of File Storage system and EXPORT\_PATH\_NAME should be replaced with Export path name used earlier (Example: If '/' was the EXPORT\_PATH\_NAME then **sudo mount 10.0.0.3:/ /mnt/nfs-data**).
 
     **NOTE:** Mount commands can also be seen by Clicking Action icon in File Storage detail, and selecting ‘Mount Commands’.
 

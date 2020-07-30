@@ -88,8 +88,9 @@ Lab 2: Create SSH Keys - Cloud Shell
       - **Use network security groups to control traffic**: Un-checked.
       - **Assign a public IP address**: Checked
       - **Boot Volume:**: Leave default
+      
       ![](./../oci-quick-start/images/QuickStart_S2P5.PNG " ")
-6. Choose 'Paste SSH Keys' under **Add SSH Keys:** and paste the Public Key saved earlier and click **Create**.
+6. Choose 'Paste SSH Keys' under **Add SSH Keys:** and paste the Public Key saved from Lab 2 and click **Create**.
       ![](./../oci-quick-start/images/QuickStart_S2P6.PNG " ")
 
    **NOTE:** If 'Service limit' error is displayed choose a different shape from VM.Standard2.1, VM.Standard.E2.1, VM.Standard1.1, VM.Standard.B1.1 OR choose a different AD.
@@ -99,21 +100,21 @@ Lab 2: Create SSH Keys - Cloud Shell
 
 8. Launch the Cloud Shell if it is not running. When running, enter the command below:
  
-   ```
-   <copy>
-   cd .ssh
-   </copy>
-   ```
+      ```
+      <copy>
+      cd .ssh
+      </copy>
+      ```
 
-7. Enter **ls** and verify id\_rsa file exists.
-```
-   <copy>
-   ls
-   </copy>
-   ```
+9. Enter **ls** and verify id\_rsa file exists.
+      ```
+      <copy>
+      ls
+      </copy>
+      ```
 
-8. Enter the following command replacing SSH-KEY-NAME with the name of your ssh key and replacing PUBLIC-IP-OF-COMPUTE1 with the IP address of the first compute instance you created.   
-      *Note: Your SSH-KEY-NAME name should NOT end in .pub*
+10. Enter the following command replacing SSH-KEY-NAME with the name of your ssh key and replacing PUBLIC-IP-OF-COMPUTE1 with the IP address of the first compute instance you created. 
+  *Note: Your SSH-KEY-NAME name should NOT end in .pub*
 
       ```
       <copy>
@@ -121,11 +122,16 @@ Lab 2: Create SSH Keys - Cloud Shell
       ssh -i SSH-KEY-NAME opc@PUBLIC-IP-OF-COMPUTE-1
       </copy>
       ```
+
+      Ex: ssh -i quickstartkey opc@193.122.146.136
+      
       *Note: If a "Permission denied error" is seen, ensure you are using '-i' in the ssh command. Also make sure that you correctly copied the name of your ssh key and the public IP of your compute instance.*
 
-9. Enter 'Yes' when prompted for security message.
+11. Enter 'Yes' when asked 'Are you sure you want to continue connecting (yes/no)?'.
  
-10. Verify opc@`<COMPUTE_INSTANCE_NAME>` appears on the prompt.
+12. Verify opc@`<COMPUTE_INSTANCE_NAME>` appears on the prompt.
+  
+  Ex: [opc@quickstart_instance ~]
 
 ## Step 3: Compute and attach block volume to compute instance.
 
@@ -136,7 +142,7 @@ Lab 2: Create SSH Keys - Cloud Shell
 2. Fill out the dialog box: 
 
     - **Name:** Enter a name for the block volume. (e.g. "block_vm)
-    - **Create in Compartment:**: Select the same compartment as your VCN and Instance.
+    - **Create in Compartment:** Select the same compartment as your VCN and Instance.
     - **Availability Domain:** Select the first available domain (must be same as Compute).
     - **Volume and Size Performance:** Select default.
     - **Compartment for Backup Policy:** Leave as default setting.
@@ -161,10 +167,12 @@ Lab 2: Create SSH Keys - Cloud Shell
 
     - **Volume Attachment Type:** Choose Paravirtualized
     - **Block Volume In:** Click the drop down and choose the block volume created earlier
-    - **Device Path:** Select /dev/oracleoci/oraclevdb
+    - **Device Path:** Select a device path 
+    
+    **NOTE:** Selecting the device path /dev/oracleoci/oraclevdb would result in the same device path as the screenshots in  the rest of the lab. 
     ![](./../oci-quick-start/images/QuickStart_S3P6.PNG " ")
 
-    *NOTE: We can also use ISCSI mode. For more information please refer to https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm#attachtype OR refer Appendix section at the end of the lab.*
+    *NOTE: We can also use ISCSI mode. For more information please refer to the Appendix section at the end of the lab.*
 
 7. Click **Attach**.
 
@@ -196,7 +204,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       ```
       (Open port 80 on the firewall to allow http and https traffic).
 
-      **NOTE:** Despite the line wrapping, the --add-port flag has no spaces.
+      *NOTE: Despite the line wrapping, the --add-port flag has no spaces.*
       ```
       <copy>
       sudo firewall-cmd --reload 
@@ -205,7 +213,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       (Reload the firewall to activate the rules).
 
       ![](./../oci-quick-start/images/Quick_S4P2.PNG " ")
-      **NOTE:** The above screenshot shows parts 2-5
+      *NOTE: The above screenshot shows parts 2-5*
 
 3. Start httpd, Enter command:
    
@@ -225,10 +233,10 @@ Lab 2: Create SSH Keys - Cloud Shell
 
      ![](./../oci-quick-start/images/Quick_S4P4.PNG " ")
 
-      **HINT:** The name of the block volume storage will start with 'sd'. In this case it is sdb, but could change for your specific attachment (i.e sdc, sda). In the above example this volume is called sdb, shown by its 50GB volume. 
+      **HINT:** The name of the block volume storage will start with 'sd'. In this case it is sdb, but could change for your specific attachment (i.e sdc, sda). In the above example this volume is called sdb, shown by its 50GB volume (the size of the compute instance created in Step 2). 
 
 5. To format the block volume, Enter Command: 
-      **NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step. 
+ 
 
       ```
       <copy>
@@ -236,11 +244,12 @@ Lab 2: Create SSH Keys - Cloud Shell
       sudo fdisk /dev/VOLUME_NAME -l 
       </copy>
       ```
+      *NOTE: VOLUME_NAME should be replaced by the string starting with 'sd' that you identified as the block volume storage in part 4.*
+      
       **For example: sudo fdisk /dev/sdb -l**   
       Wait for formatting to complete
 
-6. Create a file system on the block volume, Enter Command: 
-      **NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step.     
+6. Create a file system on the block volume, Enter Command:    
 
       ```
       <copy>
@@ -248,13 +257,13 @@ Lab 2: Create SSH Keys - Cloud Shell
       sudo mkfs.ext4 -L datapartition /dev/VOLUME_NAME
       </copy>
       ```  
-
-      This will create the file system on the entire disk. Enter y when prompted with 'Proceed anyway'.
-      **NOTE:** For this lab we will not be creating additional partitions.
+      *NOTE: VOLUME_NAME should be replaced by the string starting with 'sd' that you identified as the block volume storage in part 4.* 
+      
+      This will create the file system on the entire disk. Enter **y** when prompted with **Proceed anyway (y/n)?**. (For this lab we will not be creating additional partitions.)
 
 
       ![](./../oci-quick-start/images/Quick_S4P6.PNG " ")
-      **NOTE:** The above screenshot shows parts 6 & 7.
+      *NOTE: The above screenshot shows parts 6 & 7.*
 
 7. Create a directory where the disk will be mounted,Enter commands:
 
@@ -265,16 +274,17 @@ Lab 2: Create SSH Keys - Cloud Shell
       ```
 
 8. Mount the disk to the newly created directory. Enter command:
-**NOTE:** <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step. 
 
       ```
       <copy>
       sudo mount  /dev/VOLUME_NAME  /mnt/www/html
       </copy>
       ```
+      *NOTE: VOLUME_NAME should be replaced by the string starting with 'sd' that you identified as the block volume storage in part 4.* 
 
       ![](./../oci-quick-start/images/Quick_S4P8.PNG " ")
-      **NOTE:** The above screenshot shows parts 8 & 9.
+      
+      *NOTE: The above screenshot shows parts 8 & 9.*
 
 9. Verify /dev/`<VOLUME_NAME>` volume is now mounted to /mnt/www/html directory, Enter command:
 
@@ -295,7 +305,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
       ![](./../oci-quick-start/images/Quick_S4P10.PNG " ")
-      **NOTE:** The above screenshot shows parts 10 & 11.
+      *NOTE: The above screenshot shows parts 10 & 11.*
 
 11. Enter Command:
 
@@ -312,7 +322,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
       ![](./../oci-quick-start/images/Quick_S4P12.PNG " ")
-      **NOTE:** The above screenshot shows parts 12-14.
+      *NOTE: The above screenshot shows parts 12-14.*
 
 13. Enter Command:
   
@@ -331,15 +341,16 @@ Lab 2: Create SSH Keys - Cloud Shell
 
 15. Search for string /var/www and replace it with /mnt/www/html. This will be done in 3 locations
 
-'''
-<copy>
-/mnt/www/html
-</copy>
-'''
+      ```
+      <copy>
+      /mnt/www/html
+      </copy>
+      ```
 
-     ![](./../oci-quick-start/images/Customer_Lab_007.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S4P15.PNG " ")
 
-16. To Save and Exit, Control+Z. When asked 'Save modified buffer?', type y for yes. Then press enter to preserve the name of the file. 
+
+16. To Save and Exit, Control+X. When asked 'Save modified buffer?', type y for yes. Then press enter to preserve the name of the file. 
 
 17. Enter command:
 
@@ -349,7 +360,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
       ![](./../oci-quick-start/images/Quick_S4P17.PNG " ")
-      **NOTE:** The above screenshot shows parts 17-19.
+      *NOTE: The above screenshot shows parts 17-19.*
 
 18. Restart httpd server, Enter command:
 
@@ -367,7 +378,7 @@ Lab 2: Create SSH Keys - Cloud Shell
       </copy>
       ```
 
-20. Open a new tab and enter 'http://COMPUTE_INSTANCE_PUBLIC_IP' and a screen like below should appear.
+20. Open a new tab and enter **http://PUBLIC-IP** where PUBLIC-IP is the IP address of the compute instance from STEP 2 and a screen like below should appear.
 
      ![](./../oci-quick-start/images/Customer_Lab_008.PNG " ")
 
@@ -385,38 +396,50 @@ In this section we will detach the block volume, Stop the compute instance, use 
       sudo umount /dev/VOLUME_NAME
       </copy>
       ```
-2. In OCI console window, Click your compute instance name and in **Attached Block Volume** section  Click the action icon and **Click Detach**.
 
-3. Stop your compute instance by Clicking **Stop** in compute instance details page and then **OK** in Confirm window.
+      ![](./../oci-quick-start/images/Quick_S5P1.PNG " ")
 
-4. Once the instance is in Stopped state, Click **Boot Volume**, Click action icon and Click **Detach**. Click **OK** in Confirm window.
+2. In OCI console window, Click your compute instance name and in **Attached Block Volume** section  Click the action icon and **Click Detach**. Then, verify the detachment by pressing **Continue Detachment** and **OK** in the Confirm Window. 
 
-     ![](./../oci-quick-start/images/Customer_Lab_011.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S5P2.PNG " ")
 
-5. Once the Boot volume is detached, Click **Terminate** to Terminate the instance.
+      ![](./../oci-quick-start/images/Quick_S5P2.4.PNG " ")
+
+3. Stop your compute instance by Clicking **Stop** in compute instance details page. Then, click **Stop Instance** in the Confirm window.
+      ![](./../oci-quick-start/images/Quick_S5P3.PNG " ")
+
+4. Once the instance is in Stopped state, Click **Boot Volume**, Click action icon and Click **Detach**. Click **Detatch Boot Volume** in Confirm window.
+      ![](./../oci-quick-start/images/Quick_S5P4.PNG " ")
+
+5. Once the Boot volume is detached, Click **Terminate** to Terminate the instance. Then, click **Terminate Instance** in the Confirm window.
+      ![](./../oci-quick-start/images/Quick_S5P5.PNG " ")
 
 6. Click the action icon, Click **View Boot Volume Details**.
 
-     ![](./../oci-quick-start/images/Customer_Lab_012.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S5P6.PNG " ")
 
 7. In the Boot Volume Details window Click **Create Instance:**
+      ![](./../oci-quick-start/images/Quick_S5P7.PNG " ")
 
 8. Repeat the settings detailed in **STEP 2** to create an instance.
 
-13. Once the instance is in Running state, attach the block volume to this new instance using OCI Console using the settings detailed in **STEP 3**. 
-**NOTE:** Ensure to use Paravirtualized mode and wait for the block volume to change from 'Attaching' to 'Attached'.
+9. Wait for the instance to be in Running state. Then, use the instructions from **STEP 3** to attach the block volume. 
+  
+  *NOTE: Ensure to use Paravirtualized mode and wait for the block volume to change from 'Attaching' to 'Attached'.*
 
-14. To compute instance and mount the block volume as before, Enter Command:
-**NOTE:** replace VOLUME_NAME with the location of the block volume starting with 'sd'.s
-
+10. To compute instance and mount the block volume as before, Enter Command:
+  *NOTE: <VOLUME_NAME> should be replaced by the string starting with 'sd' that you identified as the block volume storage in the previous step. * 
       ```
       <copy>
       bash
-      sudo mount  /dev/VOLUME_NAME  /mnt/www/html
+      sudo mount  /dev/DEVICE_PATH  /mnt/www/html
       </copy>
       ```
+      ![](./../oci-quick-start/images/Quick_S5P10-11.PNG " ")
+*NOTE: This screenshot shows steps 10 & 11.*
 
-11. Restart httpd, Enter command
+
+11. To restart httpd, Enter command
 
       ```
       <copy>
@@ -449,26 +472,28 @@ We have now successfully launched a compute instance using another instance's bo
 5. Repeat the step to delete second compute instance.
 
 6. From OCI services menu Click **Block Volumes** under Block Storage.
+      ![](./../oci-quick-start/images/Quick_S6P6.PNG " ")
 
 7. Find the storage block volume you created.
 
    **HINT:** If multiple storage block volumes are listed, scroll down to find the one you created.   
 
 8. Click the Action icon and select **Terminate**.
+      ![](./../oci-quick-start/images/Quick_S6P8.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S6P8.5.PNG " ")
 
 9. Click OK in the confirmation window.
 
-     ![](./../oci-quick-start/images/Customer_Lab_016.PNG " ")
-
 10. From OCI services menu Click **Virtual Cloud Networks** under Networking, list of all VCNs will 
 appear.
+      ![](./../oci-quick-start/images/Quick_S6P10.PNG " ")
 
 11. Locate your VCN , Click Action icon and then **Terminate**. Click **Delete All** in the Confirmation window. Click **Close** once VCN is deleted.
 
-     ![](./../oci-quick-start/images/RESERVEDIP_HOL0018.PNG " ")
+      ![](./../oci-quick-start/images/Quick_S6P11.PNG " ")
 
 
-***Congratulations! You have successfully completed the lab. ***
+***Congratulations! You have successfully completed the lab.***
 
 ## Appendices
 
@@ -476,7 +501,7 @@ appear.
 
 1. Click Action icon for the Block Volume, then **ISCSI Commands & Information**.
 
-   **NOTE:** The iSCSI Commands and Information dialog box displays specific identifying information about your volume and the iSCSI commands you'll need. The commands are ready to use with the appropriate information included. You can copy and paste the commands into your instance once you login.
+   *NOTE: The iSCSI Commands and Information dialog box displays specific identifying information about your volume and the iSCSI commands you'll need. The commands are ready to use with the appropriate information included. You can copy and paste the commands into your instance once you login.*
 
      ![](./../oci-quick-start/images/Customer_Lab_017.PNG " ")
 
@@ -514,7 +539,7 @@ appear.
 - **Author** - Flavio Pereira, Larry Beausoleil
 - **Adapted by** -  Yaisah Granillo, Cloud Solution Engineer
 - **Last Updated By/Date** - Yaisah Granillo, June 2020
-- **Contributors** - Marilyn Isabella Kessingers
+- **Contributors** - Marilyn Isabella Kessinger, QA Intern
 
 ## See an issue?
 Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section. 
